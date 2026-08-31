@@ -67,6 +67,7 @@
 .tile--campus   { background-image: url("../img/tile-campus.jpg"); }
 .tile--hulp     { background-image: url("../img/tile-hulp.jpg"); }
 .tile--meedoen  { background-image: url("../img/tile-meedoen.jpg"); }
+/* Deze drie lenen een hero-beeld tot er een eigen bijsnede is, zie ASSETS.md. */
 .tile--start    { background-image: url("../img/hero-home.jpg"); }
 .tile--rekenen  { background-image: url("../img/hero-studiepunten.jpg"); }
 .tile--over     { background-image: url("../img/hero-over.jpg"); }

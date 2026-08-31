@@ -27,7 +27,7 @@ Waarom: het draait overal, ook zonder wifi tijdens de presentatie. Iedereen in h
 eraan werken zonder eerst een framework te leren. En het past bij hoe han.nl gebouwd is.
 
 ```
-index.html            assistent en het scenario "Maandag, week 3"
+index.html            assistent, startchecklist en de tegels naar de onderwerpen
 systemen.html         alle HAN-systemen
 studiepunten.html     EC, BSA, propedeuse en de EC-calculator
 campus.html           locaties, plattegrond en looproute
@@ -37,19 +37,41 @@ prototype.html        over deze site: status, bronnen, techniek
 404.html              pagina niet gevonden
 
 server.py             lokale server die 404.html serveert bij een onbekend adres
-
-assets/css/han.css    huisstijl, kleuren en typografie afgelezen van han.nl
-assets/favicon.png    HAN-logo, favicon
-assets/icons/         losse SVG-icons van Iconify plus sprite.html
-assets/js/kb.js       de kennisbank, hier staat alle inhoud
-assets/js/assistent.js  zoekalgoritme
-assets/js/widgets.js  EC-calculator en hulpwijzer
-assets/js/onboarding.js  instelvenster, profielchip en startchecklist
-assets/js/app.js      menu en actieve navigatie
-assets/js/notfound.js zoekt op de 404-pagina alvast met het foute adres
 ```
 
-De code bevat bewust geen comments. Deze README legt uit hoe het in elkaar zit.
+Elke pagina heeft dezelfde opbouw: eerst de skip-link, dan `<header>`, `<main>` met de secties,
+`<footer>`, en helemaal onderaan de icon-sprite met de scripts. Je ziet dus meteen de structuur
+van de pagina als je hem opent.
+
+### CSS
+
+Drie bestanden, van breed naar specifiek. Elke pagina laadt ze alle drie, in deze volgorde:
+
+```
+assets/css/base.css        kleuren, spacing, typografie, reset en een paar utility-klassen
+assets/css/layout.css      container, secties, grid, header, navigatie, hero en footer
+assets/css/components.css  knoppen, kaarten, tegels, assistent, widgets, wizard, checklist
+```
+
+Namen volgen BEM: `.card`, `.card__icon`, `.card__foot`, `.tile--campus`. Losse waarden die
+vaker terugkomen staan als custom property in `base.css` (`--space-md`, `--han-pink`).
+
+### JavaScript
+
+Eén bestand per verantwoordelijkheid. Pagina's laden alleen wat ze nodig hebben:
+
+```
+assets/js/kb.js            de kennisbank, hier staat alle inhoud
+assets/js/assistent.js     zoekalgoritme en het tonen van antwoorden
+assets/js/ec-calculator.js de EC-calculator op studiepunten.html
+assets/js/hulpwijzer.js    de beslisboom op hulp.html
+assets/js/onboarding.js    instelvenster, profielchip en startchecklist
+assets/js/app.js           menu en actieve navigatie
+assets/js/notfound.js      zoekt op de 404-pagina alvast met het foute adres
+```
+
+Comments staan er alleen waar iets niet vanzelf spreekt, bijvoorbeeld waarom de sprite inline
+staat of waarom de spinner een vertraging heeft. De rest legt deze README uit.
 
 ## Icons
 
@@ -57,8 +79,8 @@ Alle icons komen van [Iconify](https://iconify.design/), set **Tabler** (MIT-lic
 animatie-icoon uit **svg-spinners** voor de laadindicator. Er zijn geen icons met CSS of JavaScript
 nagebouwd.
 
-De 41 icons staan als losse SVG in `assets/icons/` en zijn samengevoegd tot een sprite die
-boven in elke pagina staat, direct na `<body>`. Gebruiken doe je zo:
+De 44 icons staan als losse SVG in `assets/icons/` en zijn samengevoegd tot een sprite die
+onderaan elke pagina staat, vlak voor de scripts. Gebruiken doe je zo:
 
 ```html
 <svg class="icon"><use href="#i-calendar"></use></svg>
@@ -68,14 +90,19 @@ Varianten: `icon--lg` voor 2,25rem, `icon--pink` voor de HAN-kleur, `tile__icon`
 voor de tegels. De kleur volgt `currentColor`, dus een icoon neemt de tekstkleur over.
 
 De sprite staat inline in de HTML en niet in een los bestand, zodat de icons ook werken als je
-`index.html` gewoon dubbelklikt zonder server.
+`index.html` gewoon dubbelklikt zonder server. Een los `sprite.svg` met
+`<use href="sprite.svg#i-x">` zou de herhaling uit de acht pagina's halen, maar werkt niet
+vanaf `file://`. Daarom staat hij onderaan de pagina in plaats van bovenaan: de structuur van
+de pagina komt zo eerst.
+
+`assets/icons/sprite.html` is de bron. Wijzig je die, kopieer het blok dan naar alle pagina's.
 
 ### Een icoon toevoegen
 
 1. Zoek het icoon op [icon-sets.iconify.design](https://icon-sets.iconify.design/tabler/).
 2. Download het: `https://api.iconify.design/tabler/NAAM.svg` en zet het in `assets/icons/`.
-3. Voeg een `<symbol id="i-NAAM" viewBox="0 0 24 24">` toe aan de sprite in elke pagina,
-   met de inhoud van dat SVG-bestand.
+3. Voeg een `<symbol id="i-NAAM" viewBox="0 0 24 24">` toe aan `assets/icons/sprite.html` en
+   kopieer het sprite-blok naar alle pagina's.
 
 ## Wat werkt, wat is schets
 
@@ -164,7 +191,7 @@ Zet `status` op `check` en vul `bron` in zodra je het antwoord hebt.
 | Rol | Wat je doet in dit project |
 |---|---|
 | Domeinverkenner en factchecker | De open punten hierboven uitzoeken en `kb.js` vullen. Dit is het meeste werk. |
-| Technisch ontwikkelaar | `assistent.js` en `widgets.js`: zoekresultaten testen met echte vragen, trefwoorden bijstellen. |
+| Technisch ontwikkelaar | `assistent.js`, `ec-calculator.js` en `hulpwijzer.js`: zoekresultaten testen met echte vragen, trefwoorden bijstellen. |
 | UI-ontwerper | De schermschetsen in `systemen.html`, `studiepunten.html` en `campus.html` uitwerken. |
 | Scenarioschrijver | Het scenario "Maandag, week 3" op de homepage aanscherpen, dat draagt de presentatie. |
 | Projectmanager | `prototype.html` bijhouden en de demo voorbereiden. |

@@ -65,6 +65,15 @@ mag rustig en eenvoudig zijn.
 | `tile-hulp.jpg` | Twee stoelen tegenover elkaar bij een raam, tegenlicht, leeg. |
 | `tile-meedoen.jpg` | Tafel met kopjes en laptops na een bijeenkomst, niemand in beeld. |
 
+De tegelrij op de homepage telt acht tegels. Drie daarvan lenen voorlopig een hero-beeld, omdat
+er nog geen eigen bijsnede is. Zodra die er zijn, pakt de CSS ze vanzelf op:
+
+| Bestandsnaam | Onderwerp | Nu tijdelijk |
+|---|---|---|
+| `tile-start.jpg` | Notitieblok met een afgevinkt lijstje, donker licht. | `hero-home.jpg` |
+| `tile-rekenen.jpg` | Rekenmachine en een agenda, roze accent. | `hero-studiepunten.jpg` |
+| `tile-over.jpg` | Whiteboard met schetsen, onscherp. | `hero-over.jpg` |
+
 ## 3. Deelbaar beeld voor social media (1 stuk)
 
 **Bestandsnaam:** `og-image.jpg`
@@ -108,6 +117,6 @@ opleiding mee te maken krijgt.
 
 ## Icons: al geregeld
 
-De 41 icons komen van [Iconify](https://iconify.design/), set Tabler, MIT-licentie. Ze staan in
+De 44 icons komen van [Iconify](https://iconify.design/), set Tabler, MIT-licentie. Ze staan in
 `assets/icons/` en zitten als sprite in elke pagina. Daar hoeft niets meer voor gemaakt te worden.
 Zie de README voor hoe je er eentje toevoegt.
