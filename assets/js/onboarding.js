@@ -1,21 +1,21 @@
 (function () {
   "use strict";
 
-  var SLEUTEL = "handig-profiel";
-  var SLEUTEL_TAKEN = "handig-checklist";
+  const SLEUTEL_PROFIEL = "handig-profiel";
+  const SLEUTEL_TAKEN = "handig-checklist";
 
-  var LOCATIES = {
+  const LOCATIES = {
     arnhem: { naam: "Arnhem", adres: "Ruitenberglaan 26, 6826 CC", extra: "B- en C-vleugel" },
     nijmegen: { naam: "Nijmegen", adres: "Prof. Molkenboerstraat 3, 6524 RN", extra: "" }
   };
 
-  var PROFIELEN = {
-    "software": "Software &amp; Robotics",
-    "data": "Data &amp; AI",
-    "infra": "Infra &amp; Cybersecurity"
+  const PROFIELEN = {
+    software: "Software &amp; Robotics",
+    data: "Data &amp; AI",
+    infra: "Infra &amp; Cybersecurity"
   };
 
-  var TAKEN = [
+  const TAKEN = [
     { id: "account", tekst: "HANaccount activeren", uitleg: "Je inloggegevens krijg je per e-mail zodra je inschrijving rond is.", icoon: "i-key" },
     { id: "mfa", tekst: "Microsoft Authenticator installeren", uitleg: "Nodig voor multifactor-authenticatie op alle HAN-systemen.", icoon: "i-key" },
     { id: "wifi", tekst: "Eduroam-wifi instellen", uitleg: "Via de geteduroam-app, met je HANaccount.", icoon: "i-wifi" },
@@ -26,9 +26,14 @@
     { id: "slb", tekst: "Uitzoeken wie je studiebegeleider is", uitleg: "Je eerste aanspreekpunt bij de opleiding.", icoon: "i-user", link: "hulp.html" }
   ];
 
+  const STAPPEN = ["locatie", "opleiding", "jaar", "klas", "checklist"];
+
+
+  /* Opslag. Alles blijft op het apparaat van de student staan, er is geen server. */
+
   function leesProfiel() {
     try {
-      var ruw = localStorage.getItem(SLEUTEL);
+      const ruw = localStorage.getItem(SLEUTEL_PROFIEL);
       return ruw ? JSON.parse(ruw) : null;
     } catch (fout) {
       return null;
@@ -37,16 +42,16 @@
 
   function bewaarProfiel(profiel) {
     try {
-      localStorage.setItem(SLEUTEL, JSON.stringify(profiel));
+      localStorage.setItem(SLEUTEL_PROFIEL, JSON.stringify(profiel));
+      return true;
     } catch (fout) {
       return false;
     }
-    return true;
   }
 
   function leesTaken() {
     try {
-      var ruw = localStorage.getItem(SLEUTEL_TAKEN);
+      const ruw = localStorage.getItem(SLEUTEL_TAKEN);
       return ruw ? JSON.parse(ruw) : {};
     } catch (fout) {
       return {};
@@ -56,278 +61,345 @@
   function bewaarTaken(taken) {
     try {
       localStorage.setItem(SLEUTEL_TAKEN, JSON.stringify(taken));
+      return true;
     } catch (fout) {
       return false;
     }
-    return true;
   }
 
+
   function veilig(tekst) {
-    var d = document.createElement("div");
-    d.textContent = tekst == null ? "" : String(tekst);
-    return d.innerHTML;
+    const houder = document.createElement("div");
+    houder.textContent = tekst == null ? "" : String(tekst);
+    return houder.innerHTML;
   }
 
   function icoon(naam, klasse) {
     return '<svg class="' + (klasse || "icon") + '"><use href="#' + naam + '"></use></svg>';
   }
 
-  var STAPPEN = ["locatie", "opleiding", "jaar", "klas", "checklist"];
+  function profielTekst(profiel) {
+    const delen = [];
 
-  function Wizard() {
-    var concept = leesProfiel() || {};
-    var index = 0;
-    var overlay, paneel;
+    if (profiel.locatie && LOCATIES[profiel.locatie]) delen.push(LOCATIES[profiel.locatie].naam);
 
-    function sluit() {
-      if (!overlay) return;
-      document.removeEventListener("keydown", opToets);
-      overlay.remove();
-      overlay = null;
-      document.body.classList.remove("geen-scroll");
-    }
+    if (profiel.opleiding === "ict-voltijd") delen.push("ICT voltijd");
+    else if (profiel.opleiding === "ict-deeltijd") delen.push("ICT deeltijd");
+    else if (profiel.opleiding === "anders") delen.push("HAN");
 
-    function opToets(e) {
-      if (e.key === "Escape") sluit();
-    }
+    if (profiel.jaar) delen.push("jaar " + profiel.jaar);
+    if (profiel.klas) delen.push(profiel.klas);
 
-    function voortgang() {
-      return '<div class="ob__voortgang" aria-hidden="true">' +
-        STAPPEN.map(function (s, i) {
-          return '<span class="ob__punt' + (i <= index ? " is-actief" : "") + '"></span>';
-        }).join("") + "</div>";
-    }
+    return delen.join(" · ");
+  }
 
-    function keuzeknoppen(veld, opties) {
-      return '<div class="ob__opties">' + opties.map(function (o) {
-        var gekozen = concept[veld] === o.waarde ? " is-gekozen" : "";
-        return '<button type="button" class="ob__optie' + gekozen + '" data-veld="' + veld +
-          '" data-waarde="' + veld + ":" + o.waarde + '">' +
-          (o.icoon ? icoon(o.icoon, "icon icon--lg") : "") +
-          "<strong>" + o.titel + "</strong>" +
-          (o.sub ? "<small>" + o.sub + "</small>" : "") +
-          "</button>";
-      }).join("") + "</div>";
-    }
 
-    function stapInhoud() {
-      var stap = STAPPEN[index];
+  /* De wizard: vijf stappen, elk met een eigen renderfunctie. */
 
-      if (stap === "locatie") {
-        return "<h2>Op welke locatie studeer je?</h2>" +
-          "<p>Dan laten we de juiste adressen en routes zien.</p>" +
-          keuzeknoppen("locatie", [
-            { waarde: "arnhem", titel: "Arnhem", sub: LOCATIES.arnhem.adres, icoon: "i-map-pin" },
-            { waarde: "nijmegen", titel: "Nijmegen", sub: LOCATIES.nijmegen.adres, icoon: "i-map-pin" }
-          ]);
-      }
+  let concept = {};
+  let stapIndex = 0;
+  let overlay = null;
+  let paneel = null;
 
-      if (stap === "opleiding") {
-        return "<h2>Welke opleiding volg je?</h2>" +
-          "<p>De assistent is gemaakt voor ICT, maar de systemen en regelingen gelden breder.</p>" +
-          keuzeknoppen("opleiding", [
-            { waarde: "ict-voltijd", titel: "ICT voltijd", sub: "4 jaar, 240 EC", icoon: "i-laptop" },
-            { waarde: "ict-deeltijd", titel: "ICT deeltijd", sub: "naast je werk", icoon: "i-briefcase" },
-            { waarde: "anders", titel: "Een andere opleiding", sub: "bij de HAN", icoon: "i-school" }
-          ]);
-      }
+  function keuzeknoppen(veld, opties) {
+    const knoppen = opties.map(function (optie) {
+      const gekozen = concept[veld] === optie.waarde ? " is-gekozen" : "";
 
-      if (stap === "jaar") {
-        var profielKeuze = "";
-        if (concept.jaar && concept.jaar !== "1") {
-          profielKeuze = '<div class="ob__extra">' +
-            '<label for="ob-profiel">Welk profiel volg je?</label>' +
-            '<select id="ob-profiel" data-veld="profiel">' +
-            '<option value="">Kies je profiel</option>' +
-            Object.keys(PROFIELEN).map(function (k) {
-              return '<option value="' + k + '"' +
-                (concept.profiel === k ? " selected" : "") + ">" + PROFIELEN[k] + "</option>";
-            }).join("") +
-            "</select></div>";
-        }
-        return "<h2>In welk jaar zit je?</h2>" +
-          "<p>Zit je in jaar 1, dan is de BSA-norm van 30 EC voor jou het belangrijkst.</p>" +
-          keuzeknoppen("jaar", [
-            { waarde: "1", titel: "Jaar 1", sub: "propedeuse" },
-            { waarde: "2", titel: "Jaar 2", sub: "" },
-            { waarde: "3", titel: "Jaar 3", sub: "" },
-            { waarde: "4", titel: "Jaar 4", sub: "" }
-          ]) + profielKeuze;
-      }
+      return '<button type="button" class="onboarding__optie' + gekozen + '"' +
+        ' data-waarde="' + veld + ":" + optie.waarde + '">' +
+        (optie.icoon ? icoon(optie.icoon, "icon icon--lg") : "") +
+        "<strong>" + optie.titel + "</strong>" +
+        (optie.sub ? "<small>" + optie.sub + "</small>" : "") +
+        "</button>";
+    }).join("");
 
-      if (stap === "klas") {
-        return "<h2>In welke klas zit je?</h2>" +
-          "<p>Handig om je rooster en je groep snel terug te vinden. Overslaan mag.</p>" +
-          '<div class="ob__extra">' +
-          '<label for="ob-klas">Klas</label>' +
-          '<input id="ob-klas" type="text" maxlength="20" placeholder="bijvoorbeeld ICT-1A" ' +
-          'value="' + veilig(concept.klas || "") + '" data-veld="klas">' +
-          "</div>" +
-          '<p class="ob__privacy">' + icoon("i-info") +
-          " Wat je hier invult blijft op dit apparaat staan en wordt nergens naartoe gestuurd. " +
-          "Vul geen studentnummer of andere persoonsgegevens in.</p>";
-      }
+    return '<div class="onboarding__opties">' + knoppen + "</div>";
+  }
 
-      var taken = leesTaken();
-      var klaar = TAKEN.filter(function (t) { return taken[t.id]; }).length;
-      return "<h2>Je startchecklist</h2>" +
-        "<p>Acht dingen die je in je eerste week geregeld wilt hebben. Je kunt ze straks op de " +
-        "startpagina afvinken.</p>" +
-        '<ul class="ob__preview">' +
-        TAKEN.slice(0, 4).map(function (t) {
-          return "<li>" + icoon(t.icoon, "icon icon--pink") + " " + t.tekst + "</li>";
-        }).join("") +
-        "<li>" + icoon("i-checklist", "icon icon--pink") + " en nog " + (TAKEN.length - 4) + " punten</li>" +
-        "</ul>" +
-        (klaar ? '<p class="u-small u-muted">Je hebt er al ' + klaar + " afgevinkt.</p>" : "");
-    }
+  function stapLocatie() {
+    return "<h2>Op welke locatie studeer je?</h2>" +
+      "<p>Dan laten we de juiste adressen en routes zien.</p>" +
+      keuzeknoppen("locatie", [
+        { waarde: "arnhem", titel: "Arnhem", sub: LOCATIES.arnhem.adres, icoon: "i-map-pin" },
+        { waarde: "nijmegen", titel: "Nijmegen", sub: LOCATIES.nijmegen.adres, icoon: "i-map-pin" }
+      ]);
+  }
 
-    function magVerder() {
-      var stap = STAPPEN[index];
-      if (stap === "locatie") return !!concept.locatie;
-      if (stap === "opleiding") return !!concept.opleiding;
-      if (stap === "jaar") return !!concept.jaar;
-      return true;
-    }
+  function stapOpleiding() {
+    return "<h2>Welke opleiding volg je?</h2>" +
+      "<p>De assistent is gemaakt voor ICT, maar de systemen en regelingen gelden breder.</p>" +
+      keuzeknoppen("opleiding", [
+        { waarde: "ict-voltijd", titel: "ICT voltijd", sub: "4 jaar, 240 EC", icoon: "i-laptop" },
+        { waarde: "ict-deeltijd", titel: "ICT deeltijd", sub: "naast je werk", icoon: "i-briefcase" },
+        { waarde: "anders", titel: "Een andere opleiding", sub: "bij de HAN", icoon: "i-school" }
+      ]);
+  }
 
-    function teken() {
-      paneel.innerHTML =
-        '<button type="button" class="ob__sluit" data-sluit aria-label="Sluiten">' + icoon("i-close") + "</button>" +
-        voortgang() +
-        '<div class="ob__inhoud">' + stapInhoud() + "</div>" +
-        '<div class="ob__acties">' +
-        (index > 0 ? '<button type="button" class="btn btn--outline" data-terug>Terug</button>' : "") +
-        '<button type="button" class="btn btn--primary" data-verder' + (magVerder() ? "" : " disabled") + ">" +
-        (index === STAPPEN.length - 1 ? "Aan de slag" : "Verder") +
-        icoon("i-arrow-right") + "</button>" +
-        "</div>";
+  function profielKeuzeHtml() {
+    // Eerstejaars kiezen nog geen profiel, die vraag verschijnt pas vanaf jaar 2.
+    if (!concept.jaar || concept.jaar === "1") return "";
 
-      paneel.querySelectorAll("[data-waarde]").forEach(function (knop) {
-        knop.addEventListener("click", function () {
-          var deel = knop.dataset.waarde.split(":");
-          concept[deel[0]] = deel[1];
-          if (deel[0] === "jaar" && deel[1] === "1") delete concept.profiel;
-          teken();
-        });
+    const opties = Object.keys(PROFIELEN).map(function (sleutel) {
+      const gekozen = concept.profiel === sleutel ? " selected" : "";
+      return '<option value="' + sleutel + '"' + gekozen + ">" + PROFIELEN[sleutel] + "</option>";
+    }).join("");
+
+    return '<div class="onboarding__extra">' +
+      '<label for="ob-profiel">Welk profiel volg je?</label>' +
+      '<select id="ob-profiel" data-veld="profiel">' +
+      '<option value="">Kies je profiel</option>' + opties +
+      "</select></div>";
+  }
+
+  function stapJaar() {
+    return "<h2>In welk jaar zit je?</h2>" +
+      "<p>Zit je in jaar 1, dan is de BSA-norm van 30 EC voor jou het belangrijkst.</p>" +
+      keuzeknoppen("jaar", [
+        { waarde: "1", titel: "Jaar 1", sub: "propedeuse" },
+        { waarde: "2", titel: "Jaar 2", sub: "" },
+        { waarde: "3", titel: "Jaar 3", sub: "" },
+        { waarde: "4", titel: "Jaar 4", sub: "" }
+      ]) +
+      profielKeuzeHtml();
+  }
+
+  function stapKlas() {
+    return "<h2>In welke klas zit je?</h2>" +
+      "<p>Handig om je rooster en je groep snel terug te vinden. Overslaan mag.</p>" +
+      '<div class="onboarding__extra">' +
+      '<label for="ob-klas">Klas</label>' +
+      '<input id="ob-klas" type="text" maxlength="20" placeholder="bijvoorbeeld ICT-1A"' +
+      ' value="' + veilig(concept.klas || "") + '" data-veld="klas">' +
+      "</div>" +
+      '<p class="onboarding__privacy">' + icoon("i-info") +
+      " Wat je hier invult blijft op dit apparaat staan en wordt nergens naartoe gestuurd. " +
+      "Vul geen studentnummer of andere persoonsgegevens in.</p>";
+  }
+
+  function stapChecklist() {
+    const taken = leesTaken();
+    const klaar = TAKEN.filter(taak => taken[taak.id]).length;
+
+    const eersteVier = TAKEN.slice(0, 4).map(function (taak) {
+      return "<li>" + icoon(taak.icoon, "icon icon--pink") + " " + taak.tekst + "</li>";
+    }).join("");
+
+    return "<h2>Je startchecklist</h2>" +
+      "<p>Acht dingen die je in je eerste week geregeld wilt hebben. " +
+      "Je kunt ze straks op de startpagina afvinken.</p>" +
+      '<ul class="onboarding__preview">' +
+      eersteVier +
+      "<li>" + icoon("i-checklist", "icon icon--pink") + " en nog " + (TAKEN.length - 4) + " punten</li>" +
+      "</ul>" +
+      (klaar ? '<p class="u-small u-muted">Je hebt er al ' + klaar + " afgevinkt.</p>" : "");
+  }
+
+  const STAP_RENDERS = {
+    locatie: stapLocatie,
+    opleiding: stapOpleiding,
+    jaar: stapJaar,
+    klas: stapKlas,
+    checklist: stapChecklist
+  };
+
+  function magVerder() {
+    const stap = STAPPEN[stapIndex];
+    if (stap === "locatie") return !!concept.locatie;
+    if (stap === "opleiding") return !!concept.opleiding;
+    if (stap === "jaar") return !!concept.jaar;
+    return true;
+  }
+
+  function voortgangHtml() {
+    const punten = STAPPEN.map(function (stap, i) {
+      return '<span class="onboarding__punt' + (i <= stapIndex ? " is-actief" : "") + '"></span>';
+    }).join("");
+
+    return '<div class="onboarding__voortgang" aria-hidden="true">' + punten + "</div>";
+  }
+
+  function actiesHtml() {
+    const laatste = stapIndex === STAPPEN.length - 1;
+    const terug = stapIndex > 0
+      ? '<button type="button" class="btn btn--outline" data-terug>Terug</button>'
+      : "";
+
+    return '<div class="onboarding__acties">' + terug +
+      '<button type="button" class="btn btn--primary" data-verder' + (magVerder() ? "" : " disabled") + ">" +
+      (laatste ? "Aan de slag" : "Verder") + icoon("i-arrow-right") +
+      "</button></div>";
+  }
+
+  function bindKeuzes() {
+    paneel.querySelectorAll("[data-waarde]").forEach(function (knop) {
+      knop.addEventListener("click", function () {
+        const [veld, waarde] = knop.dataset.waarde.split(":");
+        concept[veld] = waarde;
+        if (veld === "jaar" && waarde === "1") delete concept.profiel;
+        teken();
       });
+    });
 
-      var profielVeld = paneel.querySelector("[data-veld=profiel]");
-      if (profielVeld) {
-        profielVeld.addEventListener("change", function () { concept.profiel = profielVeld.value; });
-      }
+    const profielVeld = paneel.querySelector("[data-veld=profiel]");
+    if (profielVeld) {
+      profielVeld.addEventListener("change", function () {
+        concept.profiel = profielVeld.value;
+      });
+    }
 
-      var klasVeld = paneel.querySelector("[data-veld=klas]");
-      if (klasVeld) {
-        klasVeld.addEventListener("input", function () { concept.klas = klasVeld.value.trim(); });
-        klasVeld.focus();
-      }
+    const klasVeld = paneel.querySelector("[data-veld=klas]");
+    if (klasVeld) {
+      klasVeld.addEventListener("input", function () {
+        concept.klas = klasVeld.value.trim();
+      });
+      klasVeld.focus();
+    }
+  }
 
-      paneel.querySelector("[data-sluit]").addEventListener("click", sluit);
+  function bindNavigatie() {
+    paneel.querySelector("[data-sluit]").addEventListener("click", sluit);
 
-      var terug = paneel.querySelector("[data-terug]");
-      if (terug) terug.addEventListener("click", function () { index--; teken(); });
-
-      paneel.querySelector("[data-verder]").addEventListener("click", function () {
-        if (!magVerder()) return;
-        if (index === STAPPEN.length - 1) {
-          concept.ingesteld = true;
-          bewaarProfiel(concept);
-          sluit();
-          toonProfiel();
-          toonChecklist();
-          return;
-        }
-        index++;
+    const terug = paneel.querySelector("[data-terug]");
+    if (terug) {
+      terug.addEventListener("click", function () {
+        stapIndex--;
         teken();
       });
     }
 
-    this.open = function (startIndex) {
-      index = startIndex || 0;
-      concept = leesProfiel() || {};
-      overlay = document.createElement("div");
-      overlay.className = "ob";
-      overlay.setAttribute("role", "dialog");
-      overlay.setAttribute("aria-modal", "true");
-      overlay.setAttribute("aria-label", "HANDIG_ instellen");
-      paneel = document.createElement("div");
-      paneel.className = "ob__paneel";
-      overlay.appendChild(paneel);
-      overlay.addEventListener("click", function (e) { if (e.target === overlay) sluit(); });
-      document.body.appendChild(overlay);
-      document.body.classList.add("geen-scroll");
-      document.addEventListener("keydown", opToets);
-      teken();
-    };
+    paneel.querySelector("[data-verder]").addEventListener("click", function () {
+      if (!magVerder()) return;
+
+      if (stapIndex < STAPPEN.length - 1) {
+        stapIndex++;
+        teken();
+        return;
+      }
+
+      concept.ingesteld = true;
+      bewaarProfiel(concept);
+      sluit();
+      toonProfielchip();
+      toonChecklist();
+    });
   }
 
-  var wizard = new Wizard();
+  function teken() {
+    paneel.innerHTML =
+      '<button type="button" class="onboarding__sluit" data-sluit aria-label="Sluiten">' + icoon("i-close") + "</button>" +
+      voortgangHtml() +
+      '<div class="onboarding__inhoud">' + STAP_RENDERS[STAPPEN[stapIndex]]() + "</div>" +
+      actiesHtml();
 
-  function profielTekst(profiel) {
-    var delen = [];
-    if (profiel.locatie && LOCATIES[profiel.locatie]) delen.push(LOCATIES[profiel.locatie].naam);
-    if (profiel.opleiding === "ict-voltijd") delen.push("ICT voltijd");
-    else if (profiel.opleiding === "ict-deeltijd") delen.push("ICT deeltijd");
-    else if (profiel.opleiding === "anders") delen.push("HAN");
-    if (profiel.jaar) delen.push("jaar " + profiel.jaar);
-    if (profiel.klas) delen.push(profiel.klas);
-    return delen.join(" · ");
+    bindKeuzes();
+    bindNavigatie();
   }
 
-  function toonProfiel() {
-    var houder = document.querySelector("[data-profiel]");
+  function opToets(e) {
+    if (e.key === "Escape") sluit();
+  }
+
+  function sluit() {
+    if (!overlay) return;
+
+    document.removeEventListener("keydown", opToets);
+    overlay.remove();
+    overlay = null;
+    document.body.classList.remove("geen-scroll");
+  }
+
+  function open() {
+    concept = leesProfiel() || {};
+    stapIndex = 0;
+
+    overlay = document.createElement("div");
+    overlay.className = "onboarding";
+    overlay.setAttribute("role", "dialog");
+    overlay.setAttribute("aria-modal", "true");
+    overlay.setAttribute("aria-label", "HANDIG_ instellen");
+    overlay.addEventListener("click", function (e) {
+      if (e.target === overlay) sluit();
+    });
+
+    paneel = document.createElement("div");
+    paneel.className = "onboarding__paneel";
+    overlay.appendChild(paneel);
+
+    document.body.appendChild(overlay);
+    document.body.classList.add("geen-scroll");
+    document.addEventListener("keydown", opToets);
+
+    teken();
+  }
+
+
+  /* De chip in de header en de checklist op de startpagina. */
+
+  function toonProfielchip() {
+    const houder = document.querySelector("[data-profiel]");
     if (!houder) return;
-    var profiel = leesProfiel();
 
-    if (!profiel || !profiel.ingesteld) {
-      houder.innerHTML = '<button type="button" class="profielchip profielchip--leeg" data-ob-start>' +
-        icoon("i-user") + "Stel HANDIG_ in</button>";
-    } else {
-      houder.innerHTML = '<button type="button" class="profielchip" data-ob-start>' +
+    const profiel = leesProfiel();
+
+    if (profiel && profiel.ingesteld) {
+      houder.innerHTML = '<button type="button" class="profielchip" data-onboarding-chip>' +
         icoon("i-user") + "<span>" + veilig(profielTekst(profiel)) + "</span></button>";
+    } else {
+      houder.innerHTML = '<button type="button" class="profielchip profielchip--leeg" data-onboarding-chip>' +
+        icoon("i-user") + "Stel HANDIG_ in</button>";
     }
-    houder.querySelector("[data-ob-start]").addEventListener("click", function () { wizard.open(0); });
+
+    houder.querySelector("[data-onboarding-chip]").addEventListener("click", open);
+  }
+
+  function checklistKopTekst(profiel) {
+    if (!profiel || !profiel.ingesteld) {
+      return "Stel HANDIG_ in, dan zetten we de juiste locatie en klas erbij.";
+    }
+
+    const locatie = LOCATIES[profiel.locatie];
+    if (!locatie) return "Je zit in " + veilig(profielTekst(profiel)) + ".";
+
+    return "Je zit in " + veilig(profielTekst(profiel)) +
+      ". Lessen zijn op " + veilig(locatie.adres) +
+      (locatie.extra ? " (" + veilig(locatie.extra) + ")" : "") + ".";
+  }
+
+  function taakHtml(taak, af) {
+    const link = taak.link
+      ? '<a class="taak__link" href="' + taak.link + '"' +
+        (taak.link.indexOf("http") === 0 ? ' target="_blank" rel="noopener"' : "") +
+        ">Openen" + icoon("i-arrow-right") + "</a>"
+      : "";
+
+    return '<li class="taak' + (af ? " is-af" : "") + '">' +
+      '<label><input type="checkbox" data-taak="' + taak.id + '"' + (af ? " checked" : "") + ">" +
+      '<span class="taak__vink">' + icoon("i-check") + "</span>" +
+      '<span class="taak__tekst"><strong>' + taak.tekst + "</strong>" +
+      "<small>" + taak.uitleg + "</small></span></label>" +
+      link +
+      "</li>";
   }
 
   function toonChecklist() {
-    var houder = document.querySelector("[data-checklist]");
+    const houder = document.querySelector("[data-checklist]");
     if (!houder) return;
 
-    var profiel = leesProfiel();
-    var taken = leesTaken();
-
-    var kop = houder.querySelector("[data-checklist-kop]");
-    var lijst = houder.querySelector("[data-checklist-lijst]");
-    var balk = houder.querySelector("[data-checklist-balk]");
-    var stand = houder.querySelector("[data-checklist-stand]");
+    const lijst = houder.querySelector("[data-checklist-lijst]");
     if (!lijst) return;
 
-    if (kop) {
-      if (profiel && profiel.ingesteld) {
-        var loc = LOCATIES[profiel.locatie];
-        kop.innerHTML = "Je zit in " + veilig(profielTekst(profiel)) +
-          (loc ? ". Lessen zijn op " + veilig(loc.adres) +
-            (loc.extra ? " (" + veilig(loc.extra) + ")" : "") + "." : ".");
-      } else {
-        kop.textContent = "Stel HANDIG_ in, dan zetten we de juiste locatie en klas erbij.";
-      }
-    }
+    const kop = houder.querySelector("[data-checklist-kop]");
+    const balk = houder.querySelector("[data-checklist-balk]");
+    const stand = houder.querySelector("[data-checklist-stand]");
+    const taken = leesTaken();
 
-    lijst.innerHTML = TAKEN.map(function (t) {
-      var af = !!taken[t.id];
-      return '<li class="taak' + (af ? " is-af" : "") + '">' +
-        '<label><input type="checkbox" data-taak="' + t.id + '"' + (af ? " checked" : "") + ">" +
-        '<span class="taak__vink">' + icoon("i-check") + "</span>" +
-        '<span class="taak__tekst"><strong>' + t.tekst + "</strong>" +
-        "<small>" + t.uitleg + "</small></span></label>" +
-        (t.link ? '<a class="taak__link" href="' + t.link + '"' +
-          (t.link.indexOf("http") === 0 ? ' target="_blank" rel="noopener"' : "") +
-          ">Openen" + icoon("i-arrow-right") + "</a>" : "") +
-        "</li>";
-    }).join("");
+    if (kop) kop.innerHTML = checklistKopTekst(leesProfiel());
 
-    function werkBij() {
-      var af = TAKEN.filter(function (t) { return taken[t.id]; }).length;
+    lijst.innerHTML = TAKEN.map(taak => taakHtml(taak, !!taken[taak.id])).join("");
+
+    function werkVoortgangBij() {
+      const af = TAKEN.filter(taak => taken[taak.id]).length;
+
       if (balk) balk.style.width = (af / TAKEN.length * 100) + "%";
       if (stand) {
         stand.textContent = af === TAKEN.length
@@ -336,39 +408,43 @@
       }
     }
 
-    lijst.querySelectorAll("[data-taak]").forEach(function (vak) {
-      vak.addEventListener("change", function () {
-        taken[vak.dataset.taak] = vak.checked;
+    lijst.querySelectorAll("[data-taak]").forEach(function (vakje) {
+      vakje.addEventListener("change", function () {
+        taken[vakje.dataset.taak] = vakje.checked;
         bewaarTaken(taken);
-        vak.closest(".taak").classList.toggle("is-af", vak.checked);
-        werkBij();
+        vakje.closest(".taak").classList.toggle("is-af", vakje.checked);
+        werkVoortgangBij();
       });
     });
 
-    werkBij();
+    werkVoortgangBij();
   }
 
+
   function init() {
-    try {
-      toonProfiel();
-      toonChecklist();
+    toonProfielchip();
+    toonChecklist();
 
-      document.querySelectorAll("[data-ob-open]").forEach(function (knop) {
-        knop.addEventListener("click", function (e) {
-          e.preventDefault();
-          wizard.open(0);
-        });
+    document.querySelectorAll("[data-onboarding-open]").forEach(function (knop) {
+      knop.addEventListener("click", function (e) {
+        e.preventDefault();
+        open();
       });
+    });
 
-      var profiel = leesProfiel();
-      if ((!profiel || !profiel.ingesteld) && document.querySelector("[data-ob-auto]")) {
-        setTimeout(function () { wizard.open(0); }, 700);
-      }
-    } catch (fout) {
-      var houder = document.querySelector("[data-profiel]");
-      if (houder) houder.innerHTML = "";
+    const profiel = leesProfiel();
+    if ((!profiel || !profiel.ingesteld) && document.querySelector("[data-onboarding-auto]")) {
+      setTimeout(open, 700);
     }
   }
 
-  document.addEventListener("DOMContentLoaded", init);
+  document.addEventListener("DOMContentLoaded", function () {
+    try {
+      init();
+    } catch (fout) {
+      // Zonder profiel werkt de rest van de site gewoon, laat dan geen halve chip staan.
+      const houder = document.querySelector("[data-profiel]");
+      if (houder) houder.innerHTML = "";
+    }
+  });
 })();

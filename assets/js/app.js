@@ -2,28 +2,30 @@
   "use strict";
 
   function initNav() {
-    var knop = document.querySelector("[data-nav-toggle]");
-    var menu = document.querySelector("[data-nav]");
+    const knop = document.querySelector("[data-nav-toggle]");
+    const menu = document.querySelector("[data-nav]");
     if (!knop || !menu) return;
 
     knop.addEventListener("click", function () {
-      var open = menu.classList.toggle("is-open");
+      const open = menu.classList.toggle("is-open");
       knop.setAttribute("aria-expanded", String(open));
     });
 
     document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && menu.classList.contains("is-open")) {
-        menu.classList.remove("is-open");
-        knop.setAttribute("aria-expanded", "false");
-        knop.focus();
-      }
+      if (e.key !== "Escape") return;
+      if (!menu.classList.contains("is-open")) return;
+
+      menu.classList.remove("is-open");
+      knop.setAttribute("aria-expanded", "false");
+      knop.focus();
     });
   }
 
   function initActieveLink() {
-    var pagina = location.pathname.split("/").pop() || "index.html";
+    const pagina = location.pathname.split("/").pop() || "index.html";
+
     document.querySelectorAll("[data-nav] a").forEach(function (link) {
-      var doel = link.getAttribute("href").split("/").pop();
+      const doel = link.getAttribute("href").split("/").pop();
       if (doel === pagina) link.setAttribute("aria-current", "page");
     });
   }
@@ -33,7 +35,8 @@
       initNav();
       initActieveLink();
     } catch (fout) {
-      var menu = document.querySelector("[data-nav]");
+      // Zonder werkende toggle blijft het menu anders onbereikbaar op mobiel.
+      const menu = document.querySelector("[data-nav]");
       if (menu) menu.classList.add("is-open");
     }
   });
