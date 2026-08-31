@@ -1,28 +1,25 @@
-# Benodigde beeldassets voor HANDIG_
+# Beeldassets voor HANDIG_
 
-Alle bestandsnamen en formaten hieronder zijn al in de CSS ingebouwd. Zet de bestanden in
-`assets/img/` met exact deze namen, dan verschijnen ze vanzelf. Zolang ze ontbreken valt de site
-terug op de donkere gradient en blijft alles werken.
+Alle bestandsnamen en formaten hieronder zijn in de CSS ingebouwd. De bestanden staan in
+`assets/img/` en zijn allemaal aanwezig: acht hero-achtergronden, vijf tegels en het deelbare
+beeld. Ontbreekt er een, dan valt die plek terug op de donkere gradient en blijft de site werken.
 
-Zolang de map leeg is meldt de console van je browser een paar keer "404 Not Found" voor die
-afbeeldingen. Dat is normaal en verdwijnt zodra de bestanden er staan. Voor de bezoeker is er
-niets aan de hand.
+## Status
+
+De huidige beelden zijn door AI gemaakt sfeerbeeld. Ze stellen geen bestaand HAN-gebouw voor en
+er staat geen echt persoon op. Dat is verantwoord in `prototype.html` en in de README.
+
+Twee dingen staan nog open:
+
+- **`hero-campus.jpg` vervangen heeft voorrang.** Daar staat nu een compleet gebouw van
+  buiten op. Op de campuspagina leest dat als "dit is de Ruitenberglaan", terwijl het gebouw
+  verzonnen is. Vervang het door een eigen foto, of door een beeld dat niets specifieks claimt
+  (een trappenhuis, een gevel van binnenuit).
+- **De favicons in grotere maten ontbreken nog**, zie punt 4 hieronder.
 
 ## Lees dit eerst: wat je wel en niet mag laten genereren
 
 De opdracht eist dat alle informatie in het prototype echt en opgezocht is. Dat geldt ook voor beeld.
-
-**Niet door AI laten maken:** foto's die eruitzien als de echte HAN-campus, de Ruitenberglaan 26 of
-de Prof. Molkenboerstraat 3, plattegronden van de B- en C-vleugel, of logo's van de HAN, Xtend,
-Buro302, Brightspace, Osiris en MyX. Een AI-gegenereerd gebouw dat "de HAN" moet voorstellen is een
-verzonnen afbeelding van een echte plek. Als een docent daar tijdens de presentatie op doorvraagt,
-is dat lastig uit te leggen.
-
-Die beelden haal je op door zelf te fotograferen, of je vraagt ze op bij de opleiding.
-
-**Wel prima door AI:** sfeerbeeld dat niets specifieks claimt. Abstracte texturen, close-ups van
-techniek, handen op een toetsenbord, kabels, schermen, licht. Geen herkenbare gebouwen, geen
-gezichten, geen logo's, geen tekst in beeld.
 
 ---
 

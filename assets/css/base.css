@@ -1,0 +1,94 @@
+:root {
+  --han-pink: #e50056;
+  --han-pink-dark: #b80045;
+  --han-black: #141414;
+  --han-dark: #262626;
+  --han-gray: #454545;
+  --han-gray-mid: #919191;
+  --han-line: #d6d6d6;
+  --han-bg-soft: #f2f2f2;
+  --han-bg-alt: #e3e3e3;
+  --han-white: #ffffff;
+
+  --ok: #0f7b45;
+  --ok-soft: #e4f3ea;
+  --fout: #b3001b;
+  --fout-soft: #fbe9eb;
+
+  --font-body: "Avenir Next", Avenir, "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-head: "Avenir Next Condensed", "Archivo Narrow", "Arial Narrow", "Segoe UI", sans-serif;
+
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 18px;
+  --space-lg: 24px;
+
+  --nav-height: 68px;
+  --container: 1240px;
+  --single-column: 757px;
+  --gutter: var(--space-lg);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-height) + 16px); }
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--han-black);
+  background: var(--han-white);
+  -webkit-font-smoothing: antialiased;
+}
+
+img, svg { max-width: 100%; display: block; }
+
+a { color: var(--han-pink); text-decoration: underline; text-underline-offset: 3px; }
+a:hover { color: var(--han-pink-dark); }
+
+h1, h2, h3, h4 { margin: 0 0 .5em; }
+
+h1, h2 {
+  font-family: var(--font-head);
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 1;
+  letter-spacing: .2px;
+}
+h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); }
+h2 { font-size: clamp(1.85rem, 3.6vw, 2.75rem); }
+h3 { font-family: var(--font-body); font-weight: 600; font-size: 1.25rem; line-height: 1.2; }
+h4 { font-family: var(--font-body); font-weight: 600; font-size: 1rem; }
+
+p { margin: 0 0 1em; }
+ul, ol { margin: 0 0 1em; padding-left: 1.25em; }
+li { margin-bottom: .35em; }
+
+:focus-visible { outline: 3px solid var(--han-pink); outline-offset: 2px; }
+
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+}
+
+.skip-link {
+  position: absolute; left: 8px; top: -60px; z-index: 200;
+  background: var(--han-pink); color: #fff; padding: 12px 18px;
+  font-weight: 600; text-decoration: none; transition: top .15s;
+}
+.skip-link:focus { top: 8px; color: #fff; }
+
+.u-muted { color: var(--han-gray); }
+.u-small { font-size: .875rem; }
+.u-mb0 { margin-bottom: 0; }
+.u-mt24 { margin-top: var(--space-lg); }
+.u-push-right { margin-left: auto; }
+
+/* De wizard en het mobiele menu leggen de achtergrond vast zolang ze open staan. */
+.geen-scroll { overflow: hidden; }
+
+@media print {
+  .topbar, .footer, .hero__actions { display: none; }
+}

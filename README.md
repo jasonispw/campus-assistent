@@ -44,6 +44,7 @@ assets/icons/         losse SVG-icons van Iconify plus sprite.html
 assets/js/kb.js       de kennisbank, hier staat alle inhoud
 assets/js/assistent.js  zoekalgoritme
 assets/js/widgets.js  EC-calculator en hulpwijzer
+assets/js/onboarding.js  instelvenster, profielchip en startchecklist
 assets/js/app.js      menu en actieve navigatie
 assets/js/notfound.js zoekt op de 404-pagina alvast met het foute adres
 ```
@@ -84,6 +85,8 @@ De sprite staat inline in de HTML en niet in een los bestand, zodat de icons ook
 | Kennisbank met bron en status per item | werkend |
 | EC-calculator met BSA-norm en studie-uren | werkend |
 | Hulpwijzer, beslisboom naar de juiste hulplijn | werkend |
+| Instellen: locatie, opleiding, jaar en klas | werkend |
+| Startchecklist die je kunt afvinken | werkend |
 | Systeemoverzicht met echte links | werkende data |
 | 404-pagina met zoekfunctie | werkend |
 | Rooster in de app | schermschets |
@@ -166,8 +169,21 @@ Zet `status` op `check` en vul `bron` in zodra je het antwoord hebt.
 | Scenarioschrijver | Het scenario "Maandag, week 3" op de homepage aanscherpen, dat draagt de presentatie. |
 | Projectmanager | `prototype.html` bijhouden en de demo voorbereiden. |
 
+## Wat er wordt opgeslagen
+
+Het instelvenster bewaart je locatie, opleiding, jaar en klas onder de sleutel `handig-profiel`
+in de localStorage van je browser, en de startchecklist onder `handig-checklist`. Er is geen server
+en geen account: die gegevens blijven op je eigen apparaat en gaan nergens naartoe. Het klasveld
+vraagt daarom ook expliciet om geen studentnummer in te vullen.
+
+Wissen doe je door de site-gegevens van localhost te verwijderen in je browser.
+
 ## Spelregels AI
 
 Bij het maken hiervan zijn geen inloggegevens gebruikt of gedeeld, is er geen data uit
 HAN-systemen gehaald en staan er geen echte persoonsgegevens in. Alle voorbeelden gebruiken
 een verzonnen student ("Sam"). Alle studie-informatie is opgezocht op han.nl en Insite.
+
+Het beeldmateriaal in `assets/img/` is sfeerbeeld dat door AI is gemaakt. Het stelt geen
+bestaand HAN-gebouw voor en er staat geen echt persoon op. Zie `ASSETS.md` voor welke beelden
+het team zelf moet fotograferen.

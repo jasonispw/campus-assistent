@@ -12,7 +12,8 @@
 
   var STOPWOORDEN = new Set(("de het een en of van voor met op in is zijn ik mijn me je jouw " +
     "wat waar hoe wanneer wie waarom moet moeten kan kun kunnen heb hebben heeft doe doen " +
-    "naar bij dat die dit deze er te als om ook nog wel niet maar dan aan uit over al").split(" "));
+    "naar bij dat die dit deze er te als om ook nog wel niet maar dan aan uit over al " +
+    "ben was word worden mij we wij jij zich").split(" "));
 
   var SYNONIEMEN = {
     "cijfer": "cijfers resultaten", "cijfers": "resultaten",
@@ -25,6 +26,11 @@
     "wachtwoord": "hanaccount inloggen", "inlog": "inloggen hanaccount",
     "vastgelopen": "hulp studiebegeleider", "vastloop": "hulp studiebegeleider",
     "stress": "psycholoog", "faalangst": "psycholoog", "somber": "psycholoog",
+    "voel": "psycholoog somber", "voelen": "psycholoog somber", "rot": "psycholoog somber",
+    "eenzaam": "psycholoog somber", "heimwee": "psycholoog somber",
+    "piekeren": "psycholoog stress", "piekeer": "psycholoog stress",
+    "slaap": "psycholoog stress", "slapen": "psycholoog stress",
+    "stoppen": "uitschrijven decaan studiebegeleider", "studieadviseur": "studiebegeleider",
     "verenigingen": "studievereniging", "borrel": "studievereniging activiteiten",
     "kamerzoeken": "kamer wonen", "huisvesting": "wonen kamer",
     "toets": "tentamen toets", "toetsen": "tentamen toets", "examen": "tentamen",

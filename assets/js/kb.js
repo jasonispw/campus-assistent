@@ -198,7 +198,8 @@ const KB = [
     categorie: "Hulp",
     status: "check",
     trefwoorden: ["studiebegeleider", "slb", "slc", "studieloopbaancoach", "mentor", "begeleider",
-      "loop vast", "hulp bij studie", "met wie praten", "aanspreekpunt"],
+      "studieadviseur", "loop vast", "hulp bij studie", "met wie praten", "aanspreekpunt",
+      "wil stoppen", "twijfel over mijn studie", "motivatie"],
     body: `
       <p>Je studiebegeleider is je persoonlijke begeleider (mentor) tijdens je studie en je eerste
       aanspreekpunt binnen de HAN. Loop je ergens tegenaan of twijfel je? Begin hier.</p>
@@ -211,7 +212,9 @@ const KB = [
     categorie: "Hulp",
     status: "check",
     trefwoorden: ["psycholoog", "faalangst", "uitstelgedrag", "somber", "angst", "rouw", "stress",
-      "niet lekker in mijn vel", "mentaal", "burn-out", "hulp mentaal"],
+      "niet lekker in mijn vel", "mentaal", "burn-out", "hulp mentaal",
+      "voel me niet", "voel me rot", "eenzaam", "heimwee", "depressief", "paniek",
+      "piekeren", "piekeer", "slecht slapen", "slaap slecht"],
     body: `
       <p>De studentenpsychologen helpen bij bijvoorbeeld faalangst, uitstelgedrag, rouwverwerking,
       somberheid en angstgevoelens. Je hoeft geen groot probleem te hebben om je te melden.</p>
@@ -224,7 +227,8 @@ const KB = [
     categorie: "Hulp",
     status: "check",
     trefwoorden: ["decaan", "studentendecaan", "geld", "financieel", "collegegeld", "studiefinanciering",
-      "beurs", "inschrijving", "uitschrijven", "bijzondere omstandigheden", "regelingen"],
+      "beurs", "inschrijving", "uitschrijven", "bijzondere omstandigheden", "regelingen",
+      "wil stoppen", "stoppen met mijn studie"],
     body: `
       <p>Heb je vragen over studiefinanciering, collegegeld of beurzen, of kom je door bijzondere
       omstandigheden in de financiële problemen? Dan ga je naar een studentendecaan.</p>
