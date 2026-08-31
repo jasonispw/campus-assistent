@@ -3,17 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>HANDIG_ Campus Assistent | Over deze site</title>
-<meta name="description" content="Wie maakte HANDIG_, welke delen werken al, waar komt de informatie vandaan en hoe geef je een fout door?">
-<meta property="og:title" content="HANDIG_ Campus Assistent | Over deze site">
-<meta property="og:description" content="Wie maakte HANDIG_, welke delen werken al, waar komt de informatie vandaan en hoe geef je een fout door?">
-<meta property="og:image" content="assets/img/og-image.jpg">
+<title>HANDIG_ Campus Assistent | Over HANDIG_</title>
+<meta name="description" content="Wie HANDIG_ maakt, waar de informatie vandaan komt en hoe de site gebouwd is.">
+<meta property="og:title" content="HANDIG_ Campus Assistent | Over HANDIG_">
+<meta property="og:description" content="Wie HANDIG_ maakt, waar de informatie vandaan komt en hoe de site gebouwd is.">
+<meta property="og:image" content="https://jasonispw.github.io/campus-assistent/assets/img/og-image.jpg">
 <meta property="og:type" content="website">
+<meta property="og:locale" content="nl_NL">
+<link rel="canonical" href="https://jasonispw.github.io/campus-assistent/over.html">
+<meta property="og:url" content="https://jasonispw.github.io/campus-assistent/over.html">
+<meta name="theme-color" content="#141414">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/favicon.png">
-<link rel="stylesheet" href="assets/css/base.css">
-<link rel="stylesheet" href="assets/css/layout.css">
-<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/base.css?v=20260831">
+<link rel="stylesheet" href="assets/css/layout.css?v=20260831">
+<link rel="stylesheet" href="assets/css/components.css?v=20260831">
 </head>
 <body>
 <a class="skip-link" href="#main">Naar de inhoud</a>
@@ -25,8 +29,8 @@
       <span class="wordmark__naam"><span class="mark">HAN</span>DIG<span class="cursor">_</span></span>
     </a>
     <button class="nav-toggle" data-nav-toggle aria-expanded="false" aria-controls="hoofdmenu">
-      <svg class="icon icon-menu"><use href="#i-menu"></use></svg>
-      <svg class="icon icon-close"><use href="#i-close"></use></svg>
+      <svg class="icon icon-menu" aria-hidden="true" focusable="false"><use href="#i-menu"></use></svg>
+      <svg class="icon icon-close" aria-hidden="true" focusable="false"><use href="#i-close"></use></svg>
       <span class="visually-hidden">Menu</span>
     </button>
     <nav class="topnav" id="hoofdmenu" data-nav aria-label="Hoofdmenu">
@@ -47,144 +51,92 @@
 
   <section class="hero hero--compact hero--over">
     <div class="container">
-      <h1>HANDIG_</h1>
+      <h1>Over HANDIG_</h1>
       <p class="hero__lead">
-        Een campus-assistent voor eerstejaarsstudenten ICT, gemaakt door studenten tijdens de
-        hackathonweek van de opleiding. Dit is geen officieel HAN-product.
+        De vaste wegwijzer voor eerstejaarsstudenten ICT: praktische informatie, hulpmiddelen en
+        directe links naar de officiële HAN-bronnen.
       </p>
     </div>
   </section>
 
   <section class="section">
-    <div class="container container--narrow">
+    <div class="container container--narrow prose">
       <div class="section__head">
-        <h2>Waarom deze site bestaat</h2>
+        <h2>Zo gebruik je HANDIG_</h2>
       </div>
       <p>
-        In je eerste weken komt er veel op je af: roosters, lokalen, systemen, personen en regels.
-        Die informatie is er allemaal wel, maar staat verspreid over zes systemen en drie portalen.
-        Het kost tijd om te leren welke vraag bij welk systeem hoort.
+        Op de startpagina vind je een persoonlijke startchecklist, de assistent en snelkoppelingen naar
+        de systemen die je dagelijks gebruikt. De onderwerp-pagina's leggen de belangrijkste termen en
+        routes uit zonder dat je eerst hoeft te weten waar de HAN ze heeft gepubliceerd.
       </p>
       <p>
-        HANDIG_ is één startpunt. Je stelt je vraag in gewone taal en krijgt een kort antwoord met een
-        link naar de HAN-pagina waar het volledige verhaal staat. Zo hoef je niet eerst te weten hoe
-        iets heet om het te kunnen vinden.
+        Stel een vraag in gewone taal en je krijgt een kort antwoord met een link naar de HAN-pagina
+        waar het volledige verhaal staat. De EC-calculator rekent alleen mee; je officiële resultaten
+        en opleidingsregels blijven altijd in Osiris en het OS/OER staan.
+      </p>
+      <p>
+        HANDIG_ is gemaakt door studenten en is <strong>geen officieel product van de HAN</strong>.
+        Bij twijfel is de HAN leidend: staat er iets anders op han.nl, op Insite of in het OS/OER,
+        houd dan die bron aan.
       </p>
     </div>
   </section>
 
   <section class="section section--soft">
-    <div class="container">
-      <div class="section__head">
-        <h2>Wat er al werkt</h2>
-        <p>
-          HANDIG_ is een prototype. Sommige onderdelen werken echt, andere laten zien hoe het zou werken
-          in een afgebouwde app.
-        </p>
-      </div>
-
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th scope="col">Onderdeel</th>
-              <th scope="col">Status</th>
-              <th scope="col">Toelichting</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">De assistent</th>
-              <td><span class="proto proto--werkend">Werkt</span></td>
-              <td>Zoekt door de kennisbank en herkent synoniemen, zodat "cijfer" ook Osiris vindt.</td>
-            </tr>
-            <tr>
-              <th scope="row">EC-calculator</th>
-              <td><span class="proto proto--werkend">Werkt</span></td>
-              <td>Rekent je punten af tegen de BSA-norm van 30 EC en vertaalt dat naar studie-uren.</td>
-            </tr>
-            <tr>
-              <th scope="row">Hulpwijzer</th>
-              <td><span class="proto proto--werkend">Werkt</span></td>
-              <td>Beslisboom die eindigt bij de juiste hulplijn, met de link erbij.</td>
-            </tr>
-            <tr>
-              <th scope="row">Systeemoverzicht</th>
-              <td><span class="proto proto--werkend">Werkt</span></td>
-              <td>Alle links en omschrijvingen komen van han.nl.</td>
-            </tr>
-            <tr>
-              <th scope="row">Instellen en startchecklist</th>
-              <td><span class="proto proto--werkend">Werkt</span></td>
-              <td>Je locatie, opleiding, jaar en klas blijven in je eigen browser staan, zodat de
-              juiste adressen meteen kloppen. De checklist voor je eerste week vink je daar af.</td>
-            </tr>
-            <tr>
-              <th scope="row">Rooster in de app</th>
-              <td><span class="proto proto--mockup">Schets</span></td>
-              <td>Een koppeling met MyX en Osiris vraagt toegang die alleen de HAN kan geven. We hebben
-                  bewust geen data uit HAN-systemen opgehaald.</td>
-            </tr>
-            <tr>
-              <th scope="row">Plattegrond en looproute</th>
-              <td><span class="proto proto--mockup">Schets</span></td>
-              <td>Laat zien hoe het scherm werkt. Voor een echte versie hebben we de officiële
-                  plattegronden en de betekenis van de lokaalcodes nodig.</td>
-            </tr>
-            <tr>
-              <th scope="row">Meldingen</th>
-              <td><span class="proto proto--mockup">Schets</span></td>
-              <td>Alleen als schermschets, om het verhaal compleet te maken.</td>
-            </tr>
-            <tr>
-              <th scope="row">Inloggen met HANaccount</th>
-              <td><span class="proto proto--mockup">Niet gebouwd</span></td>
-              <td>We raken geen inloggegevens aan. In een echte versie loopt dit via de HAN zelf.</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
+    <div class="container container--narrow prose">
       <div class="section__head">
         <h2>Waar de informatie vandaan komt</h2>
         <p>
           Alles op deze site is opgezocht bij de HAN. We nemen niets over uit het hoofd en laten geen
-          teksten door AI verzinnen: een verkeerde BSA-norm kost iemand een jaar.
+          teksten door AI verzinnen: een verkeerde doorstroomnorm kan iemand studievertraging kosten.
         </p>
       </div>
       <ol class="bronlijst">
         <li>Systemen, HANaccount en eduroam:
           <a href="https://www.han.nl/studeren/onderwijs/studiefaciliteiten/online-services/" target="_blank" rel="noopener">Online services op han.nl</a></li>
-        <li>Studiepunten, BSA, propedeuse en de profielen:
-          <a href="https://www.han.nl/opleidingen/hbo/ict/voltijd/dit-is-je-studie/" target="_blank" rel="noopener">ICT voltijd op han.nl</a></li>
+        <li>Studiepunten, persoonlijk studieadvies, doorstroomnorm en propedeuse:
+          <a href="https://www.han.nl/opleidingen/hbo/ict/voltijd/praktische-info/bacheloropleiding-ict-voltijd.pdf" target="_blank" rel="noopener">OS/OER ICT voltijd 2026-2027</a></li>
         <li>Locaties en adressen:
           <a href="https://www.han.nl/opleidingen/hbo/ict/voltijd/praktische-info/" target="_blank" rel="noopener">Praktische info ICT op han.nl</a></li>
+        <li>HANcard, printen en CampusStore:
+          <a href="https://www.han.nl/studeren/onderwijs/studiefaciliteiten/" target="_blank" rel="noopener">Studiefaciliteiten op han.nl</a></li>
         <li>Studiebegeleider, decaan, psycholoog en Student Support Centrum:
           <a href="https://www.han.nl/studeren/succesvol-studeren/" target="_blank" rel="noopener">Succesvol studeren op han.nl</a></li>
-        <li>Regelingen en het OS/OER:
+        <li>Stoppen, uitschrijven, collegegeld en DUO:
+          <a href="https://www.han.nl/studeren/voltijd/switchen-van-studie/" target="_blank" rel="noopener">Stoppen of switchen op han.nl</a></li>
+        <li>Regelingen, het OS/OER, het jaarrooster en de examencommissie:
           <a href="https://www1.han.nl/insite/" target="_blank" rel="noopener">HAN Insite</a></li>
+        <li>Studiefinanciering en het studentenreisproduct:
+          <a href="https://duo.nl/" target="_blank" rel="noopener">duo.nl</a></li>
+        <li>Acute hulp buiten kantooruren:
+          <a href="https://www.113.nl/" target="_blank" rel="noopener">113 Zelfmoordpreventie</a></li>
       </ol>
-      <div class="callout u-mt24"><svg class="icon icon--pink callout__icon"><use href="#i-info"></use></svg>
+
+      <div class="callout u-mt24"><svg class="icon icon--pink callout__icon" aria-hidden="true" focusable="false"><use href="#i-info"></use></svg>
         <p>
-          <strong>Bij twijfel is de HAN zelf leidend.</strong> Staat er iets anders op han.nl, Insite of in
-          het OS/OER dan hier, houd dan die bron aan en laat het ons weten.
+          <strong>Het OS/OER is leidend.</strong> Alle officiële regels over toetsen, herkansingen,
+          vrijstellingen en het studieadvies staan in het Opleidingsstatuut en de Onderwijs- en
+          Examenregeling van jouw opleiding en jouw studiejaar, te vinden op Insite onder
+          <em>Jouw opleiding &rsaquo; Rechten en plichten</em>.
         </p>
       </div>
+    </div>
+  </section>
 
-      <h3 class="u-mt24">Over de foto's</h3>
-
+  <section class="section">
+    <div class="container container--narrow prose">
+      <div class="section__head">
+        <h2>Over het beeldmateriaal</h2>
+      </div>
       <p>
-        De foto's op deze site zijn sfeerbeeld dat door AI is gemaakt. Ze stellen geen bestaand
-        HAN-gebouw voor en er staat geen echt persoon op. Wat je op de campuspagina ziet is dus
-        geen foto van de Ruitenberglaan.
+        De sfeerbeelden op deze site zijn door AI gemaakt. Ze stellen geen bestaand HAN-gebouw voor
+        en er staat geen herkenbaar persoon op. Wat je op de campuspagina ziet is dus geen foto van
+        de Ruitenberglaan.
       </p>
       <p>
-        Voor een afgebouwde versie horen daar eigen foto's van de campus te staan, en de
-        offici&euml;le plattegronden van de opleiding.
+        De iconen komen van <a href="https://iconify.design/" target="_blank" rel="noopener">Iconify</a>,
+        set Tabler, onder de MIT-licentie. De huisstijl volgt han.nl: het roze <code>#e50056</code>,
+        zwart <code>#141414</code>, koppen in condensed kapitalen en knoppen met vierkante hoeken.
       </p>
     </div>
   </section>
@@ -195,47 +147,54 @@
         <h2>Iets gevonden dat niet klopt?</h2>
       </div>
       <p>
-        Studie-informatie verandert. Een assistent met verouderde informatie is erger dan geen assistent,
-        dus we horen het graag als er iets niet meer klopt.
+        Studie-informatie verandert. Een assistent met verouderde informatie is erger dan geen
+        assistent, dus we horen het graag als er iets niet meer klopt.
       </p>
       <p>
-        Geef het door aan iemand van het team of aan je studiebegeleider. Vermeld op welke pagina het
-        staat en wat er volgens jou moet staan, dan passen we het aan.
+        Geef door op welke pagina het staat en wat er volgens jou moet staan, via je studiebegeleider
+        of via han.nl/contact.
       </p>
       <p class="u-mt24">
-        <a class="btn btn--primary" href="https://www.han.nl/contact/" target="_blank" rel="noopener">Contact met de HAN <svg class="icon"><use href="#i-arrow-right"></use></svg></a>
+        <a class="btn btn--primary" href="https://www.han.nl/contact/" target="_blank" rel="noopener">Contact met de HAN <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-right"></use></svg></a>
       </p>
     </div>
   </section>
 
   <section class="section">
-    <div class="container">
+    <div class="container container--narrow prose">
       <div class="section__head">
-        <h2>Techniek</h2>
+        <h2>Colofon</h2>
       </div>
-      <div class="grid grid--2">
-        <article class="card">
-          <svg class="icon icon--lg icon--pink card__icon"><use href="#i-laptop"></use></svg>
 
-          <h3>Hoe het gebouwd is</h3>
-
-          <p>Statische HTML, één CSS-bestand en vanilla JavaScript. Geen framework, geen build-stap,
-             geen dependencies. Dezelfde aanpak als han.nl zelf.</p>
-          <p>Daardoor draait het overal, ook zonder internet, en kan iedereen in het team eraan werken
-             zonder eerst een framework te leren.</p>
-        </article>
-
-        <article class="card">
-          <svg class="icon icon--lg icon--pink card__icon"><use href="#i-award"></use></svg>
-
-          <h3>Vormgeving</h3>
-
-          <p>De huisstijl volgt han.nl: het roze <code>#e50056</code>, zwart <code>#141414</code> en grijs
-             <code>#454545</code>, koppen in condensed kapitalen en knoppen met vierkante hoeken.</p>
-          <p>han.nl gebruikt de fonts Avenir Next en Avenir Next Condensed. Die zijn gelicenseerd, dus
-             hier staat een vergelijkbare fallback.</p>
-        </article>
-      </div>
+      <dl class="datalijst">
+        <div>
+          <dt>Gemaakt door</dt>
+          <dd>Studenten van de opleiding ICT van de HAN.</dd>
+        </div>
+        <div>
+          <dt>Status</dt>
+          <dd>Geen officieel product van de HAN. Geen samenwerkingsverband met of goedkeuring van de HAN.</dd>
+        </div>
+        <div>
+          <dt>Techniek</dt>
+          <dd>Statische HTML, drie stylesheets en vanilla JavaScript. Geen framework, geen build-stap,
+              geen dependencies, geen server.</dd>
+        </div>
+        <div>
+          <dt>Gegevens</dt>
+          <dd>Alleen in je eigen browser, zie de <a href="privacy.html">privacyverklaring</a>.</dd>
+        </div>
+        <div>
+          <dt>Lettertypen</dt>
+          <dd>han.nl gebruikt Avenir Next en Avenir Next Condensed. Die zijn gelicenseerd, dus hier
+              staat een vergelijkbare fallback.</dd>
+        </div>
+        <div>
+          <dt>Copyright</dt>
+          <dd>&copy; 2026 HANDIG_. De naam HAN, het logo en de huisstijl zijn eigendom van de
+              Hogeschool van Arnhem en Nijmegen.</dd>
+        </div>
+      </dl>
     </div>
   </section>
 
@@ -243,9 +202,51 @@
 
 <footer class="footer">
   <div class="container">
+    <div class="footer__grid">
+      <div>
+        <h3>HANDIG_</h3>
+        <p class="u-small">
+          Eén startpunt voor eerstejaarsstudenten ICT van de HAN: systemen, studiepunten,
+          campus en hulp bij elkaar, met de bron erbij.
+        </p>
+      </div>
+      <div>
+        <h3>Op HANDIG_</h3>
+        <ul class="u-small">
+          <li><a href="systemen.html">Systemen</a></li>
+          <li><a href="studiepunten.html">Studiepunten</a></li>
+          <li><a href="campus.html">Campus</a></li>
+          <li><a href="hulp.html">Hulp</a></li>
+          <li><a href="meedoen.html">Meedoen</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Direct naar</h3>
+        <ul class="u-small">
+          <li><a href="https://leren.han.nl" target="_blank" rel="noopener">Brightspace</a></li>
+          <li><a href="https://han.osiris-student.nl/#/login" target="_blank" rel="noopener">Osiris</a></li>
+          <li><a href="https://myx-han.xedule.nl/" target="_blank" rel="noopener">MyX, je rooster</a></li>
+          <li><a href="https://office365.han.nl" target="_blank" rel="noopener">HAN-mail</a></li>
+          <li><a href="https://www1.han.nl/insite/" target="_blank" rel="noopener">HAN Insite</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Deze site</h3>
+        <ul class="u-small">
+          <li><a href="over.html">Over HANDIG_</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="https://www.han.nl/contact/" target="_blank" rel="noopener">Contact met de HAN</a></li>
+          <li><button type="button" class="footer__knop" data-onboarding-open>HANDIG_ instellen</button></li>
+        </ul>
+      </div>
+    </div>
     <div class="footer__bottom">
-      <span>HANDIG_, campus-assistent voor eerstejaars ICT</span>
-      <span>Huisstijl gebaseerd op <a href="https://www.han.nl/" target="_blank" rel="noopener">han.nl</a></span>
+      <small>&copy; 2026 HANDIG_. Alle rechten voorbehouden.</small>
+      <span class="footer__legal">
+        <a href="privacy.html">Privacy</a>
+        <a href="over.html">Verantwoording</a>
+        <span>Geen officieel product van de HAN.</span>
+      </span>
     </div>
   </div>
 </footer>
@@ -258,7 +259,6 @@
 <symbol id="i-arrow-right" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-6 6l6-6m-6-6l6 6"/></symbol>
 <symbol id="i-arrow-up" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v14m6-8l-6-6m-6 6l6-6"/></symbol>
 <symbol id="i-award" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M6 9a6 6 0 1 0 12 0A6 6 0 1 0 6 9"/><path d="m12 15l3.4 5.89l1.598-3.233l3.598.232l-3.4-5.889M6.802 12l-3.4 5.89L7 17.657l1.598 3.232l3.4-5.889"/></g></symbol>
-<symbol id="i-bell" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3H4a4 4 0 0 0 2-3v-3a7 7 0 0 1 4-6M9 17v1a3 3 0 0 0 6 0v-1"/></symbol>
 <symbol id="i-book" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 19a9 9 0 0 1 9 0a9 9 0 0 1 9 0M3 6a9 9 0 0 1 9 0a9 9 0 0 1 9 0M3 6v13m9-13v13m9-13v13"/></symbol>
 <symbol id="i-briefcase" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M3 9a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zm5-2V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m-4 5v.01"/><path d="M3 13a20 20 0 0 0 18 0"/></g></symbol>
 <symbol id="i-building" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21h18M9 8h1m-1 4h1m-1 4h1m4-8h1m-1 4h1m-1 4h1M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16"/></symbol>
@@ -271,10 +271,8 @@
 <symbol id="i-close" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 6L6 18M6 6l12 12"/></symbol>
 <symbol id="i-coins" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M9 14c0 1.657 2.686 3 6 3s6-1.343 6-3s-2.686-3-6-3s-6 1.343-6 3"/><path d="M9 14v4c0 1.656 2.686 3 6 3s6-1.344 6-3v-4M3 6c0 1.072 1.144 2.062 3 2.598s4.144.536 6 0S15 7.072 15 6s-1.144-2.062-3-2.598s-4.144-.536-6 0S3 4.928 3 6"/><path d="M3 6v10c0 .888.772 1.45 2 2"/><path d="M3 11c0 .888.772 1.45 2 2"/></g></symbol>
 <symbol id="i-confetti" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5h2M5 4v2m6.5-2L11 6m7-1h2m-1-1v2m-4 3l-1 1m4 3l2-.5M18 19h2m-1-1v2m-5-3.482L7.482 10l-4.39 9.58a1 1 0 0 0 1.329 1.329z"/></symbol>
-<symbol id="i-cup" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 11h14V8H5zm12.5 0L16 21H8L6.5 11M6 8V7a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v1m-3-3V3"/></symbol>
 <symbol id="i-dashboard" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 4h4a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1m0 12h4a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-2a1 1 0 0 1 1-1m10-4h4a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-6a1 1 0 0 1 1-1m0-8h4a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1"/></symbol>
 <symbol id="i-error404" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8v3a1 1 0 0 0 1 1h3m0-4v8m10-8v3a1 1 0 0 0 1 1h3m0-4v8m-11-6v4a2 2 0 1 0 4 0v-4a2 2 0 1 0-4 0"/></symbol>
-<symbol id="i-external" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6m-7 1l9-9m-5 0h5v5"/></symbol>
 <symbol id="i-heart" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M19.5 12.572L12 20l-7.5-7.428A5 5 0 1 1 12 6.006a5 5 0 1 1 7.5 6.572"/><path d="M12 6L8.707 9.293a1 1 0 0 0 0 1.414l.543.543c.69.69 1.81.69 2.5 0l1-1a3.18 3.18 0 0 1 4.5 0l2.25 2.25m-7 3l2 2M15 13l2 2"/></g></symbol>
 <symbol id="i-home" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M5 12H3l9-9l9 9h-2M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/><path d="M9 21v-6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v6"/></g></symbol>
 <symbol id="i-info" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0-18 0m9-3h.01"/><path d="M11 12h1v4h1"/></g></symbol>
@@ -284,13 +282,10 @@
 <symbol id="i-mail" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="m3 7l9 6l9-6"/></g></symbol>
 <symbol id="i-map-pin" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0-6 0"/><path d="M17.657 16.657L13.414 20.9a2 2 0 0 1-2.827 0l-4.244-4.243a8 8 0 1 1 11.314 0"/></g></symbol>
 <symbol id="i-menu" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></symbol>
-<symbol id="i-message" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 20l1.3-3.9C1.976 12.663 2.874 8.228 6.4 5.726c3.526-2.501 8.59-2.296 11.845.48c3.255 2.777 3.695 7.266 1.029 10.501S11.659 20.922 7.7 19z"/></symbol>
-<symbol id="i-qrcode" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1zm3 12v.01M14 5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1zM7 7v.01M4 15a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1zm13-8v.01M14 14h3m3 0v.01M14 14v3m0 3h3m0-3h3m0 0v3"/></symbol>
 <symbol id="i-route" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 19a2 2 0 1 0 4 0a2 2 0 0 0-4 0M19 7a2 2 0 1 0 0-4a2 2 0 0 0 0 4m-8 12h5.5a3.5 3.5 0 0 0 0-7h-8a3.5 3.5 0 0 1 0-7H13"/></symbol>
 <symbol id="i-school" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M22 9L12 5L2 9l10 4zv6"/><path d="M6 10.6V16a6 3 0 0 0 12 0v-5.4"/></g></symbol>
 <symbol id="i-search" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10a7 7 0 1 0 14 0a7 7 0 1 0-14 0m18 11l-6-6"/></symbol>
 <symbol id="i-settings" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6a2 2 0 1 0 4 0a2 2 0 1 0-4 0M4 6h8m4 0h4M6 12a2 2 0 1 0 4 0a2 2 0 1 0-4 0m-2 0h2m4 0h10m-5 6a2 2 0 1 0 4 0a2 2 0 1 0-4 0M4 18h11m4 0h1"/></symbol>
-<symbol id="i-sparkles" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 18a2 2 0 0 1 2 2a2 2 0 0 1 2-2a2 2 0 0 1-2-2a2 2 0 0 1-2 2m0-12a2 2 0 0 1 2 2a2 2 0 0 1 2-2a2 2 0 0 1-2-2a2 2 0 0 1-2 2M9 18a6 6 0 0 1 6-6a6 6 0 0 1-6-6a6 6 0 0 1-6 6a6 6 0 0 1 6 6"/></symbol>
 <symbol id="i-spinner" viewBox="0 0 24 24"><path fill="currentColor" d="M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z" opacity=".25"/><path fill="currentColor" d="M12,4a8,8,0,0,1,7.89,6.7A1.53,1.53,0,0,0,21.38,12h0a1.5,1.5,0,0,0,1.48-1.75,11,11,0,0,0-21.72,0A1.5,1.5,0,0,0,2.62,12h0a1.53,1.53,0,0,0,1.49-1.3A8,8,0,0,1,12,4Z"><animateTransform attributeName="transform" dur="0.75s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></symbol>
 <symbol id="i-target" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M11 12a1 1 0 1 0 2 0a1 1 0 1 0-2 0"/><path d="M12 7a5 5 0 1 0 5 5"/><path d="M13 3.055A9 9 0 1 0 20.941 11"/><path d="M15 6v3h3l3-3h-3V3zm0 3l-3 3"/></g></symbol>
 <symbol id="i-user" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0-8 0M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/></symbol>
@@ -299,7 +294,7 @@
 <symbol id="i-wifi" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M12 18h.01m-2.838-2.828a4 4 0 0 1 5.656 0m-8.485-2.829a8 8 0 0 1 11.314 0"/><path d="M3.515 9.515c4.686-4.687 12.284-4.687 17 0"/></g></symbol>
 </defs></svg>
 
-<script src="assets/js/app.js"></script>
-<script src="assets/js/onboarding.js"></script>
+<script src="assets/js/app.js?v=20260831"></script>
+<script src="assets/js/onboarding.js?v=20260831"></script>
 </body>
 </html>

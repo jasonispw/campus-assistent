@@ -28,8 +28,7 @@
 
   const STAPPEN = ["locatie", "opleiding", "jaar", "klas", "checklist"];
 
-
-  /* Opslag. Alles blijft op het apparaat van de student staan, er is geen server. */
+  const FOCUSBAAR = "button:not([disabled]), a[href], input, select, [tabindex]:not([tabindex='-1'])";
 
   function leesProfiel() {
     try {
@@ -67,7 +66,6 @@
     }
   }
 
-
   function veilig(tekst) {
     const houder = document.createElement("div");
     houder.textContent = tekst == null ? "" : String(tekst);
@@ -75,7 +73,7 @@
   }
 
   function icoon(naam, klasse) {
-    return '<svg class="' + (klasse || "icon") + '"><use href="#' + naam + '"></use></svg>';
+    return '<svg class="' + (klasse || "icon") + '" aria-hidden="true" focusable="false"><use href="#' + naam + '"></use></svg>';
   }
 
   function profielTekst(profiel) {
@@ -93,19 +91,19 @@
     return delen.join(" · ");
   }
 
-
-  /* De wizard: vijf stappen, elk met een eigen renderfunctie. */
-
   let concept = {};
   let stapIndex = 0;
   let overlay = null;
   let paneel = null;
+  let opener = null;
+  let autoTimer = null;
 
   function keuzeknoppen(veld, opties) {
     const knoppen = opties.map(function (optie) {
-      const gekozen = concept[veld] === optie.waarde ? " is-gekozen" : "";
+      const gekozen = concept[veld] === optie.waarde;
 
-      return '<button type="button" class="onboarding__optie' + gekozen + '"' +
+      return '<button type="button" class="onboarding__optie' + (gekozen ? " is-gekozen" : "") + '"' +
+        ' aria-pressed="' + gekozen + '"' +
         ' data-waarde="' + veld + ":" + optie.waarde + '">' +
         (optie.icoon ? icoon(optie.icoon, "icon icon--lg") : "") +
         "<strong>" + optie.titel + "</strong>" +
@@ -136,7 +134,6 @@
   }
 
   function profielKeuzeHtml() {
-    // Eerstejaars kiezen nog geen profiel, die vraag verschijnt pas vanaf jaar 2.
     if (!concept.jaar || concept.jaar === "1") return "";
 
     const opties = Object.keys(PROFIELEN).map(function (sleutel) {
@@ -153,7 +150,7 @@
 
   function stapJaar() {
     return "<h2>In welk jaar zit je?</h2>" +
-      "<p>Zit je in jaar 1, dan is de BSA-norm van 30 EC voor jou het belangrijkst.</p>" +
+      "<p>Voor ICT in 2026-2027 geldt in jaar 1 een doorstroomnorm van 40 EC en taalniveau 3F.</p>" +
       keuzeknoppen("jaar", [
         { waarde: "1", titel: "Jaar 1", sub: "propedeuse" },
         { waarde: "2", titel: "Jaar 2", sub: "" },
@@ -215,7 +212,8 @@
       return '<span class="onboarding__punt' + (i <= stapIndex ? " is-actief" : "") + '"></span>';
     }).join("");
 
-    return '<div class="onboarding__voortgang" aria-hidden="true">' + punten + "</div>";
+    return '<p class="onboarding__stap">Stap ' + (stapIndex + 1) + " van " + STAPPEN.length + "</p>" +
+      '<div class="onboarding__voortgang" aria-hidden="true">' + punten + "</div>";
   }
 
   function actiesHtml() {
@@ -233,10 +231,10 @@
   function bindKeuzes() {
     paneel.querySelectorAll("[data-waarde]").forEach(function (knop) {
       knop.addEventListener("click", function () {
-        const [veld, waarde] = knop.dataset.waarde.split(":");
-        concept[veld] = waarde;
-        if (veld === "jaar" && waarde === "1") delete concept.profiel;
-        teken();
+        const deel = knop.dataset.waarde.split(":");
+        concept[deel[0]] = deel[1];
+        if (deel[0] === "jaar" && deel[1] === "1") delete concept.profiel;
+        teken(deel[0] + ":" + deel[1]);
       });
     });
 
@@ -252,12 +250,19 @@
       klasVeld.addEventListener("input", function () {
         concept.klas = klasVeld.value.trim();
       });
-      klasVeld.focus();
     }
   }
 
+  function meldOpslagfout() {
+    const melding = paneel.querySelector("[data-opslagfout]");
+    if (melding) melding.hidden = false;
+  }
+
   function bindNavigatie() {
-    paneel.querySelector("[data-sluit]").addEventListener("click", sluit);
+    paneel.querySelector("[data-sluit]").addEventListener("click", function () {
+      onthoudUitstel();
+      sluit();
+    });
 
     const terug = paneel.querySelector("[data-terug]");
     if (terug) {
@@ -277,26 +282,81 @@
       }
 
       concept.ingesteld = true;
-      bewaarProfiel(concept);
+      delete concept.uitgesteld;
+
+      if (!bewaarProfiel(concept)) {
+        meldOpslagfout();
+        return;
+      }
+
       sluit();
       toonProfielchip();
       toonChecklist();
     });
   }
 
-  function teken() {
+  function teken(behoudKeuze) {
     paneel.innerHTML =
       '<button type="button" class="onboarding__sluit" data-sluit aria-label="Sluiten">' + icoon("i-close") + "</button>" +
       voortgangHtml() +
       '<div class="onboarding__inhoud">' + STAP_RENDERS[STAPPEN[stapIndex]]() + "</div>" +
+      '<p class="onboarding__opslagfout" data-opslagfout hidden>' + icoon("i-alert") +
+      " Je browser wil niets opslaan, bijvoorbeeld in een privévenster. Je instellingen blijven " +
+      "daardoor niet bewaard.</p>" +
       actiesHtml();
 
     bindKeuzes();
     bindNavigatie();
+
+    if (behoudKeuze) {
+      const gekozen = paneel.querySelector('[data-waarde="' + behoudKeuze + '"]');
+      if (gekozen) {
+        gekozen.focus();
+        return;
+      }
+    }
+
+    const kop = paneel.querySelector("h2");
+    if (kop) {
+      kop.setAttribute("tabindex", "-1");
+      kop.focus();
+    }
   }
 
   function opToets(e) {
-    if (e.key === "Escape") sluit();
+    if (e.key === "Escape") {
+      onthoudUitstel();
+      sluit();
+      return;
+    }
+
+    if (e.key !== "Tab" || !paneel) return;
+
+    const velden = Array.prototype.slice.call(paneel.querySelectorAll(FOCUSBAAR))
+      .filter(el => el.offsetParent !== null);
+    if (!velden.length) return;
+
+    const eerste = velden[0];
+    const laatste = velden[velden.length - 1];
+
+    if (!e.shiftKey && document.activeElement === laatste) {
+      e.preventDefault();
+      eerste.focus();
+      return;
+    }
+
+    if (e.shiftKey && (document.activeElement === eerste || !paneel.contains(document.activeElement))) {
+      e.preventDefault();
+      laatste.focus();
+    }
+  }
+
+  function onthoudUitstel() {
+    const profiel = leesProfiel() || {};
+    if (profiel.ingesteld) return;
+
+    profiel.uitgesteld = true;
+    bewaarProfiel(profiel);
   }
 
   function sluit() {
@@ -305,11 +365,21 @@
     document.removeEventListener("keydown", opToets);
     overlay.remove();
     overlay = null;
+    paneel = null;
     document.body.classList.remove("geen-scroll");
+
+    if (opener && document.contains(opener)) opener.focus();
+    opener = null;
   }
 
-  function open() {
+  function open(vanuit) {
+    clearTimeout(autoTimer);
+    autoTimer = null;
+    sluit();
+
+    opener = vanuit || null;
     concept = leesProfiel() || {};
+    delete concept.uitgesteld;
     stapIndex = 0;
 
     overlay = document.createElement("div");
@@ -317,8 +387,11 @@
     overlay.setAttribute("role", "dialog");
     overlay.setAttribute("aria-modal", "true");
     overlay.setAttribute("aria-label", "HANDIG_ instellen");
-    overlay.addEventListener("click", function (e) {
-      if (e.target === overlay) sluit();
+    overlay.addEventListener("mousedown", function (e) {
+      if (e.target === overlay) {
+        onthoudUitstel();
+        sluit();
+      }
     });
 
     paneel = document.createElement("div");
@@ -331,9 +404,6 @@
 
     teken();
   }
-
-
-  /* De chip in de header en de checklist op de startpagina. */
 
   function toonProfielchip() {
     const houder = document.querySelector("[data-profiel]");
@@ -349,7 +419,10 @@
         icoon("i-user") + "Stel HANDIG_ in</button>";
     }
 
-    houder.querySelector("[data-onboarding-chip]").addEventListener("click", open);
+    const knop = houder.querySelector("[data-onboarding-chip]");
+    knop.addEventListener("click", function () {
+      open(knop);
+    });
   }
 
   function checklistKopTekst(profiel) {
@@ -391,6 +464,7 @@
     const kop = houder.querySelector("[data-checklist-kop]");
     const balk = houder.querySelector("[data-checklist-balk]");
     const stand = houder.querySelector("[data-checklist-stand]");
+    const waarschuwing = houder.querySelector("[data-checklist-opslagfout]");
     const taken = leesTaken();
 
     if (kop) kop.innerHTML = checklistKopTekst(leesProfiel());
@@ -400,7 +474,10 @@
     function werkVoortgangBij() {
       const af = TAKEN.filter(taak => taken[taak.id]).length;
 
-      if (balk) balk.style.width = (af / TAKEN.length * 100) + "%";
+      if (balk) {
+        balk.style.width = (af / TAKEN.length * 100) + "%";
+        balk.parentNode.setAttribute("aria-valuenow", String(af));
+      }
       if (stand) {
         stand.textContent = af === TAKEN.length
           ? "Alles geregeld. Je bent er klaar voor."
@@ -411,7 +488,9 @@
     lijst.querySelectorAll("[data-taak]").forEach(function (vakje) {
       vakje.addEventListener("change", function () {
         taken[vakje.dataset.taak] = vakje.checked;
-        bewaarTaken(taken);
+
+        if (!bewaarTaken(taken) && waarschuwing) waarschuwing.hidden = false;
+
         vakje.closest(".taak").classList.toggle("is-af", vakje.checked);
         werkVoortgangBij();
       });
@@ -420,29 +499,68 @@
     werkVoortgangBij();
   }
 
+  function bindWissen() {
+    document.querySelectorAll("[data-privacy-wis]").forEach(function (knop) {
+      knop.addEventListener("click", function () {
+        const status = document.querySelector("[data-privacy-wis-status]");
+
+        if (knop.dataset.bevestigen !== "true") {
+          knop.dataset.bevestigen = "true";
+          knop.innerHTML = icoon("i-alert") + "Bevestig wissen";
+          if (status) {
+            status.classList.add("is-waarschuwing");
+            status.textContent = "Klik nog een keer om je profiel en checklist definitief van dit apparaat te wissen.";
+          }
+          knop.focus();
+          return;
+        }
+
+        try {
+          localStorage.removeItem(SLEUTEL_PROFIEL);
+          localStorage.removeItem(SLEUTEL_TAKEN);
+        } catch (fout) {
+          if (status) status.textContent = "Wissen lukte niet. Verwijder de sitegegevens via je browserinstellingen.";
+          return;
+        }
+
+        sluit();
+        toonProfielchip();
+        toonChecklist();
+        delete knop.dataset.bevestigen;
+        knop.innerHTML = icoon("i-close") + "Mijn gegevens wissen";
+
+        if (status) {
+          status.classList.remove("is-waarschuwing");
+          status.textContent = "Je HANDIG_-instellingen en checklist zijn gewist.";
+          status.setAttribute("tabindex", "-1");
+          status.focus();
+        }
+      });
+    });
+  }
 
   function init() {
     toonProfielchip();
     toonChecklist();
+    bindWissen();
 
     document.querySelectorAll("[data-onboarding-open]").forEach(function (knop) {
       knop.addEventListener("click", function (e) {
         e.preventDefault();
-        open();
+        open(knop);
       });
     });
 
     const profiel = leesProfiel();
-    if ((!profiel || !profiel.ingesteld) && document.querySelector("[data-onboarding-auto]")) {
-      setTimeout(open, 700);
-    }
+    const nieuw = !profiel || (!profiel.ingesteld && !profiel.uitgesteld);
+
+    if (nieuw && document.querySelector("[data-onboarding-auto]")) autoTimer = setTimeout(open, 700);
   }
 
   document.addEventListener("DOMContentLoaded", function () {
     try {
       init();
     } catch (fout) {
-      // Zonder profiel werkt de rest van de site gewoon, laat dan geen halve chip staan.
       const houder = document.querySelector("[data-profiel]");
       if (houder) houder.innerHTML = "";
     }

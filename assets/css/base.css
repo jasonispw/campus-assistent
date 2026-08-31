@@ -4,7 +4,7 @@
   --han-black: #141414;
   --han-dark: #262626;
   --han-gray: #454545;
-  --han-gray-mid: #919191;
+  --han-gray-mid: #6b6b6b;
   --han-line: #d6d6d6;
   --han-bg-soft: #f2f2f2;
   --han-bg-alt: #e3e3e3;
@@ -31,7 +31,11 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-height) + 16px); }
+html { scroll-padding-top: calc(var(--nav-height) + 16px); }
+
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
 
 body {
   margin: 0;
@@ -86,8 +90,15 @@ li { margin-bottom: .35em; }
 .u-mt24 { margin-top: var(--space-lg); }
 .u-push-right { margin-left: auto; }
 
-/* De wizard en het mobiele menu leggen de achtergrond vast zolang ze open staan. */
 .geen-scroll { overflow: hidden; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
 
 @media print {
   .topbar, .footer, .hero__actions { display: none; }

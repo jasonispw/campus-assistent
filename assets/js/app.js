@@ -6,17 +6,26 @@
     const menu = document.querySelector("[data-nav]");
     if (!knop || !menu) return;
 
-    knop.addEventListener("click", function () {
-      const open = menu.classList.toggle("is-open");
+    function zet(open) {
+      menu.classList.toggle("is-open", open);
       knop.setAttribute("aria-expanded", String(open));
+    }
+
+    knop.addEventListener("click", function () {
+      zet(!menu.classList.contains("is-open"));
+    });
+
+    menu.querySelectorAll("a").forEach(function (link) {
+      link.addEventListener("click", function () {
+        zet(false);
+      });
     });
 
     document.addEventListener("keydown", function (e) {
       if (e.key !== "Escape") return;
       if (!menu.classList.contains("is-open")) return;
 
-      menu.classList.remove("is-open");
-      knop.setAttribute("aria-expanded", "false");
+      zet(false);
       knop.focus();
     });
   }
@@ -25,8 +34,10 @@
     const pagina = location.pathname.split("/").pop() || "index.html";
 
     document.querySelectorAll("[data-nav] a").forEach(function (link) {
-      const doel = link.getAttribute("href").split("/").pop();
-      if (doel === pagina) link.setAttribute("aria-current", "page");
+      const href = link.getAttribute("href");
+      if (!href) return;
+
+      if (href.split("/").pop() === pagina) link.setAttribute("aria-current", "page");
     });
   }
 
@@ -35,7 +46,6 @@
       initNav();
       initActieveLink();
     } catch (fout) {
-      // Zonder werkende toggle blijft het menu anders onbereikbaar op mobiel.
       const menu = document.querySelector("[data-nav]");
       if (menu) menu.classList.add("is-open");
     }

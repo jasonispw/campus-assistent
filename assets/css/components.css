@@ -5,7 +5,6 @@
 .icon--lg { width: 2.25rem; height: 2.25rem; }
 .icon--pink { color: var(--han-pink); }
 
-/* De sprite staat inline onderaan elke pagina, hier alleen uit beeld gehaald. */
 .sprite { display: none; }
 
 
@@ -26,6 +25,10 @@
 
 .btn--outline { background: transparent; color: var(--han-black); border-color: var(--han-black); }
 .btn--outline:hover { background: var(--han-black); color: #fff; }
+.btn--danger { background: transparent; color: var(--fout); border-color: var(--fout); }
+.btn--danger:hover { background: var(--fout); color: #fff; }
+.opslagstatus { min-height: 1.5em; margin-top: var(--space-sm); color: var(--ok); font-weight: 600; }
+.opslagstatus.is-waarschuwing { color: var(--fout); }
 
 
 .card {
@@ -67,13 +70,11 @@
 .tile--campus   { background-image: url("../img/tile-campus.jpg"); }
 .tile--hulp     { background-image: url("../img/tile-hulp.jpg"); }
 .tile--meedoen  { background-image: url("../img/tile-meedoen.jpg"); }
-/* Deze drie lenen een hero-beeld tot er een eigen bijsnede is, zie ASSETS.md. */
 .tile--start    { background-image: url("../img/hero-home.jpg"); }
 .tile--rekenen  { background-image: url("../img/hero-studiepunten.jpg"); }
 .tile--over     { background-image: url("../img/hero-over.jpg"); }
 
 
-/* De assistent en de widgets delen hetzelfde kader: zwarte rand met een kopbalk erin. */
 .assist,
 .widget { border: 2px solid var(--han-black); background: #fff; }
 
@@ -158,14 +159,6 @@ th .icon { flex: none; }
 .bronlijst { font-size: .875rem; color: var(--han-gray); }
 .bronlijst li { word-break: break-word; }
 
-.proto {
-  display: inline-flex; align-items: center; gap: 6px;
-  font-size: .6875rem; font-weight: 700; letter-spacing: 1px;
-  text-transform: uppercase; padding: 4px 9px; border: 1px solid;
-  white-space: nowrap;
-}
-.proto--werkend { color: var(--ok); border-color: var(--ok); background: var(--ok-soft); }
-.proto--mockup  { color: var(--han-gray); border-color: var(--han-line); background: var(--han-bg-soft); }
 
 
 .field {
@@ -175,11 +168,11 @@ th .icon { flex: none; }
 .field:last-of-type { border-bottom: 0; }
 .field label { font-weight: 600; font-size: .9375rem; }
 .field small { display: block; font-weight: 400; color: var(--han-gray); }
-.field input[type="number"] {
+.field input[data-ec-periode] {
   width: 96px; padding: 10px; border: 1px solid var(--han-line); border-radius: 0;
   font-family: var(--font-body); font-size: 1rem; text-align: right;
 }
-.field input[type="number"].is-fout { border-color: var(--fout); border-width: 2px; outline-color: var(--fout); }
+.field input[data-ec-periode].is-fout { border-color: var(--fout); border-width: 2px; outline-color: var(--fout); }
 
 .meter { margin-top: var(--space-md); }
 .meter__track { position: relative; height: 34px; background: var(--han-bg-alt); overflow: hidden; }
@@ -232,17 +225,6 @@ th .icon { flex: none; }
 .swatch { width: 14px; height: 14px; display: inline-block; }
 
 
-.phones { display: grid; gap: 28px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
-.phone { border: 10px solid var(--han-black); background: #fff; max-width: 300px; margin-inline: auto; width: 100%; }
-.phone__status { background: var(--han-black); color: #fff; font-size: .625rem; padding: 4px 10px; display: flex; justify-content: space-between; }
-.phone__screen { padding: 14px; min-height: 380px; display: flex; flex-direction: column; gap: 10px; }
-.phone__caption { text-align: center; font-size: .875rem; color: var(--han-gray); margin-top: 10px; }
-
-.mini { border: 1px solid var(--han-line); padding: 10px; font-size: .75rem; }
-.mini strong { display: block; font-size: .8125rem; margin-bottom: 2px; }
-.mini--kop { background: var(--han-black); color: #fff; border-color: var(--han-black); }
-.mini--nadruk { background: var(--han-pink); color: #fff; border-color: var(--han-pink); }
-.mini--actie { border-style: dashed; color: var(--han-gray); text-align: center; }
 
 
 .profielchip {
@@ -355,3 +337,71 @@ th .icon { flex: none; }
   text-decoration: none; white-space: nowrap;
 }
 .taak__link .icon { width: 15px; height: 15px; }
+
+
+.answer__acuut {
+  border-left: 3px solid var(--han-pink);
+  background: var(--han-bg-soft);
+  padding: 10px 14px;
+  font-size: .875rem;
+  margin-top: var(--space-sm);
+}
+
+.verdict__noot { display: block; font-weight: 400; font-size: .875rem; margin-top: 4px; }
+
+.wizard__stuur { display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-top: var(--space-md); }
+.wizard__terug {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: none; border: 0; padding: 0; cursor: pointer;
+  font-family: var(--font-body); font-size: .875rem; font-weight: 600;
+  color: var(--han-gray); text-decoration: underline; text-underline-offset: 3px;
+}
+.wizard__terug:hover { color: var(--han-pink); }
+.wizard__terug .icon { width: 1em; height: 1em; }
+.wizard__question:focus-visible,
+.wizard__result h3:focus-visible { outline: 3px solid var(--han-pink); outline-offset: 4px; }
+
+.wizard__result--dringend {
+  border-left: 4px solid var(--han-pink);
+  background: var(--han-bg-soft);
+  padding: var(--space-md) 20px;
+}
+
+.onboarding__stap {
+  font-size: .75rem; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase;
+  color: var(--han-gray); margin: 0 0 var(--space-xs);
+}
+.onboarding__inhoud h2:focus-visible { outline: 3px solid var(--han-pink); outline-offset: 4px; }
+
+.onboarding__opslagfout,
+.opslagfout {
+  margin-top: var(--space-md); font-size: .875rem;
+  color: var(--fout); background: var(--fout-soft);
+  border-left: 3px solid var(--fout); padding: var(--space-sm) 14px;
+}
+.onboarding__opslagfout .icon,
+.opslagfout .icon { color: var(--fout); margin-right: 4px; }
+
+.footer__grid { display: grid; gap: var(--space-lg); grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.footer__bottom small { color: #9d9d9d; }
+.footer__legal { display: flex; flex-wrap: wrap; gap: var(--space-sm) var(--space-md); align-items: center; }
+
+.prose { max-width: var(--single-column); }
+.prose h2 { margin-top: var(--space-lg); }
+.prose h3 { margin-top: var(--space-lg); margin-bottom: var(--space-xs); }
+.prose li { margin-bottom: .5em; }
+.prose dl { margin: 0 0 1em; }
+.prose dt { font-weight: 600; margin-top: var(--space-sm); }
+.prose dd { margin: 0 0 var(--space-xs); color: var(--han-gray); }
+
+.datalijst { border: 1px solid var(--han-line); background: #fff; }
+.datalijst > div {
+  display: grid; gap: 2px var(--space-lg); padding: 14px var(--space-md);
+  border-bottom: 1px solid var(--han-line);
+}
+.datalijst > div:last-child { border-bottom: 0; }
+@media (min-width: 620px) {
+  .datalijst > div { grid-template-columns: 190px minmax(0, 1fr); }
+}
+.datalijst dt { font-weight: 600; font-size: .9375rem; margin: 0; }
+.datalijst dd { margin: 0; color: var(--han-gray); font-size: .9375rem; }

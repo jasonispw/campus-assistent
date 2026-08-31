@@ -6,7 +6,7 @@
       vraag: "Waar gaat je vraag over?",
       opties: [
         { tekst: "Mijn studie: planning, vakken, motivatie", naar: "studie" },
-        { tekst: "Hoe ik me voel: stress, somberheid, faalangst", naar: "psycholoog" },
+        { tekst: "Hoe ik me voel: stress, somberheid, faalangst", naar: "gevoel" },
         { tekst: "Geld, inschrijving of collegegeld", naar: "decaan" },
         { tekst: "Een systeem doet het niet (inloggen, rooster, Brightspace)", naar: "ict" }
       ]
@@ -17,6 +17,14 @@
       opties: [
         { tekst: "Nee, ik wil gewoon even sparren over mijn studie", naar: "slb" },
         { tekst: "Ja: ziekte, thuissituatie, functiebeperking of iets anders", naar: "bijzonder" }
+      ]
+    },
+
+    gevoel: {
+      vraag: "Kan het wachten tot een afspraak?",
+      opties: [
+        { tekst: "Ja, ik wil er met iemand over praten", naar: "psycholoog" },
+        { tekst: "Nee, het gaat nu echt niet goed met me", naar: "acuut" }
       ]
     },
 
@@ -50,12 +58,28 @@
       ]
     },
 
+    acuut: {
+      titel: "Zoek nu contact, niet straks",
+      dringend: true,
+      tekst: "De begeleiding van de HAN werkt met afspraken en wachttijd. Bel je huisarts, of buiten " +
+        "kantooruren de huisartsenpost in je woonplaats; die zijn er ook voor psychische klachten. " +
+        "Wil je meteen iemand spreken, dan is 113 Zelfmoordpreventie dag en nacht bereikbaar op " +
+        '<a href="tel:113">113</a> of gratis op <a href="tel:08000113">0800 0113</a>. ' +
+        'Bij direct gevaar bel je <a href="tel:112">112</a>.',
+      links: [
+        { label: "113 Zelfmoordpreventie, bellen of chatten", url: "https://www.113.nl/" },
+        { label: "Studentenpsychologen op Insite", url: "https://www1.han.nl/insite/studenten/hulp-ondersteuning-training/studentbegeleiding-en-student-support-center/studentenpsychologen/" }
+      ]
+    },
+
     decaan: {
       titel: "Studentendecaan",
       tekst: "Voor vragen over studiefinanciering, collegegeld en beurzen, of als je door bijzondere " +
-        "omstandigheden in de financiële problemen komt.",
+        "omstandigheden in de financiële problemen komt. Je studiefinanciering en je reisproduct zelf " +
+        "regel je bij DUO.",
       links: [
-        { label: "Studentendecanen op Insite", url: "https://www1.han.nl/insite/studenten/hulp-ondersteuning-training/studentbegeleiding-en-student-support-center/studentendecanen/" }
+        { label: "Studentendecanen op Insite", url: "https://www1.han.nl/insite/studenten/hulp-ondersteuning-training/studentbegeleiding-en-student-support-center/studentendecanen/" },
+        { label: "duo.nl", url: "https://duo.nl/" }
       ]
     },
 
@@ -75,8 +99,12 @@
     if (!body) return;
 
     body.innerHTML =
-      '<div class="verdict is-fout"><svg class="icon"><use href="#i-alert"></use></svg> ' +
+      '<div class="verdict is-fout"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-alert"></use></svg> ' +
       "De hulpwijzer doet het even niet. Ververs de pagina om het opnieuw te proberen.</div>";
+  }
+
+  function icoon(naam) {
+    return '<svg class="icon" aria-hidden="true" focusable="false"><use href="#' + naam + '"></use></svg>';
   }
 
   function kruimelsHtml(pad) {
@@ -84,27 +112,39 @@
     return '<p class="wizard__crumbs">' + pad.join(" &rsaquo; ") + "</p>";
   }
 
-  function vraagHtml(knoop) {
+  function stuurHtml(pad) {
+    if (!pad.length) return "";
+
+    return '<div class="wizard__stuur">' +
+      '<button type="button" class="wizard__terug" data-terug>' + icoon("i-arrow-up") + "Vorige vraag</button>" +
+      '<button type="button" class="wizard__terug" data-opnieuw>Opnieuw beginnen</button>' +
+      "</div>";
+  }
+
+  function vraagHtml(knoop, pad) {
     const knoppen = knoop.opties.map(function (optie, i) {
       return '<button type="button" data-naar="' + optie.naar + '" data-index="' + i + '">' +
         optie.tekst + "</button>";
     }).join("");
 
-    return '<p class="wizard__question">' + knoop.vraag + "</p>" +
-      '<div class="wizard__options">' + knoppen + "</div>";
+    return kruimelsHtml(pad) +
+      '<p class="wizard__question">' + knoop.vraag + "</p>" +
+      '<div class="wizard__options">' + knoppen + "</div>" +
+      stuurHtml(pad);
   }
 
-  function resultaatHtml(knoop) {
+  function resultaatHtml(knoop, pad) {
     const links = knoop.links.map(function (link) {
       return '<li><a href="' + link.url + '" target="_blank" rel="noopener">' + link.label + "</a></li>";
     }).join("");
 
-    return '<div class="wizard__result">' +
+    return kruimelsHtml(pad) +
+      '<div class="wizard__result' + (knoop.dringend ? " wizard__result--dringend" : "") + '">' +
       "<h3>" + knoop.titel + "</h3>" +
       "<p>" + knoop.tekst + "</p>" +
       "<ul>" + links + "</ul>" +
-      '<button type="button" class="btn btn--outline btn--sm" data-opnieuw>Opnieuw beginnen</button>' +
-      "</div>";
+      "</div>" +
+      stuurHtml(pad);
   }
 
   function init() {
@@ -114,38 +154,59 @@
     const body = widget.querySelector("[data-hulpwijzer-body]");
     if (!body) return;
 
+    body.setAttribute("aria-live", "polite");
+
+    let geschiedenis = [];
     let pad = [];
 
-    function teken(knoopNaam) {
+    function teken(knoopNaam, verplaatsFocus) {
       let knoop = BOOM[knoopNaam];
 
       if (!knoop) {
+        geschiedenis = [];
         pad = [];
         knoop = BOOM.start;
+        knoopNaam = "start";
       }
 
-      if (knoop.vraag) {
-        body.innerHTML = kruimelsHtml(pad) + vraagHtml(knoop);
+      body.innerHTML = knoop.vraag ? vraagHtml(knoop, pad) : resultaatHtml(knoop, pad);
 
-        body.querySelectorAll("button[data-naar]").forEach(function (knop) {
-          knop.addEventListener("click", function () {
-            pad.push(knoop.opties[knop.dataset.index].tekst);
-            teken(knop.dataset.naar);
-          });
+      body.querySelectorAll("button[data-naar]").forEach(function (knop) {
+        knop.addEventListener("click", function () {
+          geschiedenis.push(knoopNaam);
+          pad.push(knoop.opties[knop.dataset.index].tekst);
+          teken(knop.dataset.naar, true);
         });
+      });
 
-        return;
+      const terug = body.querySelector("[data-terug]");
+      if (terug) {
+        terug.addEventListener("click", function () {
+          const vorige = geschiedenis.pop() || "start";
+          pad.pop();
+          teken(vorige, true);
+        });
       }
 
-      body.innerHTML = kruimelsHtml(pad) + resultaatHtml(knoop);
+      const opnieuw = body.querySelector("[data-opnieuw]");
+      if (opnieuw) {
+        opnieuw.addEventListener("click", function () {
+          geschiedenis = [];
+          pad = [];
+          teken("start", true);
+        });
+      }
 
-      body.querySelector("[data-opnieuw]").addEventListener("click", function () {
-        pad = [];
-        teken("start");
-      });
+      if (!verplaatsFocus) return;
+
+      const eerste = body.querySelector(".wizard__question, .wizard__result h3");
+      if (!eerste) return;
+
+      eerste.setAttribute("tabindex", "-1");
+      eerste.focus();
     }
 
-    teken("start");
+    teken("start", false);
   }
 
   document.addEventListener("DOMContentLoaded", function () {

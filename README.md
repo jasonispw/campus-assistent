@@ -1,47 +1,61 @@
 # HANDIG_
 
-Campus-assistent voor eerstejaarsstudenten ICT, gemaakt voor de hackathonweek.
+Campus-assistent voor eerstejaarsstudenten ICT van de HAN.
 Huisstijl, kleuren en vormentaal zijn overgenomen van [han.nl](https://www.han.nl/).
 
-Dit is geen officieel HAN-product.
+Geen officieel HAN-product.
 
 ## Starten
 
 Geen installatie, geen build-stap. Twee opties:
 
 1. Dubbelklik op `index.html`.
-2. Of via een lokale server, netter voor demo's:
+2. Of via de meegeleverde server voor een volledige lokale controle:
 
 ```bash
-python -m http.server 5173
+python server.py 5173
 ```
 
 Daarna: <http://localhost:5173>
 
+`server.py` serveert `404.html` bij een onbekend adres, net als de hosting doet.
+
+## Publiceren
+
+De site is ingericht voor GitHub Pages onder <https://jasonispw.github.io/campus-assistent/>. Alle
+paden in de HTML zijn relatief, dus de site werkt zowel vanaf `file://` als vanuit een submap. Het
+adres wordt pas publiek bereikbaar nadat GitHub Pages voor de repository is gepubliceerd.
+
+`canonical`, `og:url` en `og:image` staan als volledige GitHub Pages-URL in de `<head>`, omdat
+linkvoorbeelden in bijvoorbeeld WhatsApp en Teams geen relatief pad kunnen gebruiken. Pas deze
+metadata aan als de site verhuist. De 404-pagina zet vóór het laden van assets een basispad voor
+GitHub Pages, waardoor ook onbekende adressen met meerdere padsegmenten correct worden getoond.
+
 ## Stack
 
-Dezelfde stack als han.nl zelf: statische HTML, één CSS-bestand, vanilla JavaScript.
-Geen framework, geen npm, geen dependencies.
+Dezelfde stack als han.nl zelf: statische HTML, CSS en vanilla JavaScript.
+Geen framework, geen npm, geen dependencies en geen backend.
 
-Waarom: het draait overal, ook zonder wifi tijdens de presentatie. Iedereen in het team kan
-eraan werken zonder eerst een framework te leren. En het past bij hoe han.nl gebouwd is.
+Waarom: het draait overal, blijft eenvoudig te beheren en heeft geen afhankelijkheden die apart
+gebouwd of bijgewerkt moeten worden. De aanpak sluit bovendien aan op de statische basis van han.nl.
 
 ```
 index.html            assistent, startchecklist en de tegels naar de onderwerpen
 systemen.html         alle HAN-systemen
-studiepunten.html     EC, BSA, propedeuse en de EC-calculator
-campus.html           locaties, plattegrond en looproute
+studiepunten.html     EC, studieadvies, doorstroomnorm, propedeuse en de EC-calculator
+campus.html           locaties en je lokaal vinden
 hulp.html             hulplijnen en de hulpwijzer
 meedoen.html          studievereniging, Buro302, wonen
-prototype.html        over deze site: status, bronnen, techniek
+over.html             verantwoording, bronnen en colofon
+privacy.html          wat er lokaal wordt opgeslagen en hoe je het wist
 404.html              pagina niet gevonden
 
 server.py             lokale server die 404.html serveert bij een onbekend adres
+sprite.py             zet de icon-sprite in alle pagina's en meldt dode iconen
 ```
 
 Elke pagina heeft dezelfde opbouw: eerst de skip-link, dan `<header>`, `<main>` met de secties,
-`<footer>`, en helemaal onderaan de icon-sprite met de scripts. Je ziet dus meteen de structuur
-van de pagina als je hem opent.
+`<footer>`, en helemaal onderaan de icon-sprite met de scripts.
 
 ### CSS
 
@@ -70,74 +84,82 @@ assets/js/app.js           menu en actieve navigatie
 assets/js/notfound.js      zoekt op de 404-pagina alvast met het foute adres
 ```
 
-Comments staan er alleen waar iets niet vanzelf spreekt, bijvoorbeeld waarom de sprite inline
-staat of waarom de spinner een vertraging heeft. De rest legt deze README uit.
+De code staat zonder comments. Wat uitleg nodig heeft, staat hieronder.
+
+#### Hoe het zoeken werkt
+
+`assistent.js` normaliseert je vraag (kleine letters, accenten en leestekens eruit) en vergelijkt
+daarna op **hele woorden**. Dat laatste is belangrijk: bij een deelwoordvergelijking vindt het
+trefwoord `ec` ook "rechten" en `ans` ook "kans", en dan krijg je met volle overtuiging het verkeerde
+antwoord. Elke vergelijking zet daarom spaties om het woord heen.
+
+Bovenop de trefwoorden liggen drie lijsten:
+
+- `SYNONIEMEN` vertaalt wat studenten typen naar wat er in de kennisbank staat ("cijfer" wordt "resultaten").
+- `SPLITSBAAR` plakt Nederlandse scheidbare werkwoorden weer aan elkaar, zodat "hoe schrijf ik me uit"
+  het trefwoord "uitschrijven" vindt.
+- `CRISIS` bevat zinnen waarbij het antwoord over acute hulp altijd bovenaan komt, ongeacht de score.
+
+Nieuwe trefwoorden altijd testen tegen vragen die al werkten: een te algemeen woord duikt overal op.
+
+#### Waarom de sprite onderaan de pagina staat
+
+De 38 icons staan als sprite inline in elke pagina, vlak voor de scripts. Een los `sprite.svg` met
+`<use href="sprite.svg#i-x">` zou de herhaling weghalen, maar werkt niet vanaf `file://`. Onderaan in
+plaats van bovenaan, zodat de structuur van de pagina eerst komt.
 
 ## Icons
 
 Alle icons komen van [Iconify](https://iconify.design/), set **Tabler** (MIT-licentie), plus één
-animatie-icoon uit **svg-spinners** voor de laadindicator. Er zijn geen icons met CSS of JavaScript
-nagebouwd.
+animatie-icoon uit **svg-spinners** voor de laadindicator.
 
-De 44 icons staan als losse SVG in `assets/icons/` en zijn samengevoegd tot een sprite die
-onderaan elke pagina staat, vlak voor de scripts. Gebruiken doe je zo:
+`assets/icons/sprite.html` is de bron. Gebruiken doe je zo:
 
 ```html
-<svg class="icon"><use href="#i-calendar"></use></svg>
+<svg class="icon" aria-hidden="true" focusable="false"><use href="#i-calendar"></use></svg>
 ```
 
 Varianten: `icon--lg` voor 2,25rem, `icon--pink` voor de HAN-kleur, `tile__icon` en `tile__arrow`
 voor de tegels. De kleur volgt `currentColor`, dus een icoon neemt de tekstkleur over.
-
-De sprite staat inline in de HTML en niet in een los bestand, zodat de icons ook werken als je
-`index.html` gewoon dubbelklikt zonder server. Een los `sprite.svg` met
-`<use href="sprite.svg#i-x">` zou de herhaling uit de acht pagina's halen, maar werkt niet
-vanaf `file://`. Daarom staat hij onderaan de pagina in plaats van bovenaan: de structuur van
-de pagina komt zo eerst.
-
-`assets/icons/sprite.html` is de bron. Wijzig je die, kopieer het blok dan naar alle pagina's.
+Decoratieve icons krijgen altijd `aria-hidden="true" focusable="false"`, anders leest een schermlezer
+ze voor als naamloze afbeelding.
 
 ### Een icoon toevoegen
 
 1. Zoek het icoon op [icon-sets.iconify.design](https://icon-sets.iconify.design/tabler/).
 2. Download het: `https://api.iconify.design/tabler/NAAM.svg` en zet het in `assets/icons/`.
-3. Voeg een `<symbol id="i-NAAM" viewBox="0 0 24 24">` toe aan `assets/icons/sprite.html` en
-   kopieer het sprite-blok naar alle pagina's.
+3. Voeg een `<symbol id="i-NAAM" viewBox="0 0 24 24">` toe aan `assets/icons/sprite.html`.
+4. Draai `python sprite.py`.
 
-## Wat werkt, wat is schets
-
-| Onderdeel | Status |
-|---|---|
-| Assistent, vraag naar antwoord met bronlink | werkend |
-| Kennisbank met bron en status per item | werkend |
-| EC-calculator met BSA-norm en studie-uren | werkend |
-| Hulpwijzer, beslisboom naar de juiste hulplijn | werkend |
-| Instellen: locatie, opleiding, jaar en klas | werkend |
-| Startchecklist die je kunt afvinken | werkend |
-| Systeemoverzicht met echte links | werkende data |
-| 404-pagina met zoekfunctie | werkend |
-| Rooster in de app | schermschets |
-| Plattegrond met looproute | schermschets |
-| Push-meldingen | schermschets |
-| Inloggen met HANaccount | bewust niet gebouwd |
-
-Op `prototype.html` staat dit overzicht ook voor bezoekers, inclusief de bronnen.
+Dat script zet de sprite in alle pagina's en meldt welke icons je gebruikt maar niet hebt toegevoegd,
+en welke je hebt toegevoegd maar nergens gebruikt. Kopieer het blok dus niet met de hand.
 
 ## Foutafhandeling
 
-Ingebouwd, zodat er tijdens de demo niets stil op zwart gaat:
+Ingebouwd, zodat een fout in één onderdeel de rest van de site niet onbruikbaar maakt:
 
 - **Kennisbank niet geladen**: de assistent meldt dat hij niet beschikbaar is en zet het zoekveld uit,
   in plaats van een dood invoerveld te tonen.
 - **Kapot item in `kb.js`**: dat ene item wordt overgeslagen, de rest blijft werken.
 - **Fout tijdens het zoeken**: nette storingsmelding met een doorverwijzing naar het menu.
-- **Ongeldige invoer in de calculator**: het veld kleurt rood met uitleg, er verschijnt geen NaN.
+- **Ongeldige invoer in de calculator**: het veld kleurt rood met uitleg, en de meter, het totaal en
+  de urenschatting gaan op nul in plaats van de vorige uitkomst te laten staan.
 - **Onbekende stap in de hulpwijzer**: valt terug op de eerste vraag.
+- **localStorage weigert te schrijven** (privévenster, volle opslag): de gebruiker krijgt het te zien
+  in plaats van dat zijn vinkjes stilletjes verdwijnen.
 - **Widget crasht**: alleen die widget toont een melding, de andere blijft werken.
 - **Onbekende URL**: `404.html` vult de zoekterm alvast in op basis van het adres.
 
-De 404-pagina werkt automatisch bij hosting die dat ondersteunt, zoals GitHub Pages of Netlify.
-Bij `python -m http.server` moet je hem zelf openen: <http://localhost:5173/404.html>.
+## Rekenen met EC
+
+De calculator accepteert **zowel de komma als de punt**, want een Nederlandse student typt 12,5.
+Een `<input type="number">` gooit een komma weg zonder melding, dus de velden zijn `type="text"` met
+`inputmode="decimal"`: op mobiel krijg je nog steeds een cijfertoetsenbord.
+
+Alles wordt op één decimaal afgerond vlak voor het tonen. Zonder die afronding levert 7,1 + 7,1 + 7,1
+de uitkomst `21.299999999999997` op, en dat leest als een kapotte rekenmachine.
+
+Boven 60 EC per jaar kapt de calculator af, met een regel erbij die dat zegt.
 
 ## Inhoud toevoegen
 
@@ -152,49 +174,57 @@ en vul het in.
   status: "check",
   trefwoorden: ["woorden", "die een student zou typen", "ook verkeerd gespeld"],
   body: `<p>De uitleg in gewone taal.</p>`,
-  bron: { label: "Online services op han.nl", url: "https://www.han.nl/..." }
+  bron: BRON.services
 }
 ```
 
 `categorie` is een van: Systemen, Studiepunten, Campus, Hulp, Meedoen.
 
+`bron` wijst naar een sleutel uit de `BRON`-tabel bovenaan het bestand. Staat de bron die je nodig
+hebt er nog niet in, voeg hem daar toe in plaats van de URL ter plekke uit te schrijven: dan hoef je
+een verhuisde pagina maar op één plek bij te werken.
+
 `status` is voor het team en staat niet op de site:
 
 - `check`: we hebben het opgezocht op een HAN-bron en de link staat in `bron`.
-- `todo`: nog navragen bij een docent. Schrijf dan alleen op wat je zeker weet.
+- `todo`: de tekst klopt met wat we zeker weten, maar de specifieke details moeten nog langs een
+  docent. Schrijf dan alleen op wat zeker is en verwijs naar wie het wel weet.
 
 **Verzin niets, en laat AI niets verzinnen.** Zoek het op bij de HAN en zet de bron erbij.
-Klopt de BSA-norm niet in onze app, dan kost dat iemand een jaar.
+Klopt de doorstroomnorm niet in onze app, dan kan dat iemand studievertraging kosten.
 
-### Nog navragen bij een docent
+### Inhoud onderhouden
 
-- **iSAS**: waar is het precies voor, wat is de officiële link?
-- **ANS**: hoe werkt digitaal toetsen bij ons?
-- **Studievereniging Xtend**: is dit onze vereniging, wat kost het, welke activiteiten?
-- **Buro302**: hoe doe je mee, levert het studiepunten op?
-- **Huisvesting**: is er een officiële HAN-pagina over kamers zoeken?
-- **Werkplekken**: waar zitten ze, wanneer zijn ze open?
-- **Plattegronden**: Ruitenberglaan 26 B- en C-vleugel, en de betekenis van de lokaalcodes.
-
-Zet `status` op `check` en vul `bron` in zodra je het antwoord hebt.
+Controleer bij ieder nieuw studiejaar minimaal het OS/OER, de doorstroomnorm, het jaarrooster en de
+contactroutes. Items met `status: "todo"` blijven bewust algemeen totdat een actuele, openbare bron of
+de opleiding de details heeft bevestigd. Verander zulke tekst niet in een specifieke termijn, ruimte
+of contactpersoon zonder ook de bron bij te werken.
 
 ## Bronnen
 
 - [Online services op han.nl](https://www.han.nl/studeren/onderwijs/studiefaciliteiten/online-services/): systemen, HANaccount, eduroam
-- [ICT voltijd op han.nl](https://www.han.nl/opleidingen/hbo/ict/voltijd/dit-is-je-studie/): EC, BSA, propedeuse, profielen
+- [OS/OER ICT voltijd 2026-2027](https://www.han.nl/opleidingen/hbo/ict/voltijd/praktische-info/bacheloropleiding-ict-voltijd.pdf): persoonlijk studieadvies, doorstroomnorm, EC en propedeuse
 - [Praktische info ICT op han.nl](https://www.han.nl/opleidingen/hbo/ict/voltijd/praktische-info/): adressen
+- [Jaarrooster 2026-2027](https://www.han.nl/studeren/jaarrooster/): periodes, vakanties en lesvrije weken
+- [Studiefaciliteiten](https://www.han.nl/studeren/onderwijs/studiefaciliteiten/): HANcard, printen en CampusStore
+- [Stoppen of switchen](https://www.han.nl/studeren/voltijd/switchen-van-studie/): uitschrijven, collegegeld en DUO
+- [Rechten en plichten](https://www.han.nl/studeren/succesvol-studeren/rechten-plichten/): studentenstatuut, OS/OER en klachten
 - [Succesvol studeren op han.nl](https://www.han.nl/studeren/succesvol-studeren/): hulplijnen
-- [HAN Insite](https://www1.han.nl/insite/): studentenportaal en OS/OER
+- [HAN Insite](https://www1.han.nl/insite/): studentenportaal, OS/OER, jaarrooster
+- [duo.nl](https://duo.nl/): studiefinanciering en studentenreisproduct
+- [113 Zelfmoordpreventie](https://www.113.nl/): acute hulp, dag en nacht
 
-## Werkverdeling
+## Acute hulp
 
-| Rol | Wat je doet in dit project |
-|---|---|
-| Domeinverkenner en factchecker | De open punten hierboven uitzoeken en `kb.js` vullen. Dit is het meeste werk. |
-| Technisch ontwikkelaar | `assistent.js`, `ec-calculator.js` en `hulpwijzer.js`: zoekresultaten testen met echte vragen, trefwoorden bijstellen. |
-| UI-ontwerper | De schermschetsen in `systemen.html`, `studiepunten.html` en `campus.html` uitwerken. |
-| Scenarioschrijver | Het scenario "Maandag, week 3" op de homepage aanscherpen, dat draagt de presentatie. |
-| Projectmanager | `prototype.html` bijhouden en de demo voorbereiden. |
+De site nodigt met trefwoorden als "somber", "eenzaam" en "paniek" uit tot zware vragen. Daarom krijgt
+een acute zoekvraag altijd het acute antwoord bovenaan. Bij het antwoord over de studentenpsycholoog
+staat daarnaast de route voor als het niet kan wachten: huisarts of huisartsenpost, 113
+Zelfmoordpreventie (113 of 0800 0113, dag en nacht), en 112 bij direct gevaar. De hulpwijzer vraagt
+expliciet of hulp kan wachten en toont dezelfde route bij het antwoord "nee".
+
+Die regel staat in `assistent.js` als `ACUTE_REGEL` en in `hulpwijzer.js` als de knoop `acuut`.
+Haal hem er niet uit. Een assistent die alleen "maak een afspraak" zegt, is het verkeerde antwoord
+voor iemand die om elf uur 's avonds typt dat het niet meer gaat.
 
 ## Wat er wordt opgeslagen
 
@@ -203,14 +233,27 @@ in de localStorage van je browser, en de startchecklist onder `handig-checklist`
 en geen account: die gegevens blijven op je eigen apparaat en gaan nergens naartoe. Het klasveld
 vraagt daarom ook expliciet om geen studentnummer in te vullen.
 
-Wissen doe je door de site-gegevens van localhost te verwijderen in je browser.
+Sluit je het instelvenster zonder het af te maken, dan komt het niet elk bezoek terug: dat wordt
+onthouden als `uitgesteld`.
 
-## Spelregels AI
+Dit staat ook voor bezoekers uitgeschreven op `privacy.html`.
+
+## Herkomst van de inhoud
 
 Bij het maken hiervan zijn geen inloggegevens gebruikt of gedeeld, is er geen data uit
-HAN-systemen gehaald en staan er geen echte persoonsgegevens in. Alle voorbeelden gebruiken
-een verzonnen student ("Sam"). Alle studie-informatie is opgezocht op han.nl en Insite.
+HAN-systemen gehaald en staan er geen echte persoonsgegevens in. Alle studie-informatie is
+opgezocht op han.nl en Insite.
 
 Het beeldmateriaal in `assets/img/` is sfeerbeeld dat door AI is gemaakt. Het stelt geen
-bestaand HAN-gebouw voor en er staat geen echt persoon op. Zie `ASSETS.md` voor welke beelden
-het team zelf moet fotograferen.
+bestaand HAN-gebouw voor en er staat geen echt persoon op. Details en bronvermelding staan in
+`ASSETS.md` en op `over.html`.
+
+## Controle voor een nieuwe versie
+
+1. Controleer de actuele studiejaargegevens tegen het OS/OER.
+2. Draai `python sprite.py` en controleer dat alle pagina's dezelfde, geldige iconsprite bevatten.
+3. Controleer alle JavaScript-bestanden in PowerShell met
+   `Get-ChildItem assets/js/*.js | ForEach-Object { node --check $_.FullName }`.
+4. Loop de assistent, EC-calculator, hulpwijzer, onboarding, privacy-wisknop en een diepe 404-URL in
+   de browser na op desktop en mobiel.
+5. Controleer externe links en metadata voordat de site opnieuw wordt gepubliceerd.

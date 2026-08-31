@@ -4,22 +4,22 @@ Alle bestandsnamen en formaten hieronder zijn in de CSS ingebouwd. De bestanden 
 `assets/img/` en zijn allemaal aanwezig: acht hero-achtergronden, vijf tegels en het deelbare
 beeld. Ontbreekt er een, dan valt die plek terug op de donkere gradient en blijft de site werken.
 
-## Status
+De beelden zijn teruggebracht van 3,5 MB naar 1,6 MB: hero's op 1800 x 900 in plaats van
+2400 x 1200, alles opnieuw gecomprimeerd op kwaliteit 78 progressief. Lever nieuwe beelden aan op de
+formaten hieronder en draai ze door dezelfde compressie, anders loopt het gewicht meteen weer op.
+Het zijn CSS-achtergronden, dus `loading="lazy"` kan niet: alles komt bij het openen van de pagina
+binnen.
 
-De huidige beelden zijn door AI gemaakt sfeerbeeld. Ze stellen geen bestaand HAN-gebouw voor en
-er staat geen echt persoon op. Dat is verantwoord in `prototype.html` en in de README.
+## Huidige status
 
-Twee dingen staan nog open:
+De huidige beelden zijn complete AI-sfeerbeelden. Ze stellen geen bestaand HAN-gebouw voor en er
+staat geen echt persoon op. Dat is zichtbaar verantwoord op `over.html` en in de README. Gebruik de
+beelden niet als route- of locatiebewijs; adressen en routes op de site komen uit de tekstbronnen.
 
-- **`hero-campus.jpg` vervangen heeft voorrang.** Daar staat nu een compleet gebouw van
-  buiten op. Op de campuspagina leest dat als "dit is de Ruitenberglaan", terwijl het gebouw
-  verzonnen is. Vervang het door een eigen foto, of door een beeld dat niets specifieks claimt
-  (een trappenhuis, een gevel van binnenuit).
-- **De favicons in grotere maten ontbreken nog**, zie punt 4 hieronder.
+## Richtlijn voor vervangende beelden
 
-## Lees dit eerst: wat je wel en niet mag laten genereren
-
-De opdracht eist dat alle informatie in het prototype echt en opgezocht is. Dat geldt ook voor beeld.
+Alle feitelijke informatie op de site moet echt en opgezocht zijn. Dat geldt ook voor beeld dat een
+specifieke locatie of voorziening lijkt te tonen.
 
 ---
 
@@ -39,7 +39,7 @@ en zet het onderwerp rechts in beeld.
 
 ## 1. Hero-achtergronden (8 stuks)
 
-**Formaat:** 2400 x 1200 px, JPG, liggend 2:1. Onderwerp rechts, links rustig.
+**Formaat:** 1800 x 900 px, JPG, liggend 2:1. Onderwerp rechts, links rustig.
 
 | Bestandsnaam | Onderwerp |
 |---|---|
@@ -83,10 +83,10 @@ Donkere achtergrond in HAN-stijl met veel lege ruimte. Wij zetten er zelf geen t
 het beeldmodel ook geen tekst genereren. Denk aan hetzelfde bureau-onderwerp als `hero-home.jpg`,
 maar rustiger en meer uitgezoomd.
 
-## 4. Favicon in grotere maten (2 stuks)
+## 4. Optionele app-iconen
 
-Het huidige `assets/favicon.png` is 32 x 32. Dat is te klein voor tabbladen op schermen met hoge
-resolutie en voor een snelkoppeling op je telefoon. Nodig:
+Het huidige `assets/favicon.png` is 32 x 32 en werkt als browserfavicon. Voeg alleen grotere iconen toe
+als HANDIG_ later ook als homescreen-app wordt aangeboden:
 
 | Bestandsnaam | Formaat |
 |---|---|
@@ -98,16 +98,19 @@ of vraag een scherpe versie op. Een AI-nabootsing van een bestaand logo wordt wa
 
 ---
 
-## Zelf fotograferen op school
+## Eigen campusfoto's gebruiken
 
-Deze vervangen straks de gegenereerde versies en maken het prototype veel geloofwaardiger:
+Eigen foto's kunnen de sfeerbeelden in een latere versie vervangen:
 
 1. **De ingang van Ruitenberglaan 26** (vervangt `hero-campus.jpg`)
 2. **Een gang in de B- of C-vleugel** met zichtbare lokaalnummering (vervangt `tile-campus.jpg`)
 3. **Een werkplek of stilteplek** waar je echt mag zitten (vervangt `tile-hulp.jpg`)
 4. **De kantine** (los beeld, voor de campuspagina)
-5. **De officiële plattegronden** van de B- en C-vleugel, op te vragen bij de opleiding of de
-   servicebalie. Nu staat er een schematische tekening zonder echte lokaalnummers.
+
+De schematische plattegrond is van de campuspagina gehaald. Die tekening had geen echte
+lokaalnummers en suggereerde een looproute die er niet is, en dat botst met de bronplicht. Wil je
+er alsnog een plattegrond bij, vraag dan de **officiële plattegronden** van de B- en C-vleugel op bij
+de opleiding of de servicebalie.
 
 Let bij foto's op school op: vraag toestemming als er mensen herkenbaar in beeld staan, of
 fotografeer zo dat niemand herkenbaar is. Dat is ook meteen de AVG-regel waar je later in de
@@ -117,6 +120,6 @@ opleiding mee te maken krijgt.
 
 ## Icons: al geregeld
 
-De 44 icons komen van [Iconify](https://iconify.design/), set Tabler, MIT-licentie. Ze staan in
+De 38 icons komen van [Iconify](https://iconify.design/), set Tabler, MIT-licentie. Ze staan in
 `assets/icons/` en zitten als sprite in elke pagina. Daar hoeft niets meer voor gemaakt te worden.
-Zie de README voor hoe je er eentje toevoegt.
+Zie de README voor hoe je er eentje toevoegt; `python sprite.py` zet hem daarna in alle pagina's.

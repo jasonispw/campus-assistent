@@ -6,12 +6,11 @@
     if (!melding) return;
 
     const pad = location.pathname + location.search;
-    if (!pad || pad === "/404.html") return;
+    if (!pad || pad.indexOf("404.html") !== -1) return;
 
     melding.textContent = "Gezocht adres: " + pad;
   }
 
-  // Van /rooster-week-3 maken we "rooster week 3", zodat de assistent meteen iets kan zoeken.
   function zoektermUitAdres() {
     return location.pathname
       .split("/").pop()
@@ -23,7 +22,7 @@
   function zoekAlvast() {
     const form = document.querySelector("[data-assist-form]");
     const input = form && form.querySelector("input");
-    if (!input) return;
+    if (!input || input.disabled) return;
 
     const zoekterm = zoektermUitAdres();
     if (!zoekterm || zoekterm === "404") return;
