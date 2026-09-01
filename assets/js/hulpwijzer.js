@@ -15,7 +15,7 @@
     studie: {
       vraag: "Speelt er iets bijzonders waardoor je studie in de knel komt?",
       opties: [
-        { tekst: "Nee, ik wil gewoon even sparren over mijn studie", naar: "slb" },
+        { tekst: "Nee, ik wil mijn studievoortgang bespreken", naar: "slb" },
         { tekst: "Ja: ziekte, thuissituatie, functiebeperking of iets anders", naar: "bijzonder" }
       ]
     },
@@ -24,14 +24,14 @@
       vraag: "Kan het wachten tot een afspraak?",
       opties: [
         { tekst: "Ja, ik wil er met iemand over praten", naar: "psycholoog" },
-        { tekst: "Nee, het gaat nu echt niet goed met me", naar: "acuut" }
+        { tekst: "Nee, ik heb nu ondersteuning nodig", naar: "acuut" }
       ]
     },
 
     slb: {
-      titel: "Ga naar je studiebegeleider",
+      titel: "Neem contact op met je studiebegeleider",
       tekst: "Je studiebegeleider is je persoonlijke begeleider en het eerste aanspreekpunt binnen de HAN. " +
-        "Plan een gesprek in, hoe eerder hoe beter, ook als je nog niet precies weet wat je wilt vragen.",
+        "Plan tijdig een gesprek. Je hoeft de vraag nog niet volledig te hebben uitgewerkt.",
       links: [
         { label: "Succesvol studeren op han.nl", url: "https://www.han.nl/studeren/succesvol-studeren/" }
       ]
@@ -39,7 +39,7 @@
 
     bijzonder: {
       titel: "Meld bijzondere omstandigheden",
-      tekst: "Meld het altijd, ook als je denkt dat het wel meevalt. Bijzondere omstandigheden kunnen meewegen " +
+      tekst: "Meld bijzondere omstandigheden zo vroeg mogelijk. Deze kunnen meewegen " +
         "in je studieadvies en er zijn regelingen en voorzieningen voor. Begin bij je studiebegeleider en " +
         "schakel de studentendecaan in.",
       links: [
@@ -51,7 +51,7 @@
     psycholoog: {
       titel: "Studentenpsycholoog of Student Support Centrum",
       tekst: "De studentenpsychologen van de HAN helpen bij faalangst, uitstelgedrag, rouwverwerking, " +
-        "somberheid en angstgevoelens. Je hoeft geen groot probleem te hebben om je te melden.",
+        "somberheid en angstgevoelens. Je kunt ook contact opnemen wanneer klachten nog beperkt zijn.",
       links: [
         { label: "Studentenpsychologen op Insite", url: "https://www1.han.nl/insite/studenten/hulp-ondersteuning-training/studentbegeleiding-en-student-support-center/studentenpsychologen/" },
         { label: "Hulp, ondersteuning en training", url: "https://www1.han.nl/insite/studenten/panelnav.xml/hulp-ondersteuning-training/" }
@@ -59,11 +59,11 @@
     },
 
     acuut: {
-      titel: "Zoek nu contact, niet straks",
+      titel: "Neem direct contact op",
       dringend: true,
       tekst: "De begeleiding van de HAN werkt met afspraken en wachttijd. Bel je huisarts, of buiten " +
         "kantooruren de huisartsenpost in je woonplaats; die zijn er ook voor psychische klachten. " +
-        "Wil je meteen iemand spreken, dan is 113 Zelfmoordpreventie dag en nacht bereikbaar op " +
+        "113 Zelfmoordpreventie is dag en nacht bereikbaar op " +
         '<a href="tel:113">113</a> of gratis op <a href="tel:08000113">0800 0113</a>. ' +
         'Bij direct gevaar bel je <a href="tel:112">112</a>.',
       links: [
@@ -84,10 +84,10 @@
     },
 
     ict: {
-      titel: "Check eerst je HANaccount",
+      titel: "Controleer eerst je HANaccount",
       tekst: "Bijna alle systemen (Brightspace, Osiris, MyX, Teams) werken met je HANaccount plus de " +
-        "Microsoft Authenticator-app. Werkt inloggen niet, dan zit het probleem meestal daar. " +
-        "Lukt het daarna nog niet, ga dan naar de ICT-helpdesk van de HAN.",
+        "Microsoft Authenticator-app. Controleer beide wanneer inloggen niet lukt. " +
+        "Neem daarna zo nodig contact op met de ICT-helpdesk van de HAN.",
       links: [
         { label: "Online services op han.nl", url: "https://www.han.nl/studeren/onderwijs/studiefaciliteiten/online-services/" }
       ]
@@ -100,7 +100,7 @@
 
     body.innerHTML =
       '<div class="verdict is-fout"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-alert"></use></svg> ' +
-      "De hulpwijzer doet het even niet. Ververs de pagina om het opnieuw te proberen.</div>";
+      "De hulpwijzer is niet beschikbaar. Ververs de pagina en probeer het opnieuw.</div>";
   }
 
   function icoon(naam) {

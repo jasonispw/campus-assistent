@@ -11,7 +11,7 @@
 
     body.innerHTML =
       '<div class="verdict is-fout"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-alert"></use></svg> ' +
-      "De calculator doet het even niet. Ververs de pagina om het opnieuw te proberen.</div>";
+      "De calculator is niet beschikbaar. Ververs de pagina en probeer het opnieuw.</div>";
   }
 
   function getal(tekst) {
@@ -62,14 +62,14 @@
     oordeel.className = "verdict is-fout";
     oordeel.innerHTML =
       '<svg class="icon" aria-hidden="true" focusable="false"><use href="#i-alert"></use></svg> ' +
-      (fouten === 1 ? "Eén periode klopt niet. " : fouten + " periodes kloppen niet. ") +
+      (fouten === 1 ? "Eén periode bevat een ongeldige waarde. " : fouten + " periodes bevatten een ongeldige waarde. ") +
       "Vul per periode een getal in tussen 0 en " + EC_PER_JAAR + " EC.";
   }
 
   function toonOordeel(oordeel, stand) {
     const staart = stand.afgekapt
       ? ' <span class="verdict__noot">Meer dan ' + EC_PER_JAAR +
-        " EC per jaar kan niet, dus we rekenen met " + EC_PER_JAAR + ".</span>"
+        " EC per jaar is niet mogelijk. De berekening gebruikt daarom " + EC_PER_JAAR + " EC.</span>"
       : "";
 
     if (stand.totaal >= DOORSTROOMNORM) {

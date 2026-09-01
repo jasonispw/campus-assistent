@@ -45,7 +45,7 @@ systemen.html         alle HAN-systemen
 studiepunten.html     EC, studieadvies, doorstroomnorm, propedeuse en de EC-calculator
 campus.html           locaties en je lokaal vinden
 hulp.html             hulplijnen en de hulpwijzer
-meedoen.html          studievereniging, Buro302, wonen
+meedoen.html          studievereniging, praktijkopdrachten, wonen
 over.html             verantwoording, bronnen en colofon
 privacy.html          wat er lokaal wordt opgeslagen en hoe je het wist
 404.html              pagina niet gevonden
@@ -187,8 +187,8 @@ een verhuisde pagina maar op één plek bij te werken.
 `status` is voor het team en staat niet op de site:
 
 - `check`: we hebben het opgezocht op een HAN-bron en de link staat in `bron`.
-- `todo`: de tekst klopt met wat we zeker weten, maar de specifieke details moeten nog langs een
-  docent. Schrijf dan alleen op wat zeker is en verwijs naar wie het wel weet.
+- `todo`: de openbare bron ontbreekt nog. Houd de tekst algemeen en laat een detail eerst door de
+  opleiding bevestigen.
 
 **Verzin niets, en laat AI niets verzinnen.** Zoek het op bij de HAN en zet de bron erbij.
 Klopt de doorstroomnorm niet in onze app, dan kan dat iemand studievertraging kosten.
@@ -196,7 +196,7 @@ Klopt de doorstroomnorm niet in onze app, dan kan dat iemand studievertraging ko
 ### Inhoud onderhouden
 
 Controleer bij ieder nieuw studiejaar minimaal het OS/OER, de doorstroomnorm, het jaarrooster en de
-contactroutes. Items met `status: "todo"` blijven bewust algemeen totdat een actuele, openbare bron of
+contactroutes. Nieuwe items met `status: "todo"` blijven bewust algemeen totdat een actuele, openbare bron of
 de opleiding de details heeft bevestigd. Verander zulke tekst niet in een specifieke termijn, ruimte
 of contactpersoon zonder ook de bron bij te werken.
 
@@ -204,9 +204,14 @@ of contactpersoon zonder ook de bron bij te werken.
 
 - [Online services op han.nl](https://www.han.nl/studeren/onderwijs/studiefaciliteiten/online-services/): systemen, HANaccount, eduroam
 - [OS/OER ICT voltijd 2026-2027](https://www.han.nl/opleidingen/hbo/ict/voltijd/praktische-info/bacheloropleiding-ict-voltijd.pdf): persoonlijk studieadvies, doorstroomnorm, EC en propedeuse
-- [Praktische info ICT op han.nl](https://www.han.nl/opleidingen/hbo/ict/voltijd/praktische-info/): adressen
+- [Praktische info ICT op han.nl](https://www.han.nl/opleidingen/hbo/ict/voltijd/praktische-info/): adressen, iSAS, ziekmelden, Xtend en wonen
 - [Jaarrooster 2026-2027](https://www.han.nl/studeren/jaarrooster/): periodes, vakanties en lesvrije weken
 - [Studiefaciliteiten](https://www.han.nl/studeren/onderwijs/studiefaciliteiten/): HANcard, printen en CampusStore
+- [Diensten van de HAN Bibliotheken](https://www.han.nl/over-de-han/organisatie/bedrijfsonderdelen/bibliotheek/diensten/): studentwerkplekken
+- [Digitale toetsing](https://www.han.nl/onderwijsondersteuning/leren-werken-met-ict/toetsing/): Ans
+- [Goed bestuur](https://www.han.nl/over-de-han/organisatie/bestuur/goed-bestuur/): vertrouwenspersonen en klachten
+- [ICT voltijd](https://www.han.nl/opleidingen/hbo/ict/voltijd/): praktijkopdrachten en echte opdrachtgevers
+- [Praktische info CMD](https://www.han.nl/opleidingen/hbo/communication-multimedia-design/voltijd/praktische-info/): B302 als praktijkwerk voor CMD-studenten
 - [Stoppen of switchen](https://www.han.nl/studeren/voltijd/switchen-van-studie/): uitschrijven, collegegeld en DUO
 - [Rechten en plichten](https://www.han.nl/studeren/succesvol-studeren/rechten-plichten/): studentenstatuut, OS/OER en klachten
 - [Succesvol studeren op han.nl](https://www.han.nl/studeren/succesvol-studeren/): hulplijnen
@@ -241,12 +246,13 @@ Dit staat ook voor bezoekers uitgeschreven op `privacy.html`.
 ## Herkomst van de inhoud
 
 Bij het maken hiervan zijn geen inloggegevens gebruikt of gedeeld, is er geen data uit
-HAN-systemen gehaald en staan er geen echte persoonsgegevens in. Alle studie-informatie is
-opgezocht op han.nl en Insite.
+HAN-systemen gehaald en staan er geen echte persoonsgegevens in. Opleidingsinformatie is gecontroleerd
+via officiële HAN-bronnen. Voor onderwerpen buiten de HAN gebruiken we de verantwoordelijke officiële bron.
 
-Het beeldmateriaal in `assets/img/` is sfeerbeeld dat door AI is gemaakt. Het stelt geen
-bestaand HAN-gebouw voor en er staat geen echt persoon op. Details en bronvermelding staan in
-`ASSETS.md` en op `over.html`.
+De website gebruikt foto's van officiële HAN-pagina's. De foto's zijn lokaal opgeslagen en per
+bestand gekoppeld aan hun bronpagina. Het auteursrecht blijft bij de HAN en de oorspronkelijke
+rechthebbenden. Controleer vóór publicatie of toestemming en naamsvermelding nodig zijn. Details
+staan in `ASSETS.md` en op `over.html`.
 
 ## Controle voor een nieuwe versie
 

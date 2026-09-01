@@ -220,12 +220,12 @@
 
   function geenAntwoordHtml(vraag) {
     const term = normaliseer(vraag);
-    const over = term ? "Over <code>" + term + "</code> staat" : "Daarover staat";
+    const over = term ? "Voor <code>" + term + "</code> bevat" : "Hiervoor bevat";
 
     return '<div class="assist__empty">' +
-      '<h3><svg class="icon icon--pink" aria-hidden="true" focusable="false"><use href="#i-info"></use></svg> Daar heb ik geen antwoord op</h3>' +
-      "<p>" + over + " niets in de assistent. " +
-      "Probeer andere woorden, of ga rechtstreeks naar:</p>" +
+      '<h3><svg class="icon icon--pink" aria-hidden="true" focusable="false"><use href="#i-info"></use></svg> Geen resultaat gevonden</h3>' +
+      "<p>" + over + " de assistent geen informatie. " +
+      "Formuleer de vraag anders of raadpleeg een van deze contactroutes:</p>" +
       "<ul>" +
       "<li>Je studiebegeleider, je eerste aanspreekpunt bij de opleiding.</li>" +
       '<li><a href="https://www1.han.nl/insite/" target="_blank" rel="noopener">HAN Insite</a> ' +
@@ -237,14 +237,13 @@
 
   function beginHtml() {
     return '<div class="assist__empty">' +
-      "<p>Klik op een voorbeeldvraag hierboven, of typ je eigen vraag.</p></div>";
+      "<p>Kies een voorbeeldvraag of voer je eigen vraag in.</p></div>";
   }
 
   function storingHtml() {
     return '<div class="assist__empty">' +
-      '<h3><svg class="icon icon--pink" aria-hidden="true" focusable="false"><use href="#i-alert"></use></svg> De assistent is even niet beschikbaar</h3>' +
-      "<p>Er ging iets mis bij het laden. Ververs de pagina, of gebruik het menu bovenaan om " +
-      "rechtstreeks naar een onderwerp te gaan.</p>" +
+      '<h3><svg class="icon icon--pink" aria-hidden="true" focusable="false"><use href="#i-alert"></use></svg> De assistent is niet beschikbaar</h3>' +
+      "<p>De informatie kon niet worden geladen. Ververs de pagina of open een onderwerp via het menu.</p>" +
       '<p><a class="btn btn--outline btn--sm" href="systemen.html">Bekijk alle onderwerpen ' +
       '<svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-right"></use></svg></a></p></div>';
   }
@@ -273,7 +272,7 @@
       clearTimeout(bezig);
       resultaten.setAttribute("aria-busy", "false");
       resultaten.innerHTML = beginHtml();
-      if (teller) teller.textContent = "klaar voor je vraag";
+      if (teller) teller.textContent = "beschikbaar";
     }
 
     function toon(vraag) {
