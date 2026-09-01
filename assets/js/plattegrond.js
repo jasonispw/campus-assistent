@@ -273,8 +273,8 @@
     {
       letter: "A",
       naam: "A-vleugel",
-      x: 300, y: 375,
-      gebied: "M97 324L257 324L305 295L413 295L470 380L512 494L257 513L97 456Z",
+      x: 340, y: 403,
+      gebied: "M454 369L450 357L462 354L480 349L526 337L541 333L588 321L595 319L601 318L602 317L599 307L648 294L639 258L456 306L403 292L351 304L351 305L354 316L333 320L335 328L312 333L304 299L262 309L270 344L234 353L191 364L185 366L193 398L115 394L114 410L116 430L119 443L122 453L127 468L131 475L134 483L139 490L153 482L276 421L360 399L361 407L366 414L373 419L382 419L390 414L394 407L394 398L392 391L410 386L423 423L465.942 403.021L455 373Z",
       regels: [
         "De centrale hal, met de receptie en de hoofdingang.",
         "Aangepast toilet bij A0.206.",
@@ -285,8 +285,8 @@
     {
       letter: "B",
       naam: "B-vleugel",
-      x: 400, y: 110,
-      gebied: "M257 3L606 3L588 191L413 210L408 305L300 305L290 191Z",
+      x: 419, y: 123,
+      gebied: "M456 306L445 263L438 235L433 215L407 222L400 196L490 182L491 188L543 180L513 115L508 117L468 31L332 53L331 47L280 55L289 114L295 113L311 211L382 200L384 212L403 292Z",
       regels: [
         "ICT heeft hier les, samen met de C-vleugel.",
         "Het B-gebouw heeft 2 liften.",
@@ -297,8 +297,8 @@
     {
       letter: "C",
       naam: "C-vleugel",
-      x: 580, y: 470,
-      gebied: "M451 390L752 371L766 522L517 560Z",
+      x: 610, y: 443,
+      gebied: "M543 537L551 533L562 528L566 537L576 558L729 484L727 478L718 453L724 450L725 448L721 437L717 436L713 438L702 407L701 405L696 407L516.9 471.724Z",
       regels: [
         "ICT heeft hier les, samen met de B-vleugel.",
         "1 lift naar alle verdiepingen.",
@@ -308,8 +308,8 @@
     {
       letter: "D",
       naam: "D-vleugel",
-      x: 540, y: 600,
-      gebied: "M456 531L550 512L682 739L512 777Z",
+      x: 569, y: 624,
+      gebied: "M345 625L465 581L464 578L478 573L557 738L624 705L595 645L589 633L543 537L516.9 471.724L494 480L465.942 403.021L423 423L411 427L416 443L413 444L424 476L428 475L433 491L445 486L463 535L421 550L417 538L401 544L400 540L368 552L369 556L354 561L358 573L335 582Z",
       regels: [
         "1 lift naar alle verdiepingen.",
         "Aangepast toilet bij D1.80."
@@ -318,8 +318,8 @@
     {
       letter: "E",
       naam: "E-vleugel",
-      x: 250, y: 620,
-      gebied: "M97 456L257 513L474 551L493 607L305 739L135 683Z",
+      x: 284, y: 638,
+      gebied: "M153 482L182 529L201 557L215 553L223 575L235 571L245 598L203 613L226 679L349 635L345 625L335 582L276 421Z",
       regels: [
         "1 lift naar alle verdiepingen.",
         "Deze vleugel heeft geen aangepast toilet.",
@@ -329,8 +329,8 @@
     {
       letter: "F",
       naam: "F-vleugel",
-      x: 124, y: 140,
-      gebied: "M4 3L248 3L253 333L135 333L4 277Z",
+      x: 124, y: 142,
+      gebied: "M234 353L234 350L233 351L214 233L213 226L215 226L217 225L187 39L126 49L108 52L107 51L105 49L101 48L95 47L88 48L81 49L75 52L72 54L70 57L70 58L44 62L36 63L31 64L49 175L53 174L57 202L53 202L58 232L61 250L170 233L191 364Z",
       regels: [
         "1 lift naar alle verdiepingen.",
         "Aangepaste toiletten bij F.3.74, F2.67, F1.42 en F0.2.05.",
@@ -596,6 +596,7 @@
     knipvorm.setAttribute("clip-rule", "evenodd");
     knip.appendChild(knipvorm);
     defs.appendChild(knip);
+
     svg.appendChild(defs);
 
     const grond = pad(kaart.d, "vleugelkaart__grond");
@@ -614,10 +615,14 @@
       if (!vleugel) return;
 
       zones.querySelectorAll("[data-zone]").forEach(function (zone) {
-        zone.classList.toggle("is-actief", zone.getAttribute("data-zone") === letter);
+        const actief = zone.getAttribute("data-zone") === letter;
+        zone.classList.toggle("is-actief", actief);
+        zone.setAttribute("aria-pressed", String(actief));
       });
       merken.querySelectorAll("[data-vleugel]").forEach(function (merk) {
-        merk.classList.toggle("is-actief", merk.getAttribute("data-vleugel") === letter);
+        const actief = merk.getAttribute("data-vleugel") === letter;
+        merk.classList.toggle("is-actief", actief);
+        merk.setAttribute("aria-pressed", String(actief));
       });
 
       let html = "<h3>" + veilig(vleugel.naam) + "</h3><ul class=\"paneel__lijst\">";
@@ -630,6 +635,15 @@
     R26_VLEUGELS.forEach(function (vleugel) {
       const zone = pad(vleugel.gebied, "zone");
       zone.setAttribute("data-zone", vleugel.letter);
+      zone.setAttribute("tabindex", "0");
+      zone.setAttribute("role", "button");
+      zone.setAttribute("aria-label", vleugel.naam);
+      zone.addEventListener("click", function () { kies(vleugel.letter); });
+      zone.addEventListener("keydown", function (e) {
+        if (e.key !== "Enter" && e.key !== " ") return;
+        e.preventDefault();
+        kies(vleugel.letter);
+      });
       zones.appendChild(zone);
     });
 

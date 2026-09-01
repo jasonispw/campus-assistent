@@ -548,14 +548,21 @@ th .icon { flex: none; }
 }
 .vleugelkaart__svg { width: auto; max-width: 100%; max-height: 620px; }
 .vleugelkaart__grond { fill: #cfcfcf; stroke: var(--han-black); stroke-width: 2; }
-.zone { fill: var(--han-pink); fill-opacity: 0; pointer-events: none; transition: fill-opacity .15s; }
-.zone.is-actief { fill-opacity: .9; }
-
+.zone {
+  fill: var(--han-pink); fill-opacity: 0; stroke: transparent; stroke-width: 0;
+  pointer-events: visiblePainted; cursor: pointer;
+  transition: fill .22s ease, fill-opacity .22s ease, stroke .22s ease, stroke-width .22s ease;
+}
+.zone:hover { fill: var(--han-pink-dark); fill-opacity: .32; }
+.zone.is-actief,
+.zone.is-actief:hover { fill: var(--han-pink); fill-opacity: .9; }
+.zone:focus { outline: none; }
+.zone:focus-visible { stroke: var(--han-black); stroke-width: 6; }
 .vleugelmerk-kaart { cursor: pointer; }
-.vleugelmerk-kaart rect { fill: var(--han-black); }
+.vleugelmerk-kaart rect { fill: var(--han-black); transition: fill .22s ease, stroke .22s ease; }
 .vleugelmerk-kaart text {
   fill: #fff; font-family: var(--font-head); font-weight: 700; font-size: 26px;
-  text-anchor: middle;
+  text-anchor: middle; transition: fill .22s ease;
 }
 .vleugelmerk-kaart:hover rect { fill: var(--han-pink-dark); }
 .vleugelmerk-kaart.is-actief rect { fill: #fff; stroke: var(--han-black); stroke-width: 3; }
@@ -563,6 +570,7 @@ th .icon { flex: none; }
 .vleugelmerk-kaart:focus { outline: none; }
 .vleugelmerk-kaart:focus-visible rect { stroke: var(--han-pink); stroke-width: 4; }
 
+.ingang { pointer-events: none; }
 .ingang__stip { fill: var(--ok); stroke: #fff; stroke-width: 3; }
 
 .vleugelkaart__paneel { padding: var(--space-lg); }
