@@ -45,3 +45,5 @@ werden nergens meer gebruikt en zijn terug te halen uit de git-geschiedenis.
 
 De iconen komen uit de Tabler-set via [Iconify](https://iconify.design/) en vallen onder de
 MIT-licentie. De SVG-symbolen staan in `assets/icons/` en in de sprite van iedere HTML-pagina.
+Het icoon `message.svg` van de assistentknop komt niet uit die set: het is in dezelfde stijl
+getekend voor HANDIG_ zelf.

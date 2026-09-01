@@ -20,15 +20,13 @@
   }
 
   function zoekAlvast() {
-    const form = document.querySelector("[data-assist-form]");
-    const input = form && form.querySelector("input");
-    if (!input || input.disabled) return;
+    const assistent = window.HANDIG && window.HANDIG.assistent;
+    if (!assistent) return;
 
     const zoekterm = zoektermUitAdres();
     if (!zoekterm || zoekterm === "404") return;
 
-    input.value = zoekterm;
-    form.dispatchEvent(new Event("submit", { cancelable: true }));
+    assistent.vraag(zoekterm);
   }
 
   document.addEventListener("DOMContentLoaded", function () {

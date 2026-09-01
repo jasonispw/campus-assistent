@@ -80,19 +80,18 @@ geen dependencies en geen backend. Dat draait overal, blijft eenvoudig te behere
 afhankelijkheden die apart gebouwd of bijgewerkt moeten worden.
 
 ```
-index.html            assistent, startchecklist en de tegels naar de onderwerpen
+index.html            hero, startchecklist en de tegels naar de onderwerpen
 systemen.html         alle HAN-systemen
 studiepunten.html     EC, studieadvies, doorstroomnorm, propedeuse en de EC-calculator
-campus.html           locaties en je lokaal vinden
+campus.html           de Lokaalzoeker en de voorzieningen op de campus
 hulp.html             hulplijnen en de hulpwijzer
 meedoen.html          studievereniging, praktijkopdrachten, wonen
 over.html             verantwoording, bronnen en colofon
-lokaalzoeker.html     lokaalcode omzetten naar gebouw, vleugel en verdieping
 plattegrond.html      interactieve campuskaart
 privacy.html          wat er lokaal wordt opgeslagen en hoe je het wist
 404.html              pagina niet gevonden
 
-sitemap.xml           de tien publieke pagina's, zonder 404 en assets
+sitemap.xml           de negen publieke pagina's, zonder 404 en assets
 robots.txt            geeft alles vrij en wijst naar de sitemap
 llms.txt              korte beschrijving en de belangrijkste links, voor taalmodellen
 .nojekyll             zet Jekyll-verwerking op GitHub Pages uit
@@ -108,7 +107,7 @@ Drie bestanden, van breed naar specifiek. Elke pagina laadt ze alle drie, in dez
 ```
 assets/css/base.css        kleuren, spacing, typografie, reset en een paar utility-klassen
 assets/css/layout.css      container, secties, grid, header, navigatie, hero en footer
-assets/css/components.css  knoppen, kaarten, tegels, assistent, widgets, wizard, checklist
+assets/css/components.css  knoppen, kaarten, tegels, chatvenster, widgets, wizard, checklist
 ```
 
 Namen volgen BEM: `.card`, `.card__icon`, `.card__foot`, `.tile--campus`. Losse waarden die vaker
@@ -120,10 +119,10 @@ Eén bestand per verantwoordelijkheid. Pagina's laden alleen wat ze nodig hebben
 
 ```
 assets/js/kb.js               de kennisbank, hier staat alle inhoud
-assets/js/assistent.js        zoekalgoritme en het tonen van antwoorden
+assets/js/assistent.js        het chatvenster, het zoekalgoritme en het tonen van antwoorden
 assets/js/ec-calculator.js    de EC-calculator op studiepunten.html
 assets/js/hulpwijzer.js       de beslisboom op hulp.html
-assets/js/lokaalzoeker.js     leest een lokaalcode en zet die om naar gebouw, vleugel, verdieping en deur
+assets/js/lokaalzoeker.js     de Lokaalzoeker op campus.html: van lokaalcode naar gebouw, vleugel, verdieping en deur
 assets/js/plattegrond.js      tekent de campuskaart, de vleugelkaart en de vleugelwijzer
 assets/js/plattegrond-geo.js  coördinaten en contouren achter de campuskaart, uit het gebouwenregister
 assets/js/onboarding.js       instelvenster, profielchip en startchecklist
@@ -147,6 +146,39 @@ werkwoorden weer aan elkaar, zodat "hoe schrijf ik me uit" het trefwoord "uitsch
 
 Nieuwe trefwoorden altijd testen tegen vragen die al werkten: een te algemeen woord duikt overal op.
 
+## Hoe de assistent werkt
+
+De assistent is een chatvenster dat op elke pagina rechtsonder staat. `assistent.js` bouwt het venster
+zelf op en zet het onderaan de `<body>`; geen enkele pagina heeft er markup voor nodig. Alleen `kb.js`
+en `assistent.js` moeten geladen zijn.
+
+Een gesprek loopt zo: het venster begint met een groet en een paar voorbeeldvragen, je vraag komt als
+zwarte bel rechts te staan, en na de typindicator volgt het antwoord uit de kennisbank met de bron
+erbij. Van de drie beste treffers toont de assistent er één, de andere twee komen als knop onder het
+antwoord te staan, aangevuld met onderwerpen uit dezelfde categorie. Zo blijft een antwoord één
+antwoord in plaats van een lijst waaruit je zelf moet kiezen. Bij een vraag uit `CRISIS` verschijnt
+alleen het antwoord over acute hulp, zonder vervolgknoppen.
+
+Het gesprek leeft in het geheugen van de pagina. Er gaat niets naar een server en er wordt niets
+opgeslagen, dus bij het openen van een andere pagina begint de assistent opnieuw.
+
+Andere scripts en pagina's sturen de assistent aan met data-attributen en een kleine API:
+
+```
+data-assist-open   knop of link die het venster opent
+data-assist-chip   knop die het venster opent en meteen die vraag stelt
+data-assist-tip    pagina waar na negen seconden de tekstballon bij de knop verschijnt
+```
+
+```js
+window.HANDIG.assistent.open();
+window.HANDIG.assistent.sluit();
+window.HANDIG.assistent.vraag("waar vind ik mijn rooster");
+```
+
+Een link met `data-assist-open` houdt zijn `href` naar `index.html`. Werkt het script niet, dan volgt
+de browser die link in plaats van een knop te tonen die niets doet.
+
 ## Hoe de campuskaart werkt
 
 `plattegrond.js` tekent twee kaarten in SVG: de campuskaart met de gebouwomtrekken uit
@@ -158,9 +190,10 @@ omtrekken zelf komen uit het officiële gebouwenregister van Nederland en staan 
 ## Icons
 
 Alle icons komen van [Iconify](https://iconify.design/), set Tabler (MIT-licentie), plus één
-animatie-icoon uit svg-spinners voor de laadindicator. De 38 SVG-symbolen staan als sprite inline in
-elke pagina, vlak voor de scripts. Een los `sprite.svg` met `<use href="sprite.svg#i-x">` zou de
-herhaling weghalen, maar werkt niet vanaf `file://`.
+animatie-icoon uit svg-spinners en `i-message` voor de assistentknop, dat in dezelfde stijl is
+getekend. De 45 SVG-symbolen staan als sprite inline in elke pagina, vlak voor de scripts. Een los
+`sprite.svg` met `<use href="sprite.svg#i-x">` zou de herhaling weghalen, maar werkt niet vanaf
+`file://`.
 
 `assets/icons/sprite.html` is de bron. Gebruiken doe je zo:
 
@@ -195,8 +228,8 @@ totaal en de urenschatting op nul in plaats van de vorige uitkomst te laten staa
 in de hulpwijzer valt terug op de eerste vraag. Weigert localStorage te schrijven, bijvoorbeeld in
 een privévenster of bij volle opslag, dan krijgt de gebruiker dat te zien in plaats van dat zijn
 vinkjes stilletjes verdwijnen. Crasht een widget, dan toont alleen die widget een melding en blijft
-de rest van de pagina werken. Bij een onbekende URL vult `404.html` de zoekterm alvast in op basis
-van het adres.
+de rest van de pagina werken. Bij een onbekende URL opent `404.html` de assistent met de zoekterm
+uit het adres.
 
 ## Rekenen met EC
 

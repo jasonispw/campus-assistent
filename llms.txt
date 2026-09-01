@@ -6,11 +6,10 @@ De site is statisch, Nederlandstalig en bewaart alleen instellingen in de localS
 
 ## Pagina's
 
-- [Assistent](https://jasonispw.github.io/campus-assistent/): startpagina met zoekvraag en doorverwijzing naar het juiste onderwerp
+- [Startpagina](https://jasonispw.github.io/campus-assistent/): startchecklist voor de eerste weken en doorverwijzing naar de onderwerpen; de assistent staat als chatvenster op elke pagina
 - [Systemen](https://jasonispw.github.io/campus-assistent/systemen.html): waar Brightspace, Osiris, MyX, Teams, Outlook, Insite, iSAS en Ans voor dienen
 - [Studiepunten](https://jasonispw.github.io/campus-assistent/studiepunten.html): uitleg over EC, de doorstroomnorm van 40 EC, de propedeuse en een EC-calculator
-- [Campus](https://jasonispw.github.io/campus-assistent/campus.html): adressen van de opleiding ICT in Arnhem en Nijmegen
-- [Lokaalzoeker](https://jasonispw.github.io/campus-assistent/lokaalzoeker.html): een HAN-lokaalcode omzetten naar gebouw, vleugel en verdieping
+- [Campus](https://jasonispw.github.io/campus-assistent/campus.html): de Lokaalzoeker die een lokaalcode omzet naar gebouw, vleugel en verdieping, plus de werkplekken op de campus
 - [Plattegrond](https://jasonispw.github.io/campus-assistent/plattegrond.html): interactieve kaart van de campus met gebouwen, liften en toiletten
 - [Hulp](https://jasonispw.github.io/campus-assistent/hulp.html): studiebegeleider, studentendecaan, studentenpsycholoog en het Student Support Centrum
 - [Meedoen](https://jasonispw.github.io/campus-assistent/meedoen.html): studievereniging Xtend, praktijkopdrachten en op kamers gaan

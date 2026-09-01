@@ -111,5 +111,5 @@ li { margin-bottom: .35em; }
 }
 
 @media print {
-  .topbar, .footer, .hero__actions { display: none; }
+  .topbar, .footer, .hero__actions, .chat { display: none; }
 }

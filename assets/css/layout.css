@@ -52,11 +52,11 @@
 .wordmark .mark,
 .wordmark .cursor { color: var(--han-pink); }
 
-.topnav { margin-left: auto; }
-.topnav ul { display: flex; gap: 4px; list-style: none; margin: 0; padding: 0; }
+.topnav { flex: 1; }
+.topnav ul { display: flex; justify-content: space-evenly; gap: 2px; list-style: none; margin: 0; padding: 0; }
 .topnav a {
-  display: block; padding: 10px 14px; color: #fff; text-decoration: none;
-  font-weight: 600; font-size: .9375rem; border-bottom: 3px solid transparent;
+  display: block; padding: 10px 18px; color: #fff; text-decoration: none;
+  font-weight: 600; font-size: 1rem; border-bottom: 3px solid transparent;
 }
 .topnav a:hover { color: #fff; background: rgba(255,255,255,.08); }
 .topnav a[aria-current="page"] { border-bottom-color: var(--han-pink); }
@@ -101,9 +101,8 @@
 .hero::before {
   content: ""; position: absolute; inset: 0;
   background:
-    linear-gradient(90deg, rgba(20,20,20,.94) 0%, rgba(20,20,20,.72) 55%, rgba(20,20,20,.45) 100%),
-    radial-gradient(120% 90% at 78% 15%, rgba(229,0,86,.45), transparent 60%),
-    repeating-linear-gradient(115deg, rgba(255,255,255,.03) 0 2px, transparent 2px 9px);
+    linear-gradient(90deg, rgba(20,20,20,.82) 0%, rgba(20,20,20,.45) 52%, rgba(20,20,20,.08) 100%),
+    radial-gradient(120% 90% at 78% 15%, rgba(229,0,86,.18), transparent 62%);
 }
 .hero > * { position: relative; }
 .hero h1 { margin-bottom: 16px; max-width: 16ch; }
@@ -114,14 +113,28 @@
 .hero--compact { padding-block: clamp(40px, 6vw, 72px); }
 .hero--compact h1 { font-size: clamp(2.25rem, 5vw, 3.75rem); }
 
-.hero--index    { background-image: url("../img/han-ict-groepswerk.jpg"); }
-.hero--systemen { background-image: url("../img/han-ict-les-laptops.jpg"); }
-.hero--punten   { background-image: url("../img/han-ict-collegezaal.jpg"); }
-.hero--campus   { background-image: url("../img/han-ruitenberglaan-26.jpg"); }
-.hero--hulp     { background-image: url("../img/han-studiebegeleiding.jpg"); }
-.hero--meedoen  { background-image: url("../img/han-studenten-r26.jpg"); }
-.hero--over     { background-image: url("../img/han-ict-programmeerlab.jpg"); }
-.hero--404      { background-image: url("../img/han-studenten-trap-r26.jpg"); }
+.hero--vol {
+  display: grid; align-content: center;
+  min-height: calc(100vh - var(--nav-height));
+  min-height: calc(100svh - var(--nav-height));
+}
+
+.hero--index    { background-image: url("../img/han-ict-groepswerk.jpg?v=20260901group4k"); }
+.hero--systemen { background-image: url("../img/han-ict-les-laptops.jpg?v=20260901ai4k"); }
+.hero--punten   { background-image: url("../img/han-ict-collegezaal.jpg?v=20260901ai4k"); }
+.hero--campus   { background-image: url("../img/han-ruitenberglaan-26.jpg?v=20260901ai4k"); background-position: 50% 32%; }
+.hero--hulp     { background-image: url("../img/han-studiebegeleiding.jpg?v=20260901ai4k"); background-position: 62% 12%; }
+.hero--meedoen  { background-image: url("../img/han-studenten-r26.jpg?v=20260901ai4k"); background-position: 50% 10%; }
+.hero--over     { background-image: url("../img/han-ict-programmeerlab.jpg?v=20260901ai4k"); }
+.hero--404      { background-image: url("../img/han-studenten-trap-r26.jpg?v=20260901ai4k"); }
+
+@media (max-width: 700px) {
+  .hero::before {
+    background:
+      linear-gradient(180deg, rgba(20,20,20,.5) 0%, rgba(20,20,20,.72) 100%),
+      radial-gradient(120% 90% at 78% 15%, rgba(229,0,86,.18), transparent 62%);
+  }
+}
 
 
 .footer { background: var(--han-black); color: #c9c9c9; padding-block: 48px 32px; }

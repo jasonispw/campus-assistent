@@ -98,6 +98,17 @@
     return delen.join(" · ");
   }
 
+  function profielChipTekst(profiel) {
+    const delen = [];
+
+    if (profiel.locatie && LOCATIES[profiel.locatie]) delen.push(LOCATIES[profiel.locatie].naam);
+
+    if (profiel.opleiding === "ict-voltijd" || profiel.opleiding === "ict-deeltijd") delen.push("ICT");
+    else if (profiel.opleiding === "anders") delen.push("HAN");
+
+    return delen.join(" · ");
+  }
+
   let concept = {};
   let stapIndex = 0;
   let overlay = null;
@@ -431,7 +442,7 @@
 
     if (profiel && profiel.ingesteld) {
       houder.innerHTML = '<button type="button" class="profielchip" data-onboarding-chip>' +
-        icoon("i-user") + "<span>" + veilig(profielTekst(profiel)) + "</span></button>";
+        icoon("i-user") + "<span>" + veilig(profielChipTekst(profiel)) + "</span></button>";
     } else {
       houder.innerHTML = '<button type="button" class="profielchip profielchip--leeg" data-onboarding-chip>' +
         icoon("i-user") + "Stel HANDIG_ in</button>";

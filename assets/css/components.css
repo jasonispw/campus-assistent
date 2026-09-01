@@ -65,15 +65,15 @@
 .tile__arrow { position: absolute; right: 22px; bottom: 22px; width: 1.75rem; height: 1.75rem; color: #fff; }
 .tile:hover .tile__arrow { color: var(--han-pink); }
 
-.tile--systemen { background-image: url("../img/han-ict-les-laptops.jpg"); }
-.tile--punten   { background-image: url("../img/han-ict-collegezaal.jpg"); }
-.tile--campus   { background-image: url("../img/han-ruitenberglaan-26.jpg"); }
-.tile--hulp     { background-image: url("../img/han-student-support.jpg"); }
-.tile--meedoen  { background-image: url("../img/han-campus-nijmegen.jpg"); }
-.tile--start    { background-image: url("../img/han-studieplek.jpg"); }
-.tile--rekenen  { background-image: url("../img/han-ict-collegezaal.jpg"); }
-.tile--over     { background-image: url("../img/han-ict-programmeerlab.jpg"); }
-.tile--plattegrond { background-image: url("../img/han-campus-nijmegen.jpg"); }
+.tile--systemen { background-image: url("../img/han-ict-les-laptops.jpg?v=20260901ai4k"); }
+.tile--punten   { background-image: url("../img/han-ict-collegezaal.jpg?v=20260901ai4k"); }
+.tile--campus   { background-image: url("../img/han-ruitenberglaan-26.jpg?v=20260901ai4k"); }
+.tile--hulp     { background-image: url("../img/han-student-support.jpg?v=20260901ai4k"); }
+.tile--meedoen  { background-image: url("../img/han-campus-nijmegen.jpg?v=20260901ai4k"); }
+.tile--start    { background-image: url("../img/han-studieplek.jpg?v=20260901ai4k"); }
+.tile--rekenen  { background-image: url("../img/han-ict-collegezaal.jpg?v=20260901ai4k"); }
+.tile--over     { background-image: url("../img/han-ict-programmeerlab.jpg?v=20260901ai4k"); }
+.tile--plattegrond { background-image: url("../img/han-campus-nijmegen.jpg?v=20260901ai4k"); }
 
 
 .assist,
@@ -91,20 +91,8 @@
 .assist__head strong { font-size: 1.25rem; }
 .widget__head strong { font-size: 1.125rem; }
 
+.assist__body,
 .widget__body { padding: var(--space-md); }
-
-.assist__form { display: flex; border-bottom: 1px solid var(--han-line); }
-.assist__form input {
-  flex: 1; border: 0; padding: var(--space-md); font-family: var(--font-body); font-size: 1.0625rem;
-  background: #fff; color: var(--han-black); min-width: 0;
-}
-.assist__form input::placeholder { color: var(--han-gray-mid); }
-.assist__form button { border-radius: 0; }
-
-.assist__results { padding: var(--space-md); min-height: 120px; }
-.assist__empty { color: var(--han-gray); }
-.assist__empty h3 { color: var(--han-black); }
-.assist__empty code { background: var(--han-bg-alt); padding: 2px 6px; }
 
 .chips { display: flex; flex-wrap: wrap; gap: var(--space-xs); padding: 14px var(--space-md); background: var(--han-bg-soft); }
 .chip {
@@ -126,12 +114,6 @@
 .answer .bron a { font-weight: 600; text-decoration: none; }
 .answer .bron a:hover { text-decoration: underline; }
 
-.laden {
-  display: flex; align-items: center; gap: var(--space-sm);
-  color: var(--han-gray); font-size: .9375rem; padding: var(--space-sm) 0;
-}
-.spinner { width: 24px; height: 24px; flex: none; color: var(--han-pink); }
-
 
 .table-wrap { overflow-x: auto; }
 table { width: 100%; border-collapse: collapse; font-size: .9375rem; }
@@ -143,14 +125,22 @@ th .icon { flex: none; }
 .sys-naam { display: inline-flex; align-items: center; gap: var(--space-xs); }
 
 
-.factbar { display: grid; gap: 1px; background: var(--han-line); grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
-.fact { background: #fff; padding: 20px; }
-.fact .icon--lg { margin-bottom: 10px; display: block; }
-.fact__num {
-  font-family: var(--font-head); font-weight: 700; font-size: 2.75rem; line-height: 1;
-  color: var(--han-pink); display: block;
+.kerncijfers {
+  display: grid; gap: 1px; background: var(--han-line);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  border: 1px solid var(--han-line);
+  list-style: none; margin: 0 0 28px; padding: 0;
 }
-.fact__label { font-size: .875rem; color: var(--han-gray); }
+.kerncijfers li {
+  display: flex; align-items: baseline; gap: 12px;
+  background: #fff; margin: 0; padding: 14px 16px;
+  font-size: .875rem; line-height: 1.3; color: var(--han-gray);
+}
+.kerncijfers strong {
+  flex: none; min-width: 2.3em; text-align: right;
+  font-family: var(--font-head); font-weight: 700; font-size: 1.75rem; line-height: 1;
+  color: var(--han-pink);
+}
 
 
 .callout { border-left: 4px solid var(--han-pink); background: var(--han-bg-soft); padding: var(--space-md) 20px; }
@@ -458,7 +448,7 @@ th .icon { flex: none; }
 .datalijst dd { margin: 0; color: var(--han-gray); font-size: .9375rem; }
 
 
-.hero--plattegrond { background-image: url("../img/han-campus-nijmegen.jpg"); }
+.hero--plattegrond { background-image: url("../img/han-campus-nijmegen.jpg?v=20260901ai4k"); }
 
 .kaart { border: 2px solid var(--han-black); background: #fff; }
 
@@ -595,4 +585,146 @@ th .icon { flex: none; }
   .vleugelkaart__vlak { border-right: 0; border-bottom: 1px solid var(--han-line); }
   .kaart__svg { max-height: 70vh; }
   .kaart__paneel { max-height: none; }
+}
+
+
+.chat {
+  position: fixed; right: var(--space-lg); bottom: var(--space-lg); z-index: 150;
+  display: flex; flex-direction: column; align-items: flex-end; gap: var(--space-sm);
+  font-family: var(--font-body);
+}
+
+.chat__tip {
+  position: relative; max-width: 250px; background: #fff; color: var(--han-black);
+  border: 2px solid var(--han-black); padding: 12px 38px 12px 14px;
+  font-size: .9375rem; font-weight: 600; line-height: 1.35;
+  box-shadow: 0 8px 24px rgba(20,20,20,.18);
+  animation: chat-op .25s ease-out;
+}
+.chat__tip::after {
+  content: ""; position: absolute; right: 24px; bottom: -9px; width: 13px; height: 13px;
+  background: #fff; border-right: 2px solid var(--han-black); border-bottom: 2px solid var(--han-black);
+  transform: rotate(45deg);
+}
+.chat__tip-tekst {
+  display: block; width: 100%; padding: 0; text-align: left;
+  background: none; border: 0; cursor: pointer;
+  font: inherit; color: inherit;
+}
+.chat__tip-tekst:hover { color: var(--han-pink); }
+.chat__tip-sluit {
+  position: absolute; top: 0; right: 0; width: 32px; height: 32px;
+  display: flex; align-items: center; justify-content: center;
+  background: none; border: 0; cursor: pointer; color: var(--han-gray-mid);
+}
+.chat__tip-sluit:hover { color: var(--han-pink); }
+.chat__tip-sluit .icon { width: 15px; height: 15px; }
+
+.chat__knop {
+  display: inline-flex; align-items: center; gap: 10px; height: 58px; padding: 0 20px;
+  background: var(--han-pink); color: #fff; border: 2px solid var(--han-black); border-radius: 0;
+  font-family: var(--font-head); font-size: 1.125rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .5px; cursor: pointer;
+  box-shadow: 0 8px 24px rgba(20,20,20,.22); transition: background .15s;
+}
+.chat__knop:hover { background: var(--han-pink-dark); }
+.chat__knop .icon { width: 26px; height: 26px; }
+.chat__knop .icon-close { display: none; }
+.chat__knop.is-open { padding: 0; width: 58px; justify-content: center; }
+.chat__knop.is-open .chat__knop-tekst,
+.chat__knop.is-open .icon-message { display: none; }
+.chat__knop.is-open .icon-close { display: block; }
+
+.chat__paneel {
+  display: flex; flex-direction: column; overflow: hidden;
+  width: min(390px, calc(100vw - 2 * var(--space-lg)));
+  height: min(600px, calc(100vh - var(--nav-height) - 100px));
+  background: #fff; border: 2px solid var(--han-black);
+  box-shadow: 0 16px 44px rgba(20,20,20,.26);
+  animation: chat-op .18s ease-out;
+}
+.chat__paneel[hidden] { display: none; }
+
+.chat__kop {
+  display: flex; align-items: center; gap: var(--space-sm);
+  background: var(--han-black); color: #fff; padding: var(--space-sm) 14px;
+}
+.chat__kop .icon--lg { width: 2rem; height: 2rem; color: var(--han-pink); }
+.chat__titel { display: flex; flex-direction: column; line-height: 1.15; }
+.chat__titel strong {
+  font-family: var(--font-head); font-size: 1.25rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .5px;
+}
+.chat__status { display: flex; align-items: center; gap: 6px; font-size: .75rem; color: #c9c9c9; }
+.chat__status::before { content: ""; width: 7px; height: 7px; flex: none; background: var(--han-pink); }
+.chat__sluit {
+  margin-left: auto; width: 38px; height: 38px; flex: none;
+  display: flex; align-items: center; justify-content: center;
+  background: none; border: 0; cursor: pointer; color: #fff;
+}
+.chat__sluit:hover { color: var(--han-pink); }
+.chat__sluit .icon { width: 20px; height: 20px; }
+
+.chat__draad {
+  flex: 1; overflow-y: auto; overscroll-behavior: contain;
+  display: flex; flex-direction: column; gap: 10px;
+  padding: var(--space-md); background: var(--han-bg-soft);
+}
+
+.bericht { max-width: 90%; font-size: .9375rem; line-height: 1.45; animation: chat-op .2s ease-out; }
+.bericht p:last-child, .bericht ul:last-child { margin-bottom: 0; }
+.bericht--bot {
+  align-self: flex-start; background: #fff;
+  border: 1px solid var(--han-line); border-left: 4px solid var(--han-pink);
+  padding: 12px 14px;
+}
+.bericht--jij {
+  align-self: flex-end; background: var(--han-black); color: #fff;
+  padding: 10px 14px; font-weight: 600;
+}
+.bericht--jij a { color: #fff; }
+.bericht .answer { border-left: 0; padding: 0; margin-bottom: 0; }
+.bericht .answer h3 { font-size: 1.0625rem; }
+.bericht__uitleg { color: var(--han-gray); font-size: .875rem; margin: 0; }
+
+.chat__typt { display: flex; align-self: flex-start; gap: 5px; background: #fff; border: 1px solid var(--han-line); padding: 15px 14px; }
+.chat__typt span { width: 7px; height: 7px; background: var(--han-gray-mid); animation: chat-stip 1.1s infinite ease-in-out; }
+.chat__typt span:nth-child(2) { animation-delay: .18s; }
+.chat__typt span:nth-child(3) { animation-delay: .36s; }
+
+.chat__chips { display: flex; flex-wrap: wrap; gap: 6px; padding: 10px var(--space-md); border-top: 1px solid var(--han-line); }
+.chat__chips:empty { display: none; }
+.chat__chips .chip { font-size: .78125rem; }
+
+.chat__form { display: flex; border-top: 2px solid var(--han-black); }
+.chat__form input {
+  flex: 1; min-width: 0; border: 0; padding: 14px; background: #fff; color: var(--han-black);
+  font-family: var(--font-body); font-size: 1rem;
+}
+.chat__form input::placeholder { color: var(--han-gray-mid); }
+.chat__form input:disabled { background: var(--han-bg-soft); }
+.chat__form button { padding: 14px 18px; }
+.chat__form button[disabled] { opacity: .4; cursor: not-allowed; }
+
+.chat__voet {
+  margin: 0; padding: 8px 14px; background: var(--han-bg-soft);
+  border-top: 1px solid var(--han-line); font-size: .75rem; color: var(--han-gray);
+}
+
+@keyframes chat-op {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes chat-stip {
+  0%, 60%, 100% { opacity: .3; transform: none; }
+  30% { opacity: 1; transform: translateY(-3px); }
+}
+
+@media (max-width: 560px) {
+  .chat { right: var(--space-sm); bottom: var(--space-sm); }
+  .chat__knop { height: 54px; padding: 0; width: 54px; justify-content: center; }
+  .chat__knop .chat__knop-tekst { display: none; }
+  .chat--open { inset: 0; gap: 0; align-items: stretch; }
+  .chat--open .chat__knop, .chat--open .chat__tip { display: none; }
+  .chat--open .chat__paneel { width: 100%; height: 100vh; height: 100dvh; border: 0; box-shadow: none; }
 }

@@ -218,137 +218,395 @@
       "</article>";
   }
 
-  function geenAntwoordHtml(vraag) {
-    const term = normaliseer(vraag);
-    const over = term ? "Voor <code>" + term + "</code> bevat" : "Hiervoor bevat";
+  function veilig(tekst) {
+    const houder = document.createElement("div");
+    houder.textContent = tekst == null ? "" : String(tekst);
+    return houder.innerHTML;
+  }
 
-    return '<div class="assist__empty">' +
-      '<h3><svg class="icon icon--pink" aria-hidden="true" focusable="false"><use href="#i-info"></use></svg> Geen resultaat gevonden</h3>' +
-      "<p>" + over + " de assistent geen informatie. " +
-      "Formuleer de vraag anders of raadpleeg een van deze contactroutes:</p>" +
+  function icoon(naam, klasse) {
+    return '<svg class="' + (klasse || "icon") + '" aria-hidden="true" focusable="false"><use href="#' + naam + '"></use></svg>';
+  }
+
+  function kort(titel) {
+    const deel = titel.split(":")[0].trim();
+    return deel.length > 34 ? deel.slice(0, 33).trim() + "…" : deel;
+  }
+
+  const STARTCHIPS = [
+    { label: "Waar vind ik mijn rooster?" },
+    { label: "Waar staan mijn cijfers?" },
+    { label: "Hoeveel punten moet ik halen?", vraag: "Hoeveel studiepunten moet ik het eerste jaar halen?" },
+    { label: "Ik kan niet inloggen" },
+    { label: "Ik loop vast", vraag: "Ik loop vast in mijn studie, met wie kan ik praten?" }
+  ];
+
+  const OPENING =
+    "<p><strong>Hoi! Ik ben de assistent van HANDIG_.</strong></p>" +
+    "<p>Stel je vraag in gewone taal. Ik zoek in de informatie over systemen, studiepunten, de campus " +
+    "en ondersteuning, en zet de bron erbij.</p>" +
+    '<p class="bericht__uitleg u-mb0">Waar loop je tegenaan?</p>';
+
+  function geenAntwoordHtml() {
+    return "<p><strong>Hier vind ik niets over.</strong> Stel je vraag met andere woorden, of gebruik " +
+      "een van deze contactroutes:</p>" +
       "<ul>" +
       "<li>Je studiebegeleider, je eerste aanspreekpunt bij de opleiding.</li>" +
       '<li><a href="https://www1.han.nl/insite/" target="_blank" rel="noopener">HAN Insite</a> ' +
       "voor opleidingsinformatie, regelingen en voorzieningen.</li>" +
       '<li><a href="https://www.han.nl/contact/" target="_blank" rel="noopener">han.nl/contact</a> ' +
       "voor vragen aan de HAN zelf.</li>" +
-      "</ul></div>";
-  }
-
-  function beginHtml() {
-    return '<div class="assist__empty">' +
-      "<p>Kies een voorbeeldvraag of voer je eigen vraag in.</p></div>";
+      "</ul>";
   }
 
   function storingHtml() {
-    return '<div class="assist__empty">' +
-      '<h3><svg class="icon icon--pink" aria-hidden="true" focusable="false"><use href="#i-alert"></use></svg> De assistent is niet beschikbaar</h3>' +
+    return "<p><strong>De assistent is niet beschikbaar.</strong></p>" +
       "<p>De informatie kon niet worden geladen. Ververs de pagina of open een onderwerp via het menu.</p>" +
-      '<p><a class="btn btn--outline btn--sm" href="systemen.html">Bekijk alle onderwerpen ' +
-      '<svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-right"></use></svg></a></p></div>';
+      '<p class="u-mb0"><a class="btn btn--outline btn--sm" href="systemen.html">Bekijk alle onderwerpen ' +
+      icoon("i-arrow-right") + "</a></p>";
   }
 
-  const SPINNER =
-    '<div class="laden" role="status">' +
-    '<svg class="spinner" aria-hidden="true" focusable="false"><use href="#i-spinner"></use></svg>' +
-    "<span>Zoeken in de assistent...</span></div>";
+  function verwant(item, aantal) {
+    if (aantal < 1) return [];
 
-  function toonStoring(resultaten, teller) {
-    resultaten.innerHTML = storingHtml();
-    resultaten.setAttribute("aria-busy", "false");
-    if (teller) teller.textContent = "niet beschikbaar";
-  }
+    const zelfde = INDEX.map(rij => rij.item).filter(kandidaat => kandidaat.categorie === item.categorie);
+    const start = zelfde.indexOf(item);
+    const lijst = [];
 
-  function tellerTekst(aantal) {
-    if (!aantal) return "geen antwoord";
-    return aantal + (aantal === 1 ? " antwoord" : " antwoorden");
-  }
-
-  function bindZoeken(form, input, resultaten, teller) {
-    let bezig;
-    let wachten;
-
-    function herstel() {
-      clearTimeout(bezig);
-      resultaten.setAttribute("aria-busy", "false");
-      resultaten.innerHTML = beginHtml();
-      if (teller) teller.textContent = "beschikbaar";
+    for (let i = 1; i < zelfde.length && lijst.length < aantal; i++) {
+      lijst.push(zelfde[(start + i) % zelfde.length]);
     }
 
-    function toon(vraag) {
-      clearTimeout(bezig);
+    return lijst;
+  }
 
-      if (!normaliseer(vraag)) {
-        herstel();
-        return;
-      }
+  function onderwerpchips(getoond, anders) {
+    const extra = verwant(getoond, 3 - anders.length)
+      .filter(item => item !== getoond && anders.indexOf(item) === -1);
 
-      resultaten.setAttribute("aria-busy", "true");
-      resultaten.innerHTML = SPINNER;
-      if (teller) teller.textContent = "zoeken...";
+    return anders.concat(extra).map(item => ({ label: kort(item.titel), id: item.id }));
+  }
 
-      bezig = setTimeout(function () {
-        let treffers;
-        try {
-          treffers = zoek(vraag);
-        } catch (fout) {
-          toonStoring(resultaten, teller);
-          return;
-        }
+  let wortel = null;
+  let paneel = null;
+  let draad = null;
+  let chips = null;
+  let invoer = null;
+  let verstuur = null;
+  let knop = null;
+  let status = null;
+  let tip = null;
 
-        resultaten.innerHTML = treffers.length
-          ? treffers.map(treffer => antwoordHtml(treffer.item)).join("")
-          : geenAntwoordHtml(vraag);
-        resultaten.setAttribute("aria-busy", "false");
-        if (teller) teller.textContent = tellerTekst(treffers.length);
-      }, 300);
-    }
+  let geopend = false;
+  let begonnen = false;
+  let bezig = null;
+  let tipTimer = null;
+
+  function bouw() {
+    wortel = document.createElement("div");
+    wortel.className = "chat";
+
+    wortel.innerHTML =
+      '<div class="chat__paneel" id="assistent-paneel" role="dialog" aria-label="Assistent van HANDIG_" hidden>' +
+        '<div class="chat__kop">' +
+          icoon("i-message", "icon icon--lg") +
+          '<span class="chat__titel">' +
+            "<strong>HANDIG_</strong>" +
+            '<span class="chat__status" data-assist-status>beschikbaar</span>' +
+          "</span>" +
+          '<button type="button" class="chat__sluit" data-assist-sluit>' + icoon("i-close") +
+            '<span class="visually-hidden">Assistent sluiten</span></button>' +
+        "</div>" +
+        '<div class="chat__draad" data-assist-draad role="log" aria-live="polite" aria-label="Gesprek"></div>' +
+        '<div class="chat__chips" data-assist-chips></div>' +
+        '<form class="chat__form" data-assist-form autocomplete="off">' +
+          '<label class="visually-hidden" for="assist-vraag">Jouw vraag</label>' +
+          '<input id="assist-vraag" type="text" enterkeyhint="send" placeholder="Typ je vraag...">' +
+          '<button class="btn btn--primary" type="submit">' + icoon("i-arrow-right") +
+            '<span class="visually-hidden">Vraag versturen</span></button>' +
+        "</form>" +
+        '<p class="chat__voet">Antwoorden komen uit de informatie op deze site. Je vraag blijft in je ' +
+          'browser. <a href="privacy.html">Privacy</a></p>' +
+      "</div>" +
+      '<button type="button" class="chat__knop" data-assist-knop aria-expanded="false" ' +
+        'aria-controls="assistent-paneel" aria-label="Stel een vraag aan de assistent">' +
+        icoon("i-message", "icon icon-message") + icoon("i-close", "icon icon-close") +
+        '<span class="chat__knop-tekst">Stel een vraag</span>' +
+      "</button>";
+
+    paneel = wortel.querySelector(".chat__paneel");
+    draad = wortel.querySelector("[data-assist-draad]");
+    chips = wortel.querySelector("[data-assist-chips]");
+    status = wortel.querySelector("[data-assist-status]");
+    knop = wortel.querySelector("[data-assist-knop]");
+
+    const form = wortel.querySelector("[data-assist-form]");
+    invoer = form.querySelector("input");
+    verstuur = form.querySelector("button");
+
+    knop.addEventListener("click", function () {
+      if (geopend) sluitChat();
+      else openChat();
+    });
+
+    wortel.querySelector("[data-assist-sluit]").addEventListener("click", sluitChat);
 
     form.addEventListener("submit", function (e) {
       e.preventDefault();
-      clearTimeout(wachten);
-      toon(input.value);
+      stel(invoer.value);
     });
 
-    input.addEventListener("input", function () {
-      clearTimeout(wachten);
-      const waarde = input.value;
+    invoer.addEventListener("keydown", function (e) {
+      if (e.key !== "Enter") return;
 
-      wachten = setTimeout(function () {
-        if (waarde.trim().length >= 3) toon(waarde);
-        else herstel();
-      }, 180);
+      e.preventDefault();
+      stel(invoer.value);
     });
 
-    document.querySelectorAll("[data-assist-chip]").forEach(function (chip) {
+    document.body.appendChild(wortel);
+  }
+
+  function naarBeneden() {
+    draad.scrollTop = draad.scrollHeight;
+  }
+
+  function naarBericht(bericht) {
+    if (bericht.offsetHeight <= draad.clientHeight - 16) {
+      naarBeneden();
+      return;
+    }
+
+    draad.scrollTop += bericht.getBoundingClientRect().top - draad.getBoundingClientRect().top - 8;
+  }
+
+  function zetStatus(tekst) {
+    status.textContent = tekst;
+  }
+
+  function voegBericht(rol, html) {
+    const bericht = document.createElement("div");
+    bericht.className = "bericht bericht--" + rol;
+    bericht.innerHTML = html;
+
+    draad.appendChild(bericht);
+    naarBeneden();
+    return bericht;
+  }
+
+  function zetChips(lijst) {
+    chips.innerHTML = "";
+
+    lijst.forEach(function (optie) {
+      const chip = document.createElement("button");
+      chip.type = "button";
+      chip.className = "chip";
+      chip.textContent = optie.label;
+
       chip.addEventListener("click", function () {
-        clearTimeout(wachten);
-        input.value = chip.dataset.assistChip;
-        toon(input.value);
-        input.focus();
+        if (optie.id) kies(optie.id, optie.label);
+        else stel(optie.vraag || optie.label);
+      });
+
+      chips.appendChild(chip);
+    });
+  }
+
+  function denk(klaar) {
+    clearTimeout(bezig);
+    zetStatus("zoekt...");
+
+    const punten = document.createElement("div");
+    punten.className = "chat__typt";
+    punten.setAttribute("aria-hidden", "true");
+    punten.innerHTML = "<span></span><span></span><span></span>";
+
+    draad.appendChild(punten);
+    naarBeneden();
+
+    bezig = setTimeout(function () {
+      punten.remove();
+      klaar();
+    }, 420);
+  }
+
+  function toonAntwoord(item, anders) {
+    const bericht = voegBericht("bot", antwoordHtml(item));
+    zetStatus("beschikbaar");
+
+    zetChips(isAcuutItem(item) ? [] : onderwerpchips(item, anders || []));
+    naarBericht(bericht);
+  }
+
+  function stel(vraag) {
+    const schoon = (vraag || "").trim();
+    if (!schoon || !INDEX.length) return;
+
+    voegBericht("jij", "<p>" + veilig(schoon) + "</p>");
+    invoer.value = "";
+    zetChips([]);
+
+    denk(function () {
+      let treffers;
+
+      try {
+        treffers = zoek(schoon);
+      } catch (fout) {
+        voegBericht("bot", storingHtml());
+        zetStatus("niet beschikbaar");
+        return;
+      }
+
+      if (!treffers.length) {
+        const bericht = voegBericht("bot", geenAntwoordHtml());
+        zetChips(STARTCHIPS);
+        zetStatus("geen antwoord");
+        naarBericht(bericht);
+        return;
+      }
+
+      toonAntwoord(treffers[0].item, treffers.slice(1).map(treffer => treffer.item));
+    });
+  }
+
+  function kies(id, label) {
+    const rij = INDEX.filter(regel => regel.item.id === id)[0];
+    if (!rij) return;
+
+    voegBericht("jij", "<p>" + veilig(label) + "</p>");
+    zetChips([]);
+
+    denk(function () {
+      toonAntwoord(rij.item, []);
+    });
+  }
+
+  function begin() {
+    begonnen = true;
+
+    if (!INDEX.length) {
+      voegBericht("bot", storingHtml());
+      zetStatus("niet beschikbaar");
+      invoer.disabled = true;
+      verstuur.disabled = true;
+      return;
+    }
+
+    const bericht = voegBericht("bot", OPENING);
+    zetChips(STARTCHIPS);
+    naarBericht(bericht);
+  }
+
+  function opToets(e) {
+    if (e.key !== "Escape" || !geopend) return;
+
+    sluitChat();
+    knop.focus();
+  }
+
+  function smal() {
+    return window.matchMedia("(max-width: 560px)").matches;
+  }
+
+  function openChat() {
+    verbergTip();
+    if (geopend) return;
+
+    geopend = true;
+    paneel.hidden = false;
+    wortel.classList.add("chat--open");
+    knop.classList.add("is-open");
+    knop.setAttribute("aria-expanded", "true");
+    knop.setAttribute("aria-label", "Assistent sluiten");
+
+    if (smal()) document.body.classList.add("geen-scroll");
+    document.addEventListener("keydown", opToets);
+
+    if (!begonnen) begin();
+
+    naarBeneden();
+    if (!invoer.disabled) invoer.focus();
+  }
+
+  function sluitChat() {
+    if (!geopend) return;
+
+    geopend = false;
+    paneel.hidden = true;
+    wortel.classList.remove("chat--open");
+    knop.classList.remove("is-open");
+    knop.setAttribute("aria-expanded", "false");
+    knop.setAttribute("aria-label", "Stel een vraag aan de assistent");
+
+    document.body.classList.remove("geen-scroll");
+    document.removeEventListener("keydown", opToets);
+  }
+
+  function verbergTip() {
+    clearTimeout(tipTimer);
+    tipTimer = null;
+
+    if (!tip) return;
+
+    tip.remove();
+    tip = null;
+  }
+
+  function toonTip() {
+    if (geopend || tip) return;
+
+    if (document.querySelector(".onboarding")) {
+      tipTimer = setTimeout(toonTip, 4000);
+      return;
+    }
+
+    tip = document.createElement("div");
+    tip.className = "chat__tip";
+    tip.innerHTML =
+      '<button type="button" class="chat__tip-tekst">Hoi! Waar loop je tegenaan? Stel je vraag.</button>' +
+      '<button type="button" class="chat__tip-sluit">' + icoon("i-close") +
+      '<span class="visually-hidden">Tip sluiten</span></button>';
+
+    tip.querySelector(".chat__tip-tekst").addEventListener("click", function () {
+      openChat();
+    });
+
+    tip.querySelector(".chat__tip-sluit").addEventListener("click", verbergTip);
+
+    wortel.insertBefore(tip, wortel.firstChild);
+  }
+
+  function bindPagina() {
+    document.querySelectorAll("[data-assist-open]").forEach(function (element) {
+      element.addEventListener("click", function (e) {
+        e.preventDefault();
+        openChat();
+      });
+    });
+
+    document.querySelectorAll("[data-assist-chip]").forEach(function (element) {
+      element.addEventListener("click", function (e) {
+        e.preventDefault();
+        openChat();
+        stel(element.dataset.assistChip);
       });
     });
   }
 
   function init() {
-    const form = document.querySelector("[data-assist-form]");
-    if (!form) return;
+    bouw();
+    bindPagina();
 
-    const input = form.querySelector("input");
-    const resultaten = document.querySelector("[data-assist-results]");
-    const teller = document.querySelector("[data-assist-count]");
-    if (!input || !resultaten) return;
+    window.HANDIG = window.HANDIG || {};
+    window.HANDIG.assistent = {
+      open: openChat,
+      sluit: sluitChat,
+      vraag: function (tekst) {
+        openChat();
+        stel(tekst);
+      }
+    };
 
-    if (!INDEX.length) {
-      toonStoring(resultaten, teller);
-      input.disabled = true;
-
-      const knop = form.querySelector("button");
-      if (knop) knop.disabled = true;
-      return;
-    }
-
-    bindZoeken(form, input, resultaten, teller);
+    if (document.querySelector("[data-assist-tip]")) tipTimer = setTimeout(toonTip, 9000);
   }
 
   document.addEventListener("DOMContentLoaded", init);
