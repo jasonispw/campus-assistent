@@ -1,6 +1,7 @@
 :root {
   --han-pink: #e50056;
   --han-pink-dark: #b80045;
+  --han-link: #b80045;
   --han-black: #141414;
   --han-dark: #262626;
   --han-gray: #454545;
@@ -58,8 +59,8 @@ body {
 
 img, svg { max-width: 100%; display: block; }
 
-a { color: var(--han-pink); text-decoration: underline; text-underline-offset: 3px; }
-a:hover { color: var(--han-pink-dark); }
+a { color: var(--han-link); text-decoration: underline; text-underline-offset: 3px; }
+a:hover { color: var(--han-black); }
 
 h1, h2, h3, h4 { margin: 0 0 .5em; }
 

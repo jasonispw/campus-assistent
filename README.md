@@ -1,5 +1,10 @@
 # HANDIG_
 
+![Last commit](https://img.shields.io/github/last-commit/jasonispw/campus-assistent?label=last%20commit&color=success)
+![Commit activity](https://img.shields.io/github/commit-activity/w/jasonispw/campus-assistent?label=commit%20activity)
+![Contributors](https://img.shields.io/github/contributors/jasonispw/campus-assistent?label=contributors&color=success)
+![Code size](https://img.shields.io/github/languages/code-size/jasonispw/campus-assistent?label=code%20size)
+
 Campus-assistent voor eerstejaarsstudenten ICT van de HAN.
 Huisstijl, kleuren en vormentaal zijn overgenomen van [han.nl](https://www.han.nl/).
 
