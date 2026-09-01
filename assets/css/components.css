@@ -65,14 +65,14 @@
 .tile__arrow { position: absolute; right: 22px; bottom: 22px; width: 1.75rem; height: 1.75rem; color: #fff; }
 .tile:hover .tile__arrow { color: var(--han-pink); }
 
-.tile--systemen { background-image: url("../img/tile-systemen.jpg"); }
-.tile--punten   { background-image: url("../img/tile-studiepunten.jpg"); }
-.tile--campus   { background-image: url("../img/tile-campus.jpg"); }
-.tile--hulp     { background-image: url("../img/tile-hulp.jpg"); }
-.tile--meedoen  { background-image: url("../img/tile-meedoen.jpg"); }
-.tile--start    { background-image: url("../img/hero-home.jpg"); }
-.tile--rekenen  { background-image: url("../img/hero-studiepunten.jpg"); }
-.tile--over     { background-image: url("../img/hero-over.jpg"); }
+.tile--systemen { background-image: url("../img/han-ict-les-laptops.jpg"); }
+.tile--punten   { background-image: url("../img/han-ict-collegezaal.jpg"); }
+.tile--campus   { background-image: url("../img/han-ruitenberglaan-26.jpg"); }
+.tile--hulp     { background-image: url("../img/han-student-support.jpg"); }
+.tile--meedoen  { background-image: url("../img/han-campus-nijmegen.jpg"); }
+.tile--start    { background-image: url("../img/han-studieplek.jpg"); }
+.tile--rekenen  { background-image: url("../img/han-ict-collegezaal.jpg"); }
+.tile--over     { background-image: url("../img/han-ict-programmeerlab.jpg"); }
 
 
 .assist,
@@ -227,11 +227,14 @@ th .icon { flex: none; }
 
 
 
+[data-profiel] { flex: 0 0 146px; min-width: 0; }
+
 .profielchip {
   display: inline-flex; align-items: center; gap: var(--space-xs);
   background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.25);
   color: #fff; font-family: var(--font-body); font-size: .8125rem; font-weight: 600;
-  padding: var(--space-xs) var(--space-sm); border-radius: 0; cursor: pointer; max-width: 260px;
+  width: 100%; justify-content: center; padding: var(--space-xs) var(--space-sm);
+  border-radius: 0; cursor: pointer;
 }
 .profielchip:hover { background: rgba(255,255,255,.2); }
 .profielchip span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -240,8 +243,8 @@ th .icon { flex: none; }
 .profielchip--leeg:hover { background: var(--han-pink-dark); }
 .profielchip--leeg .icon { color: #fff; }
 
-@media (max-width: 900px) {
-  .profielchip { display: none; }
+@media (max-width: 1050px) {
+  [data-profiel] { display: none; }
 }
 
 

@@ -22,7 +22,7 @@
     { id: "brightspace", tekst: "Brightspace openen", uitleg: "leren.han.nl: leermateriaal en berichten van docenten.", icoon: "i-book", link: "https://leren.han.nl" },
     { id: "osiris", tekst: "Osiris openen of de app installeren", uitleg: "Je cijfers en het intekenen voor toetsen.", icoon: "i-certificate", link: "https://han.osiris-student.nl/#/login" },
     { id: "rooster", tekst: "Je rooster bekijken in MyX", uitleg: "myx-han.xedule.nl, inloggen met je HANaccount.", icoon: "i-calendar", link: "https://myx-han.xedule.nl/" },
-    { id: "mail", tekst: "HAN-mail checken in Outlook", uitleg: "Belangrijke berichten over je inschrijving komen hier binnen.", icoon: "i-mail", link: "https://office365.han.nl" },
+    { id: "mail", tekst: "HAN-mail controleren in Outlook", uitleg: "Belangrijke berichten over je inschrijving komen hier binnen.", icoon: "i-mail", link: "https://office365.han.nl" },
     { id: "slb", tekst: "Uitzoeken wie je studiebegeleider is", uitleg: "Je eerste aanspreekpunt bij de opleiding.", icoon: "i-user", link: "hulp.html" }
   ];
 
@@ -116,7 +116,7 @@
 
   function stapLocatie() {
     return "<h2>Op welke locatie studeer je?</h2>" +
-      "<p>Dan laten we de juiste adressen en routes zien.</p>" +
+      "<p>Met deze keuze toont HANDIG_ de relevante adressen en routes.</p>" +
       keuzeknoppen("locatie", [
         { waarde: "arnhem", titel: "Arnhem", sub: LOCATIES.arnhem.adres, icoon: "i-map-pin" },
         { waarde: "nijmegen", titel: "Nijmegen", sub: LOCATIES.nijmegen.adres, icoon: "i-map-pin" }
@@ -125,7 +125,7 @@
 
   function stapOpleiding() {
     return "<h2>Welke opleiding volg je?</h2>" +
-      "<p>De assistent is gemaakt voor ICT, maar de systemen en regelingen gelden breder.</p>" +
+      "<p>De assistent is gericht op ICT. Sommige systemen en regelingen gelden ook voor andere opleidingen.</p>" +
       keuzeknoppen("opleiding", [
         { waarde: "ict-voltijd", titel: "ICT voltijd", sub: "4 jaar, 240 EC", icoon: "i-laptop" },
         { waarde: "ict-deeltijd", titel: "ICT deeltijd", sub: "naast je werk", icoon: "i-briefcase" },
@@ -162,14 +162,14 @@
 
   function stapKlas() {
     return "<h2>In welke klas zit je?</h2>" +
-      "<p>Handig om je rooster en je groep snel terug te vinden. Overslaan mag.</p>" +
+      "<p>Je klas wordt gebruikt om je profiel herkenbaar te maken. Dit veld is niet verplicht.</p>" +
       '<div class="onboarding__extra">' +
       '<label for="ob-klas">Klas</label>' +
       '<input id="ob-klas" type="text" maxlength="20" placeholder="bijvoorbeeld ICT-1A"' +
       ' value="' + veilig(concept.klas || "") + '" data-veld="klas">' +
       "</div>" +
       '<p class="onboarding__privacy">' + icoon("i-info") +
-      " Wat je hier invult blijft op dit apparaat staan en wordt nergens naartoe gestuurd. " +
+      " De ingevoerde informatie blijft op dit apparaat en wordt niet verzonden. " +
       "Vul geen studentnummer of andere persoonsgegevens in.</p>";
   }
 
@@ -182,8 +182,8 @@
     }).join("");
 
     return "<h2>Je startchecklist</h2>" +
-      "<p>Acht dingen die je in je eerste week geregeld wilt hebben. " +
-      "Je kunt ze straks op de startpagina afvinken.</p>" +
+      "<p>De checklist bevat acht praktische zaken voor het begin van je studie. " +
+      "Je kunt deze onderdelen op de startpagina afvinken.</p>" +
       '<ul class="onboarding__preview">' +
       eersteVier +
       "<li>" + icoon("i-checklist", "icon icon--pink") + " en nog " + (TAKEN.length - 4) + " punten</li>" +
@@ -301,8 +301,7 @@
       voortgangHtml() +
       '<div class="onboarding__inhoud">' + STAP_RENDERS[STAPPEN[stapIndex]]() + "</div>" +
       '<p class="onboarding__opslagfout" data-opslagfout hidden>' + icoon("i-alert") +
-      " Je browser wil niets opslaan, bijvoorbeeld in een privévenster. Je instellingen blijven " +
-      "daardoor niet bewaard.</p>" +
+      " De browser kan de instellingen niet opslaan. Je keuzes verdwijnen wanneer je de pagina sluit.</p>" +
       actiesHtml();
 
     bindKeuzes();
@@ -427,14 +426,14 @@
 
   function checklistKopTekst(profiel) {
     if (!profiel || !profiel.ingesteld) {
-      return "Stel HANDIG_ in, dan zetten we de juiste locatie en klas erbij.";
+      return "Stel HANDIG_ in om informatie voor je locatie en klas te tonen.";
     }
 
     const locatie = LOCATIES[profiel.locatie];
-    if (!locatie) return "Je zit in " + veilig(profielTekst(profiel)) + ".";
+    if (!locatie) return "Ingesteld profiel: " + veilig(profielTekst(profiel)) + ".";
 
-    return "Je zit in " + veilig(profielTekst(profiel)) +
-      ". Lessen zijn op " + veilig(locatie.adres) +
+    return "Ingesteld profiel: " + veilig(profielTekst(profiel)) +
+      ". Onderwijslocatie: " + veilig(locatie.adres) +
       (locatie.extra ? " (" + veilig(locatie.extra) + ")" : "") + ".";
   }
 
@@ -480,8 +479,8 @@
       }
       if (stand) {
         stand.textContent = af === TAKEN.length
-          ? "Alles geregeld. Je bent er klaar voor."
-          : af + " van de " + TAKEN.length + " gedaan";
+          ? "Alle onderdelen zijn afgerond."
+          : af + " van de " + TAKEN.length + " onderdelen afgerond";
       }
     }
 
@@ -509,7 +508,7 @@
           knop.innerHTML = icoon("i-alert") + "Bevestig wissen";
           if (status) {
             status.classList.add("is-waarschuwing");
-            status.textContent = "Klik nog een keer om je profiel en checklist definitief van dit apparaat te wissen.";
+            status.textContent = "Klik opnieuw om je profiel en checklist van dit apparaat te verwijderen.";
           }
           knop.focus();
           return;
@@ -519,7 +518,7 @@
           localStorage.removeItem(SLEUTEL_PROFIEL);
           localStorage.removeItem(SLEUTEL_TAKEN);
         } catch (fout) {
-          if (status) status.textContent = "Wissen lukte niet. Verwijder de sitegegevens via je browserinstellingen.";
+          if (status) status.textContent = "De gegevens konden niet worden verwijderd. Gebruik de site-instellingen van je browser.";
           return;
         }
 
@@ -531,7 +530,7 @@
 
         if (status) {
           status.classList.remove("is-waarschuwing");
-          status.textContent = "Je HANDIG_-instellingen en checklist zijn gewist.";
+          status.textContent = "De HANDIG_-instellingen en checklist zijn verwijderd.";
           status.setAttribute("tabindex", "-1");
           status.focus();
         }

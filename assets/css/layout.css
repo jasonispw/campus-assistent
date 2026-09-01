@@ -114,14 +114,14 @@
 .hero--compact { padding-block: clamp(40px, 6vw, 72px); }
 .hero--compact h1 { font-size: clamp(2.25rem, 5vw, 3.75rem); }
 
-.hero--index    { background-image: url("../img/hero-home.jpg"); }
-.hero--systemen { background-image: url("../img/hero-systemen.jpg"); }
-.hero--punten   { background-image: url("../img/hero-studiepunten.jpg"); }
-.hero--campus   { background-image: url("../img/hero-campus.jpg"); }
-.hero--hulp     { background-image: url("../img/hero-hulp.jpg"); }
-.hero--meedoen  { background-image: url("../img/hero-meedoen.jpg"); }
-.hero--over     { background-image: url("../img/hero-over.jpg"); }
-.hero--404      { background-image: url("../img/hero-404.jpg"); }
+.hero--index    { background-image: url("../img/han-ict-groepswerk.jpg"); }
+.hero--systemen { background-image: url("../img/han-ict-les-laptops.jpg"); }
+.hero--punten   { background-image: url("../img/han-ict-collegezaal.jpg"); }
+.hero--campus   { background-image: url("../img/han-ruitenberglaan-26.jpg"); }
+.hero--hulp     { background-image: url("../img/han-studiebegeleiding.jpg"); }
+.hero--meedoen  { background-image: url("../img/han-studenten-r26.jpg"); }
+.hero--over     { background-image: url("../img/han-ict-programmeerlab.jpg"); }
+.hero--404      { background-image: url("../img/han-studenten-trap-r26.jpg"); }
 
 
 .footer { background: var(--han-black); color: #c9c9c9; padding-block: 48px 32px; }
