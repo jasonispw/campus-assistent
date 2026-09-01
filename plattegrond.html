@@ -3,21 +3,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>HANDIG_ Campus Assistent | Lokaalzoeker</title>
-<meta name="description" content="Vul je HAN-lokaalcode in en krijg een eenvoudige uitleg van het gebouw, de vleugel en de verdieping.">
-<meta property="og:title" content="HANDIG_ Campus Assistent | Lokaalzoeker">
-<meta property="og:description" content="Van lokaalcode naar een simpele route in vijf stappen.">
-<meta property="og:image" content="https://jasonispw.github.io/campus-assistent/assets/img/og-image.jpg">
+<title>HANDIG_ Campus Assistent | Plattegrond</title>
+<meta name="description" content="Interactieve plattegrond van de HAN-campus in Arnhem en Nijmegen: gebouwen, vleugels, liften en aangepaste toiletten.">
+<meta property="og:title" content="HANDIG_ Campus Assistent | Plattegrond">
+<meta property="og:description" content="Interactieve plattegrond van de HAN-campus in Arnhem en Nijmegen: gebouwen, vleugels, liften en aangepaste toiletten.">
+<meta property="og:image" content="https://jasonispw.github.io/campus-assistent/assets/img/han-ict-groepswerk.jpg">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="nl_NL">
-<link rel="canonical" href="https://jasonispw.github.io/campus-assistent/lokaalzoeker.html">
-<meta property="og:url" content="https://jasonispw.github.io/campus-assistent/lokaalzoeker.html">
+<link rel="canonical" href="https://jasonispw.github.io/campus-assistent/plattegrond.html">
+<meta property="og:url" content="https://jasonispw.github.io/campus-assistent/plattegrond.html">
 <meta name="theme-color" content="#141414">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/favicon.png">
+<link rel="preload" as="image" href="assets/img/han-ruitenberglaan-26.jpg" fetchpriority="high">
 <link rel="stylesheet" href="assets/css/base.css?v=20260901">
-<link rel="stylesheet" href="assets/css/layout.css?v=20260901">
-<link rel="stylesheet" href="assets/css/components.css?v=20260901">
+<link rel="stylesheet" href="assets/css/layout.css?v=2026090102">
+<link rel="stylesheet" href="assets/css/components.css?v=2026090102">
 </head>
 <body>
 <a class="skip-link" href="#main">Naar de inhoud</a>
@@ -49,43 +50,87 @@
 </header>
 
 <main id="main">
-  <section class="hero hero--campus hero--compact">
+
+  <section class="hero hero--plattegrond hero--compact">
     <div class="container">
-      <svg class="hero__icon" aria-hidden="true" focusable="false"><use href="#i-route"></use></svg>
-      <h1>Lokaalzoeker</h1>
-      <p class="hero__lead">Vul de code uit je rooster in. HANDIG_ legt daarna in heel simpele stappen uit waar je moet zijn.</p>
+      <svg class="hero__icon" aria-hidden="true" focusable="false"><use href="#i-map-2"></use></svg>
+      <h1>Plattegrond</h1>
+      <p class="hero__lead">
+        Klik een gebouw aan en zie meteen het adres, de vleugels, de liften en de aangepaste toiletten.
+        De omtrekken komen uit het officiele gebouwenregister van Nederland.
+      </p>
+      <div class="hero__actions">
+        <a class="btn btn--primary" href="#kaart">Naar de kaart <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-right"></use></svg></a>
+        <a class="btn btn--ghost" href="lokaalzoeker.html">Ik heb alleen een lokaalcode <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-search"></use></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="kaart">
+    <div class="container">
+      <div class="section__head">
+        <h2>De campus op de kaart</h2>
+        <p>Kies eerst je stad. Klik daarna op een gebouw voor de details.</p>
+      </div>
+
+      <div class="kaart" data-kaart>
+        <div class="kaart__tabs">
+          <button type="button" class="kaart__tab" data-campus="arnhem" aria-pressed="true">Arnhem</button>
+          <button type="button" class="kaart__tab" data-campus="nijmegen" aria-pressed="false">Nijmegen</button>
+        </div>
+
+        <div class="kaart__grid">
+          <div class="kaart__vlak" data-kaart-vlak></div>
+          <div class="kaart__paneel paneel" data-kaart-paneel aria-live="polite"></div>
+        </div>
+
+        <p class="map__legend">
+          <span><span class="swatch swatch--han"></span> HAN-gebouw</span>
+          <span><span class="swatch swatch--buurt"></span> Overige bebouwing</span>
+          <span><span class="swatch swatch--weg"></span> Weg of pad</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--soft" id="vleugels">
+    <div class="container">
+      <div class="section__head">
+        <h2>Ruitenberglaan 26 van binnen</h2>
+        <p>
+          Het grootste gebouw van de campus in Arnhem heeft zes vleugels, A tot en met F.
+          Kies een letter voor de liften, de toiletten en de ingang aan die kant.
+        </p>
+      </div>
+
+      <div class="vleugelkaart" data-vleugelkaart>
+        <div class="vleugelkaart__vlak" data-vleugel-vlak></div>
+        <div class="vleugelkaart__paneel paneel" data-vleugel-paneel aria-live="polite"></div>
+      </div>
     </div>
   </section>
 
   <section class="section">
     <div class="container container--narrow">
-      <div class="roomfinder">
-        <div class="roomfinder__head">
+      <div class="section__head">
+        <h2>Dezelfde letter, ander gebouw</h2>
+        <p>Een vleugelletter is niet uniek. Zoek op een letter en zie in welke gebouwen die voorkomt.</p>
+      </div>
+
+      <div class="widget">
+        <div class="widget__head">
           <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-search"></use></svg>
-          <strong>Waar is mijn lokaal?</strong>
+          <strong>Vleugelwijzer</strong>
         </div>
-        <div class="roomfinder__body">
-          <form data-roomfinder-form novalidate>
-            <label class="roomfinder__label" for="lokaalcode">Lokaalcode</label>
-            <p class="roomfinder__hint" id="lokaal-hint">Neem de volledige code over uit MyX, inclusief het gebouw.</p>
-            <div class="roomfinder__form">
-              <input id="lokaalcode" data-roomfinder-input type="text" inputmode="text" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="Bijvoorbeeld R26/B2.40" aria-describedby="lokaal-hint" required>
-              <button class="btn btn--primary" type="submit">Leg uit <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-right"></use></svg></button>
-            </div>
-          </form>
-          <div class="roomfinder__examples" aria-label="Voorbeelden">
-            <span>Probeer:</span>
-            <button class="chip" type="button" data-room-example="R26/B2.40">R26/B2.40</button>
-            <button class="chip" type="button" data-room-example="R31/C1.01">R31/C1.01</button>
-            <button class="chip" type="button" data-room-example="R29/H3.12">R29/H3.12</button>
-          </div>
-          <div class="roomfinder__result" data-roomfinder-result aria-live="polite">
-            <div class="callout">
-              <svg class="icon icon--pink callout__icon" aria-hidden="true" focusable="false"><use href="#i-info"></use></svg>
-              <p>Je lokaalcode staat bij je les in <a href="https://myx-han.xedule.nl/" target="_blank" rel="noopener">MyX</a>.</p>
-            </div>
-          </div>
-        </div>
+        <div class="chips" data-vleugelwijzer></div>
+        <div class="widget__body" data-vleugel-uitslag aria-live="polite"></div>
+      </div>
+
+      <div class="callout u-mt24"><svg class="icon icon--pink callout__icon" aria-hidden="true" focusable="false"><use href="#i-info"></use></svg>
+        <p>
+          Staat er in je rooster alleen <code>B2.122</code> zonder gebouw? Kijk dan bij welke les de code hoort:
+          in MyX staat de locatie erbij. De <a href="lokaalzoeker.html">Lokaalzoeker</a> legt de code stap voor stap uit.
+        </p>
       </div>
     </div>
   </section>
@@ -93,16 +138,27 @@
   <section class="section section--soft">
     <div class="container container--narrow">
       <div class="section__head">
-        <h2>Wat betekent zo’n code?</h2>
+        <h2>Ook van de HAN</h2>
+        <p>Deze locaties horen bij de HAN, maar liggen niet op de campus hierboven.</p>
       </div>
-      <dl class="datalijst">
-        <div><dt>R26</dt><dd>Het gebouw: Ruitenberglaan 26.</dd></div>
-        <div><dt>B</dt><dd>De vleugel van het gebouw.</dd></div>
-        <div><dt>2</dt><dd>De verdieping.</dd></div>
-        <div><dt>40</dt><dd>Het nummer van de deur.</dd></div>
-      </dl>
+      <ul class="paneel__lijst" data-overig></ul>
     </div>
   </section>
+
+  <section class="section section--dark">
+    <div class="container container--narrow">
+      <div class="section__head">
+        <h2>Nog niet gevonden?</h2>
+      </div>
+      <p>De receptie in de centrale hal heeft de officiele plattegronden. Bij ASK HAN kun je ook terecht met vragen over je locatie.</p>
+      <p class="u-mt24">
+        <a class="btn btn--primary" href="campus.html">Naar de campuspagina <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-right"></use></svg></a>
+      </p>
+    </div>
+  </section>
+
+</main>
+
 </main>
 
 <footer class="footer">
@@ -110,7 +166,10 @@
     <div class="footer__grid">
       <div>
         <h3>HANDIG_</h3>
-        <p class="u-small">Eén startpunt voor eerstejaarsstudenten ICT van de HAN: systemen, studiepunten, campus en hulp bij elkaar.</p>
+        <p class="u-small">
+          Een centraal overzicht voor eerstejaarsstudenten ICT van de HAN, met systemen,
+          studiepunten, campusinformatie, ondersteuning en officiële bronnen.
+        </p>
       </div>
       <div>
         <h3>Op HANDIG_</h3>
@@ -118,7 +177,6 @@
           <li><a href="systemen.html">Systemen</a></li>
           <li><a href="studiepunten.html">Studiepunten</a></li>
           <li><a href="campus.html">Campus</a></li>
-          <li><a href="lokaalzoeker.html">Lokaalzoeker</a></li>
           <li><a href="hulp.html">Hulp</a></li>
           <li><a href="meedoen.html">Meedoen</a></li>
         </ul>
@@ -126,7 +184,10 @@
       <div>
         <h3>Direct naar</h3>
         <ul class="u-small">
+          <li><a href="https://leren.han.nl" target="_blank" rel="noopener">Brightspace</a></li>
+          <li><a href="https://han.osiris-student.nl/#/login" target="_blank" rel="noopener">Osiris</a></li>
           <li><a href="https://myx-han.xedule.nl/" target="_blank" rel="noopener">MyX, je rooster</a></li>
+          <li><a href="https://office365.han.nl" target="_blank" rel="noopener">HAN-mail</a></li>
           <li><a href="https://www1.han.nl/insite/" target="_blank" rel="noopener">HAN Insite</a></li>
         </ul>
       </div>
@@ -135,13 +196,18 @@
         <ul class="u-small">
           <li><a href="over.html">Over HANDIG_</a></li>
           <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="https://www.han.nl/contact/" target="_blank" rel="noopener">Contact met de HAN</a></li>
           <li><button type="button" class="footer__knop" data-onboarding-open>HANDIG_ instellen</button></li>
         </ul>
       </div>
     </div>
     <div class="footer__bottom">
       <small>&copy; 2026 HANDIG_. Alle rechten voorbehouden.</small>
-      <span class="footer__legal"><span>Geen officieel product van de HAN.</span></span>
+      <span class="footer__legal">
+        <a href="privacy.html">Privacy</a>
+        <a href="over.html">Verantwoording</a>
+        <span>Geen officieel product van de HAN.</span>
+      </span>
     </div>
   </div>
 </footer>
@@ -193,8 +259,9 @@
 <symbol id="i-wifi" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M12 18h.01m-2.838-2.828a4 4 0 0 1 5.656 0m-8.485-2.829a8 8 0 0 1 11.314 0"/><path d="M3.515 9.515c4.686-4.687 12.284-4.687 17 0"/></g></symbol>
 </defs></svg>
 
-<script src="assets/js/lokaalzoeker.js?v=20260901"></script>
 <script src="assets/js/app.js?v=20260831"></script>
-<script src="assets/js/onboarding.js?v=20260831"></script>
+<script src="assets/js/onboarding.js?v=2026090102"></script>
+<script src="assets/js/plattegrond-geo.js?v=20260901"></script>
+<script src="assets/js/plattegrond.js?v=20260901"></script>
 </body>
 </html>

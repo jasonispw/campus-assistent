@@ -10,7 +10,7 @@ EIND = "</defs></svg>"
 
 PAGINAS = [
     "index.html", "systemen.html", "studiepunten.html", "campus.html",
-    "lokaalzoeker.html", "hulp.html", "meedoen.html", "over.html", "privacy.html", "404.html",
+    "lokaalzoeker.html", "plattegrond.html", "hulp.html", "meedoen.html", "over.html", "privacy.html", "404.html",
 ]
 
 

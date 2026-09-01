@@ -290,8 +290,6 @@ def main():
         "arnhem": kaart_arnhem,
         "nijmegen": kaart_nijmegen,
         "r26": bouw_gebouw(arnhem["r26"]["vlak"], 760),
-        "k33": bouw_gebouw(nijmegen["k33"]["vlak"], 760),
-        "pm3": bouw_gebouw(nijmegen["pm3"]["vlak"], 760),
     }
 
     regels = json.dumps(data, separators=(",", ":"), ensure_ascii=False)

@@ -452,3 +452,135 @@ th .icon { flex: none; }
 }
 .datalijst dt { font-weight: 600; font-size: .9375rem; margin: 0; }
 .datalijst dd { margin: 0; color: var(--han-gray); font-size: .9375rem; }
+
+
+.hero--plattegrond { background-image: url("../img/han-campus-nijmegen.jpg"); }
+
+.kaart { border: 2px solid var(--han-black); background: #fff; }
+
+.kaart__tabs { display: flex; border-bottom: 2px solid var(--han-black); }
+.kaart__tab {
+  flex: 1; padding: 14px 18px; border: 0; border-right: 1px solid var(--han-line);
+  background: var(--han-bg-soft); color: var(--han-gray);
+  font-family: var(--font-head); font-size: 1.125rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .5px; cursor: pointer;
+}
+.kaart__tab:last-child { border-right: 0; }
+.kaart__tab:hover { color: var(--han-black); }
+.kaart__tab.is-actief { background: var(--han-black); color: #fff; }
+
+.kaart__grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(300px, 1fr); }
+.kaart__vlak {
+  display: flex; align-items: flex-start; justify-content: center;
+  padding: var(--space-md); background: var(--han-bg-soft);
+  border-right: 1px solid var(--han-line); min-width: 0;
+}
+.kaart__svg { width: auto; max-width: 100%; max-height: 660px; }
+
+.kaart__omgeving path { fill: #dedede; stroke: #d0d0d0; stroke-width: 1; }
+.weg { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.weg--hoofd { stroke: #c4c4c4; stroke-width: 6; }
+.weg--straat { stroke: #d2d2d2; stroke-width: 4; }
+.weg--dienst { stroke: #dcdcdc; stroke-width: 2.5; }
+
+.gebouw { cursor: pointer; }
+.gebouw__vlak { fill: #4d4d4d; stroke: var(--han-black); stroke-width: 1.5; transition: fill .15s; }
+.gebouw:hover .gebouw__vlak { fill: #262626; }
+.gebouw.is-actief .gebouw__vlak { fill: var(--han-pink); stroke: var(--han-black); }
+.gebouw__merk { fill: var(--han-black); }
+.gebouw.is-actief .gebouw__merk { fill: var(--han-pink); }
+.gebouw__tekst {
+  fill: #fff; font-family: var(--font-head); font-weight: 700; font-size: 22px;
+  text-anchor: middle; text-transform: uppercase; letter-spacing: .5px;
+}
+.gebouw:focus { outline: none; }
+.gebouw:focus-visible .gebouw__vlak { stroke: var(--han-pink); stroke-width: 5; }
+
+.kaart__schaallijn { stroke: var(--han-gray); stroke-width: 2; fill: none; }
+.kaart__schaaltekst,
+.kaart__noordletter {
+  fill: var(--han-gray); font-family: var(--font-body); font-size: 18px; font-weight: 600;
+}
+.kaart__noordletter { text-anchor: middle; font-size: 22px; }
+.kaart__pijl { fill: var(--han-gray); }
+
+.kaart__paneel { padding: var(--space-lg); max-height: 700px; overflow-y: auto; }
+
+.paneel h3 { margin-bottom: 2px; font-size: 1.375rem; }
+.paneel__code {
+  font-family: var(--font-head); font-weight: 700; text-transform: uppercase;
+  letter-spacing: 1.4px; font-size: .8125rem; color: var(--han-pink); margin: 0 0 4px;
+}
+.paneel__tel { display: flex; align-items: center; gap: 8px; font-weight: 600; margin-bottom: var(--space-md); }
+.paneel__tel .icon { color: var(--han-pink); }
+.paneel__label {
+  font-size: .75rem; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase;
+  color: var(--han-gray); margin: var(--space-md) 0 6px;
+}
+.paneel__lijst { list-style: none; padding: 0; margin: 0 0 var(--space-md); }
+.paneel__lijst li {
+  padding: 8px 0 8px 18px; border-bottom: 1px solid var(--han-line);
+  font-size: .9375rem; position: relative;
+}
+.paneel__lijst li::before {
+  content: ""; position: absolute; left: 0; top: 16px;
+  width: 8px; height: 2px; background: var(--han-pink);
+}
+.paneel__lijst li:last-child { border-bottom: 0; }
+
+.vleugelrij { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: var(--space-md); }
+.vleugelmerk {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 30px; height: 30px; padding: 0 8px;
+  background: var(--han-black); color: #fff;
+  font-family: var(--font-head); font-weight: 700; font-size: 1rem;
+}
+
+.feiten { list-style: none; padding: 0; margin: 0 0 var(--space-md); display: grid; gap: 12px; }
+.feit { display: flex; gap: 10px; font-size: .9375rem; align-items: flex-start; margin: 0; }
+.feit .icon { flex: none; margin-top: 3px; color: var(--han-pink); }
+
+.vleugelkaart { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(300px, 1fr); border: 2px solid var(--han-black); background: #fff; }
+.vleugelkaart__vlak {
+  display: flex; justify-content: center; padding: var(--space-md);
+  background: var(--han-bg-soft); border-right: 1px solid var(--han-line); min-width: 0;
+}
+.vleugelkaart__svg { width: auto; max-width: 100%; max-height: 620px; }
+.vleugelkaart__grond { fill: #cfcfcf; stroke: var(--han-black); stroke-width: 2; }
+.zone { fill: var(--han-pink); fill-opacity: 0; pointer-events: none; transition: fill-opacity .15s; }
+.zone.is-actief { fill-opacity: .9; }
+
+.vleugelmerk-kaart { cursor: pointer; }
+.vleugelmerk-kaart rect { fill: var(--han-black); }
+.vleugelmerk-kaart text {
+  fill: #fff; font-family: var(--font-head); font-weight: 700; font-size: 26px;
+  text-anchor: middle;
+}
+.vleugelmerk-kaart:hover rect { fill: var(--han-pink-dark); }
+.vleugelmerk-kaart.is-actief rect { fill: #fff; stroke: var(--han-black); stroke-width: 3; }
+.vleugelmerk-kaart.is-actief text { fill: var(--han-black); }
+.vleugelmerk-kaart:focus { outline: none; }
+.vleugelmerk-kaart:focus-visible rect { stroke: var(--han-pink); stroke-width: 4; }
+
+.ingang__stip { fill: var(--ok); stroke: #fff; stroke-width: 3; }
+
+.vleugelkaart__paneel { padding: var(--space-lg); }
+
+.chip.is-actief { background: var(--han-black); border-color: var(--han-black); color: #fff; }
+.chip--gebouw { text-align: left; }
+.chip__plaats { color: var(--han-gray-mid); font-weight: 400; }
+.chip--gebouw:hover .chip__plaats { color: inherit; }
+.uitslag__knoppen { display: flex; flex-wrap: wrap; gap: var(--space-xs); margin-bottom: var(--space-sm); }
+
+.swatch--han { background: #4d4d4d; }
+.swatch--buurt { background: #dedede; }
+.swatch--weg { background: #cfcfcf; }
+
+@media (max-width: 900px) {
+  .kaart__grid,
+  .vleugelkaart { grid-template-columns: 1fr; }
+  .kaart__vlak,
+  .vleugelkaart__vlak { border-right: 0; border-bottom: 1px solid var(--han-line); }
+  .kaart__svg { max-height: 70vh; }
+  .kaart__paneel { max-height: none; }
+}
