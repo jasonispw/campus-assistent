@@ -10,24 +10,28 @@
 
   const ALGEMENE_WOORDEN = new Set((
     "student studenten studie jaar jaren eerste vraag vragen hulp nodig klein kans plek groep " +
-    "informatie regeling regel regels ding dingen probleem problemen"
+    "informatie regeling regel regels ding dingen probleem problemen opleiding school"
   ).split(" "));
 
   const SYNONIEMEN = {
     "cijfer": "cijfers resultaten", "cijfers": "resultaten",
     "punt": "studiepunten ec", "punten": "studiepunten ec", "ects": "ec studiepunten",
-    "mail": "e-mail outlook", "email": "e-mail outlook", "mailbox": "outlook",
+    "mail": "e-mail outlook", "mails": "e-mail outlook", "email": "e-mail outlook",
+    "mailtje": "e-mail outlook", "mailbox": "outlook",
     "les": "rooster", "lessen": "rooster", "college": "rooster", "vak": "rooster",
     "lokaal": "rooster locatie", "klas": "rooster locatie",
     "geld": "financieel decaan", "collegegeld": "financieel decaan",
     "wachtwoord": "hanaccount inloggen", "inlog": "inloggen hanaccount",
     "vastgelopen": "hulp studiebegeleider", "vastloop": "hulp studiebegeleider",
     "stress": "psycholoog", "faalangst": "psycholoog", "somber": "psycholoog",
+    "zwaar": "psycholoog stress", "durf": "faalangst psycholoog", "durven": "faalangst psycholoog",
+    "presentatie": "faalangst psycholoog", "zenuwachtig": "faalangst psycholoog",
     "voel": "psycholoog somber", "voelen": "psycholoog somber", "rot": "psycholoog somber",
     "eenzaam": "psycholoog somber", "heimwee": "psycholoog somber",
     "piekeren": "psycholoog stress", "piekeer": "psycholoog stress",
     "slaap": "psycholoog stress", "slapen": "psycholoog stress",
-    "stoppen": "uitschrijven decaan studiebegeleider", "studieadviseur": "studiebegeleider",
+    "stoppen": "uitschrijven stoppen met studie", "stop": "uitschrijven stoppen met studie",
+    "switchen": "uitschrijven switchen", "studieadviseur": "studiebegeleider",
     "verenigingen": "studievereniging", "borrel": "studievereniging activiteiten",
     "kamerzoeken": "kamer wonen", "huisvesting": "wonen kamer",
     "toets": "tentamen toets", "toetsen": "tentamen toets", "examen": "tentamen",
@@ -43,7 +47,18 @@
     "reisproduct": "ov studiefinanciering", "stufi": "studiefinanciering",
     "beurs": "studiefinanciering decaan", "lening": "studiefinanciering",
     "klacht": "klachten vertrouwenspersoon", "pesten": "ongewenst gedrag vertrouwenspersoon",
-    "vrijstellingen": "vrijstelling examencommissie",
+    "gepest": "pesten ongewenst gedrag vertrouwenspersoon", "pest": "pesten ongewenst gedrag",
+    "geldproblemen": "geldproblemen financieel decaan", "geldzorgen": "geldproblemen financieel decaan",
+    "schulden": "geldproblemen financieel decaan", "betalen": "collegegeld decaan",
+    "lokaalcode": "lokaal lokaalcode", "zaal": "lokaal", "verdwaald": "lokaal plattegrond",
+    "kaart": "plattegrond", "parkeren": "parkeerplaats plattegrond",
+    "dyslexie": "dyslexie functiebeperking", "beperking": "functiebeperking",
+    "checklist": "startchecklist", "regelen": "startchecklist",
+    "computer": "laptop", "printen": "printen hancard", "kopieren": "printen hancard",
+    "vrijstellingen": "vrijstelling examencommissie", "overslaan": "vrijstelling",
+    "vervelend": "ongewenst gedrag vertrouwenspersoon", "intimidatie": "ongewenst gedrag vertrouwenspersoon",
+    "plekje": "zelfstudieplek plek", "periode": "periode jaarrooster",
+    "bachelor": "bachelor studiepunten ec", "bedrijf": "praktijkopdracht opdrachtgever",
     "wanhopig": "acuut crisis", "zelfmoord": "acuut crisis", "suicide": "acuut crisis"
   };
 
@@ -135,22 +150,41 @@
     return hooiberg.indexOf(" " + naald + " ") !== -1;
   }
 
+  function zelfdeStam(trefwoord, woord) {
+    if (trefwoord.length < 5 || woord.length < 5) return false;
+
+    const lang = trefwoord.length > woord.length ? trefwoord : woord;
+    const kort = trefwoord.length > woord.length ? woord : trefwoord;
+
+    return lang.length - kort.length <= 3 && lang.indexOf(kort) === 0;
+  }
+
   function scoor(rij, vraag, vraagtokens) {
     let score = 0;
 
     rij.trefwoorden.forEach(function (trefwoord) {
+      if (STOPWOORDEN.has(trefwoord)) return;
       if (!bevatWoord(vraag, trefwoord)) return;
       score += 40 + trefwoord.split(" ").length * 10;
     });
 
     vraagtokens.forEach(function (woord) {
-      const trefwoordTreffer = rij.trefwoorden.some(function (trefwoord) {
-        if (trefwoord.indexOf(" ") === -1) return trefwoord === woord;
-        return woord.length >= 5 && !ALGEMENE_WOORDEN.has(woord) &&
-          trefwoord.split(" ").indexOf(woord) !== -1;
+      let trefwoordTreffer = 0;
+
+      rij.trefwoorden.forEach(function (trefwoord) {
+        if (trefwoord.indexOf(" ") === -1) {
+          if (trefwoord === woord) trefwoordTreffer = Math.max(trefwoordTreffer, 5);
+          else if (zelfdeStam(trefwoord, woord)) trefwoordTreffer = Math.max(trefwoordTreffer, 4);
+          return;
+        }
+
+        if (woord.length >= 5 && !ALGEMENE_WOORDEN.has(woord) &&
+            trefwoord.split(" ").indexOf(woord) !== -1) {
+          trefwoordTreffer = Math.max(trefwoordTreffer, 5);
+        }
       });
 
-      if (trefwoordTreffer) score += 5;
+      score += trefwoordTreffer;
       if (bevatWoord(rij.titel, woord)) score += 3;
       if (bevatWoord(rij.tekst, woord)) score += 1;
     });
@@ -172,6 +206,19 @@
     return typeof KB_ACUTE_ID !== "undefined" && item.id === KB_ACUTE_ID;
   }
 
+  const LOKAALCODE = / [a-z]\d{1,2} \d{1,3} /;
+
+  function bovenaan(treffers, item) {
+    return [{ item: item, score: 999 }]
+      .concat(treffers.filter(treffer => treffer.item.id !== item.id))
+      .slice(0, 3);
+  }
+
+  function itemMet(id) {
+    const rij = INDEX.filter(regel => regel.item.id === id)[0];
+    return rij ? rij.item : null;
+  }
+
   function zoek(vraag) {
     const genormaliseerd = normaliseer(vraag);
     if (genormaliseerd.length < 2) return [];
@@ -179,20 +226,21 @@
     const omspatied = omspatie(genormaliseerd);
     const vraagtokens = tokens(vraag);
 
-    const treffers = INDEX
+    let treffers = INDEX
       .map(rij => ({ item: rij.item, score: scoor(rij, omspatied, vraagtokens) }))
       .filter(treffer => treffer.score > 3)
       .sort((a, b) => b.score - a.score)
       .slice(0, 3);
+
+    const lokaal = LOKAALCODE.test(omspatied) ? itemMet("lokaalzoeker") : null;
+    if (lokaal) treffers = bovenaan(treffers, lokaal);
 
     if (!isCrisis(omspatied)) return treffers;
 
     const acuut = acuutItem();
     if (!acuut) return treffers;
 
-    return [{ item: acuut, score: 999 }]
-      .concat(treffers.filter(t => t.item.id !== acuut.id))
-      .slice(0, 3);
+    return bovenaan(treffers, acuut);
   }
 
   const ACUTE_REGEL =

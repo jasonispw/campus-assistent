@@ -6,6 +6,8 @@ const BRON = {
   insite: { label: "HAN Insite", url: "https://www1.han.nl/insite/" },
   hulpInsite: { label: "Hulp, ondersteuning en training op Insite", url: "https://www1.han.nl/insite/studenten/panelnav.xml/hulp-ondersteuning-training/" },
   decanen: { label: "Studentendecanen op Insite", url: "https://www1.han.nl/insite/studenten/hulp-ondersteuning-training/studentbegeleiding-en-student-support-center/studentendecanen/" },
+  bijzonder: { label: "Bijzondere omstandigheden op han.nl", url: "https://www.han.nl/studeren/succesvol-studeren/bijzondere-omstandigheden/" },
+  bag: { label: "Basisregistratie Adressen en Gebouwen (BAG)", url: "https://www.kadaster.nl/zakelijk/registraties/basisregistraties/bag" },
   duo: { label: "duo.nl", url: "https://duo.nl/" },
   hulplijn113: { label: "113 Zelfmoordpreventie", url: "https://www.113.nl/" },
   oer2026: { label: "OS/OER ICT voltijd 2026-2027", url: "https://www.han.nl/opleidingen/hbo/ict/voltijd/praktische-info/bacheloropleiding-ict-voltijd.pdf" },
@@ -71,7 +73,7 @@ const KB = [
     categorie: "Systemen",
     status: "check",
     trefwoorden: ["teams", "outlook", "mail", "e-mail", "email", "han-mail", "office", "office365",
-      "microsoft", "word", "excel", "vergaderen", "chat docent"],
+      "microsoft", "microsoft word", "excel", "vergaderen", "chat docent"],
     body: `
       <p>Als HAN-student krijg je Office 365. Daar horen je HAN-mailbox (Outlook) en Teams bij.
       Belangrijke berichten over je inschrijving ontvang je via je HAN-mail. Controleer deze regelmatig.</p>
@@ -85,7 +87,8 @@ const KB = [
     categorie: "Systemen",
     status: "check",
     trefwoorden: ["hanaccount", "account", "inloggen", "wachtwoord", "mfa", "authenticator",
-      "tweestapsverificatie", "kan niet inloggen", "login"],
+      "tweestapsverificatie", "kan niet inloggen", "login", "inloggegevens", "wachtwoord kwijt",
+      "account kwijt", "gebruikersnaam"],
     body: `
       <p>Je HANaccount is de sleutel tot alle digitale voorzieningen van de HAN. Het wordt automatisch
       aangemaakt zodra je inschrijving rond is; je inloggegevens krijg je per e-mail.</p>
@@ -140,7 +143,7 @@ const KB = [
     categorie: "Systemen",
     status: "check",
     trefwoorden: ["hancard", "han-card", "studentenpas", "studentenkaart", "collegekaart", "pasfoto",
-      "pas kwijt", "printen", "printer", "scannen", "kopiëren", "kopieren", "copycorner",
+      "pas kwijt", "print", "printen", "printer", "scannen", "kopiëren", "kopieren", "copycorner",
       "boeken lenen", "bibliotheek"],
     body: `
       <p>Je <strong>HANcard</strong> is je studentenpas. Je gebruikt hem onder andere om te printen en
@@ -152,11 +155,50 @@ const KB = [
     bron: BRON.faciliteiten
   },
   {
+    id: "startchecklist",
+    titel: "Wat regel je voordat je begint?",
+    categorie: "Systemen",
+    status: "check",
+    trefwoorden: ["startchecklist", "checklist", "eerste week", "eerste lesdag", "eerste dag",
+      "wat moet ik regelen", "wat moet ik doen", "voorbereiden", "net begonnen", "waar begin ik",
+      "start van de studie", "introductie", "eerste les", "wat moet ik installeren"],
+    body: `
+      <p>Regel dit voor je eerste lesweek:</p>
+      <ul>
+        <li>je <strong>HANaccount</strong> activeren en Microsoft Authenticator installeren;</li>
+        <li><strong>eduroam</strong> instellen op je laptop en telefoon;</li>
+        <li>Brightspace, Osiris en MyX openen of de app installeren;</li>
+        <li>je HAN-mail in Outlook controleren;</li>
+        <li>uitzoeken wie je studiebegeleider is.</li>
+      </ul>
+      <p>Op de <a href="index.html#start">startpagina</a> staat deze checklist met vinkjes, zodat je bijhoudt
+      wat je al hebt gedaan.</p>`,
+    bron: BRON.services
+  },
+  {
+    id: "laptop-software",
+    titel: "Je eigen laptop en gratis software",
+    categorie: "Systemen",
+    status: "check",
+    trefwoorden: ["laptop", "eigen laptop", "welke laptop", "computer", "macbook", "windows",
+      "software", "gratis software", "office downloaden", "office installeren", "programma installeren",
+      "pc op school", "stopcontact"],
+    body: `
+      <p>Tijdens de lessen werk je meestal op je eigen laptop. Als HAN-student krijg je <strong>Office 365</strong>
+      gratis: log in op <a href="https://office365.han.nl" target="_blank" rel="noopener">office365.han.nl</a>
+      en download Office via microsoft365.com.</p>
+      <p>Op de campus staan ook werkplekken met een pc, en het wifi-netwerk eduroam werkt op je eigen apparaten.
+      Welke eisen de opleiding aan je laptop stelt, vraag je na bij het secretariaat of je studiebegeleider.</p>`,
+    bron: BRON.praktisch
+  },
+  {
     id: "isas",
     titel: "iSAS: toetsrooster, deadlines en stage-info",
     categorie: "Systemen",
     status: "check",
-    trefwoorden: ["isas", "toetsrooster", "inleverdeadlines", "inleverdeadline", "stage-info", "afstudeerinfo", "academie"],
+    trefwoorden: ["isas", "toetsrooster", "inleverdeadlines", "inleverdeadline", "stage-info",
+      "afstudeerinfo", "academie", "wanneer zijn de tentamens", "tentamendata", "toetsdata",
+      "wanneer is mijn toets"],
     body: `
       <p><strong>iSAS</strong> is de academiesite van ICT. Je vindt er onder meer het toetsrooster,
       inleverdeadlines en informatie over stage en afstuderen.</p>
@@ -183,7 +225,8 @@ const KB = [
     categorie: "Studiepunten",
     status: "check",
     trefwoorden: ["studiepunten", "ec", "ects", "punten", "hoeveel uur", "studielast", "28 uur",
-      "60 punten", "240", "hoeveel punten per jaar"],
+      "60 punten", "240", "hoeveel punten per jaar", "bachelor", "hoe lang duurt de studie",
+      "duur van de opleiding", "vier jaar"],
     body: `
       <p>Per studiejaar kun je <strong>60 studiepunten (EC)</strong> halen. De hele bacheloropleiding ICT
       is <strong>240 EC</strong> in 4 jaar.</p>
@@ -198,7 +241,8 @@ const KB = [
     status: "check",
     trefwoorden: ["bsa", "bindend studieadvies", "psa", "persoonlijk studieadvies", "studieadvies",
       "doorstroomnorm", "hoeveel punten moet ik halen", "eerste jaar", "negatief advies", "stoppen",
-      "doorgaan naar jaar 2", "norm", "40 ec", "taalniveau", "3f", "hogeschooltaal"],
+      "doorgaan naar jaar 2", "door naar jaar 2", "doorstromen", "norm", "40 ec", "taalniveau", "3f",
+      "hogeschooltaal"],
     body: `
       <p>ICT werkt in studiejaar 2026-2027 met een <strong>persoonlijk studieadvies</strong>. Het advies om
       wel of niet door te gaan is niet bindend en kijkt breder dan alleen studiepunten.</p>
@@ -252,6 +296,7 @@ const KB = [
     categorie: "Studiepunten",
     status: "check",
     trefwoorden: ["vrijstelling", "examencommissie", "uitzondering", "bezwaar", "eerder gehaald",
+      "vak overslaan", "vak niet doen", "vak al gedaan", "andere school", "elders gehaald",
       "vorige opleiding", "diploma meenemen", "extra kans aanvragen", "verzoek indienen"],
     body: `
       <p>De <strong>examencommissie</strong> beslist over vrijstellingen en verzoeken om een extra
@@ -267,7 +312,8 @@ const KB = [
     categorie: "Studiepunten",
     status: "check",
     trefwoorden: ["vakantie", "vakanties", "lesvrij", "lesvrije week", "vrije dagen", "kerstvakantie",
-      "zomervakantie", "jaarrooster", "wanneer vrij", "feestdagen", "toetsweek", "periodes"],
+      "zomervakantie", "jaarrooster", "wanneer vrij", "feestdagen", "toetsweek", "periode", "periodes",
+      "wanneer begint periode"],
     body: `
       <p>Het studiejaar is verdeeld in vier periodes. Vakanties, feestdagen en HAN-brede lesvrije dagen
       staan in het openbare <strong>jaarrooster 2026-2027</strong>.</p>
@@ -294,13 +340,45 @@ const KB = [
     bron: BRON.praktisch
   },
   {
+    id: "lokaalzoeker",
+    titel: "Je lokaal vinden met de lokaalcode",
+    categorie: "Campus",
+    status: "check",
+    trefwoorden: ["lokaal", "lokaalcode", "lokaalnummer", "welk lokaal", "waar is mijn lokaal",
+      "leslokaal", "zaal", "vleugel", "verdieping", "deurnummer", "r26", "lokaal zoeken",
+      "waar moet ik zijn", "verdwaald", "les zoeken"],
+    body: `
+      <p>Je rooster geeft een code als <strong>R26/B2.40</strong>. Die bestaat uit het gebouw
+      (R26 = Ruitenberglaan 26), de vleugel (B), de verdieping (2) en het deurnummer (40).</p>
+      <p>Vul de code uit <a href="https://myx-han.xedule.nl/" target="_blank" rel="noopener">MyX</a> in bij de
+      <a href="campus.html#lokaalzoeker">Lokaalzoeker</a>, dan zie je stap voor stap waar je moet zijn.
+      Kom je er niet uit, dan heeft de servicebalie in de centrale hal de officiële plattegronden.</p>`,
+    bron: BRON.services
+  },
+  {
+    id: "plattegrond",
+    titel: "Plattegrond van de campus",
+    categorie: "Campus",
+    status: "check",
+    trefwoorden: ["plattegrond", "kaart", "campuskaart", "welk gebouw", "waar is gebouw", "ingang",
+      "lift", "liften", "toilet", "aangepast toilet", "rolstoel", "parkeren", "parkeerplaats",
+      "laadpunt", "route over de campus"],
+    body: `
+      <p>Op de <a href="plattegrond.html">plattegrond</a> zie je de gebouwen van de campus en de zes vleugels
+      van Ruitenberglaan 26. Klik een gebouw of vleugel aan voor het adres, de ingang, de liften, de aangepaste
+      toiletten en de parkeerplaatsen voor personen met een beperking.</p>
+      <p>Zoek je het lokaal bij een les? Gebruik dan de <a href="campus.html#lokaalzoeker">Lokaalzoeker</a>.</p>`,
+    bron: BRON.bag
+  },
+  {
     id: "zelfstudieplek",
     titel: "Studieplekken tussen de lessen",
     categorie: "Campus",
     status: "check",
     trefwoorden: ["zelfstudieplek", "studieplek", "stilteplek", "zelfstandig werken", "leren op school",
       "werkplek", "vrije plek", "rustige plek", "bibliotheek", "mediatheek", "waar kan ik werken",
-      "waar kan ik studeren", "rustig studeren", "studeren op campus", "tussenuur", "kantine"],
+      "waar kan ik studeren", "rustig studeren", "studeren op campus", "tussenuur", "kantine",
+      "groepsopdracht", "groepswerk", "samenwerken", "overlegplek"],
     body: `
       <p>Alle HAN-studenten kunnen gebruikmaken van de studentwerkplekken van de HAN Bibliotheken.
       Er zijn werkplekken met pc, stilteruimtes, samenwerkplekken en voorzieningen voor je laptop.</p>
@@ -313,7 +391,7 @@ const KB = [
     categorie: "Campus",
     status: "check",
     trefwoorden: ["secretariaat", "secretaris", "opleidingsbureau", "servicepunt", "balie",
-      "contact opleiding", "telefoonnummer opleiding", "mailadres opleiding", "ask han"],
+      "contact opleiding", "telefoonnummer opleiding", "mailadres opleiding", "ask han", "wie kan ik bellen"],
     body: `
       <p>De actuele contactgegevens van het secretariaat of opleidingsbureau staan op Insite bij je
       eigen opleiding. HANDIG_ toont geen kamernummer of persoonlijk adres, omdat die gegevens kunnen
@@ -383,7 +461,7 @@ const KB = [
     categorie: "Hulp",
     status: "check",
     trefwoorden: ["uitschrijven", "uitschrijving", "schrijf uit", "stoppen met studie", "studie stoppen",
-      "niet herinschrijven", "switchen", "andere opleiding", "studielink", "collegegeld terug",
+      "stoppen met mijn studie", "wil stoppen", "ermee stoppen", "niet herinschrijven", "switchen", "andere opleiding", "studielink", "collegegeld terug",
       "studiefinanciering stopzetten", "reisproduct stopzetten"],
     body: `
       <p>Wil je stoppen, bespreek je keuze dan eerst met je studiebegeleider. Uitschrijven zelf doe je in
@@ -400,9 +478,9 @@ const KB = [
     titel: "Studentendecaan: geld, inschrijving en bijzondere omstandigheden",
     categorie: "Hulp",
     status: "check",
-    trefwoorden: ["decaan", "studentendecaan", "geld", "financieel", "collegegeld", "studiefinanciering",
-      "beurs", "inschrijving", "uitschrijven", "bijzondere omstandigheden", "regelingen",
-      "wil stoppen", "stoppen met mijn studie"],
+    trefwoorden: ["decaan", "studentendecaan", "geld", "geldproblemen", "geldzorgen", "financieel", "collegegeld",
+      "collegegeld betalen", "studiefinanciering",
+      "beurs", "inschrijving", "bijzondere omstandigheden", "regelingen"],
     body: `
       <p>Een studentendecaan adviseert over studiefinanciering, collegegeld, beurzen en financiële
       problemen door bijzondere omstandigheden.</p>
@@ -410,12 +488,29 @@ const KB = [
     bron: BRON.succesvol
   },
   {
+    id: "bijzondere-omstandigheden",
+    titel: "Functiebeperking, dyslexie of andere bijzondere omstandigheden",
+    categorie: "Hulp",
+    status: "check",
+    trefwoorden: ["functiebeperking", "beperking", "dyslexie", "dyscalculie", "adhd", "autisme",
+      "chronisch ziek", "extra tijd", "aangepaste toets", "voorziening", "voorzieningen",
+      "bijzondere omstandigheden", "mantelzorg", "topsport", "aanpassing", "thuissituatie"],
+    body: `
+      <p>Heb je een functiebeperking, dyslexie, een chronische ziekte of iets anders waardoor je studie in de
+      knel komt? Meld dat <strong>zo vroeg mogelijk</strong>. Er zijn regelingen en voorzieningen voor, en
+      bijzondere omstandigheden kunnen meewegen in je studieadvies.</p>
+      <p>Begin bij je studiebegeleider en schakel de studentendecaan in. Daar hoor je welke voorzieningen
+      mogelijk zijn en hoe je die aanvraagt.</p>`,
+    bron: BRON.bijzonder
+  },
+  {
     id: "ziekmelden",
     titel: "Ziek zijn en je afmelden",
     categorie: "Hulp",
     status: "check",
     trefwoorden: ["ziek", "ziekmelden", "ziek melden", "afmelden", "griep", "corona", "niet naar les",
-      "gemist", "les gemist", "toets gemist", "langdurig ziek", "blessure"],
+      "gemist", "les gemist", "toets gemist", "langdurig ziek", "blessure", "te laat",
+      "kom niet naar de les", "verslapen"],
     body: `
       <p>De opleiding legt in de eerste week uit via welke route je je ziek meldt. Gebruik daarna altijd
       de actuele instructie van ICT op Insite; een ziekmelding is niet hetzelfde als afmelden voor een toets.</p>
@@ -430,7 +525,7 @@ const KB = [
     categorie: "Hulp",
     status: "check",
     trefwoorden: ["student support", "support centrum", "training", "coach", "studievaardigheden",
-      "workshops", "ondersteuning", "functiebeperking", "dyslexie"],
+      "workshops", "ondersteuning", "studeren met een plan"],
     body: `
       <p>Het Student Support Centrum is een team van trainers, coaches, psychologen en decanen.
       Ze bieden trainingen in persoonlijke ontwikkeling, studievaardigheden en taalvaardigheid,
@@ -490,7 +585,8 @@ const KB = [
     titel: "Praktijkopdrachten voor echte opdrachtgevers",
     categorie: "Meedoen",
     status: "check",
-    trefwoorden: ["opdrachten", "ervaring opdoen", "praktijkopdrachten", "opdrachtgevers", "praktijkervaring"],
+    trefwoorden: ["opdrachten", "ervaring opdoen", "praktijkopdrachten", "opdrachtgevers", "praktijkervaring",
+      "bedrijf", "echt bedrijf", "opdrachtgever", "werken voor een bedrijf"],
     body: `
       <p>Binnen ICT werk je via projecten en praktijkopdrachten aan echte vraagstukken. Waar mogelijk
       komen projecten van externe opdrachtgevers, zodat je samenwerken en toepassen in de praktijk oefent.</p>
@@ -515,7 +611,8 @@ const KB = [
     titel: "Op kamers in Arnhem of Nijmegen",
     categorie: "Meedoen",
     status: "check",
-    trefwoorden: ["kamer", "wonen", "huisvesting", "op kamers", "studentenwoning", "huren", "verhuizen"],
+    trefwoorden: ["kamer", "wonen", "huisvesting", "op kamers", "studentenwoning", "studentenkamer",
+      "kamer huren", "woonruimte", "huren", "verhuizen"],
     body: `
       <p>De HAN adviseert om woonruimte te zoeken via een woningcorporatie, kamerbemiddelaar, je eigen
       netwerk, sociale media of een huisvestingsapp.</p>

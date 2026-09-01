@@ -144,6 +144,17 @@ de kennisbank staat ("cijfer" wordt "resultaten"). `SPLITSBAAR` plakt Nederlands
 werkwoorden weer aan elkaar, zodat "hoe schrijf ik me uit" het trefwoord "uitschrijven" vindt.
 `CRISIS` bevat zinnen waarbij het antwoord over acute hulp altijd bovenaan komt, ongeacht de score.
 
+Op de hele-woordenregel bestaat één uitzondering: `zelfdeStam` laat "print" ook op het trefwoord
+"printen" aanslaan, maar alleen als beide woorden minstens vijf letters hebben, het ene met het andere
+begint en ze hoogstens drie letters schelen. Korte woorden als `ec` en `ans` blijven daardoor buiten
+schot, precies de valkuil hierboven. Zo'n stamtreffer telt lichter dan een exacte treffer.
+
+Trefwoorden die in `STOPWOORDEN` staan tellen niet mee. Anders scoort een item met het trefwoord
+"word" hoog op de zin "ik word gepest", en dat was precies wat er gebeurde.
+
+`LOKAALCODE` herkent een lokaalcode in de vraag (een letter met cijfers, dan nog cijfers, zoals
+"c1.01") en zet het antwoord over de Lokaalzoeker bovenaan, net zoals `CRISIS` dat doet voor acute hulp.
+
 Nieuwe trefwoorden altijd testen tegen vragen die al werkten: een te algemeen woord duikt overal op.
 
 ## Hoe de assistent werkt
