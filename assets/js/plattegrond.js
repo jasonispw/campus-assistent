@@ -140,7 +140,7 @@
     {
       id: "lvs2",
       campus: "nijmegen",
-      code: "LvS2",
+      code: "LvS 2",
       naam: "Laan van Scheut 2",
       adres: "Laan van Scheut 2, 6525 EM Nijmegen",
       telefoon: "",
@@ -155,7 +155,7 @@
     {
       id: "lvs10",
       campus: "nijmegen",
-      code: "LvS10",
+      code: "LvS 10",
       naam: "Laan van Scheut 10",
       adres: "Laan van Scheut 10, 6525 EM Nijmegen",
       telefoon: "(024) 353 15 02",
@@ -221,7 +221,7 @@
     {
       id: "pm3",
       campus: "nijmegen",
-      code: "PM3",
+      code: "PM 3",
       naam: "Professor Molkenboerstraat 3",
       adres: "Prof. Molkenboerstraat 3, 6524 RN Nijmegen",
       telefoon: "(024) 353 15 05",
@@ -238,7 +238,7 @@
     {
       id: "pvl25",
       campus: "nijmegen",
-      code: "PvL25",
+      code: "PvL 25",
       naam: "Philips van Leydenlaan 25",
       adres: "Philips van Leydenlaan 25, 6525 EX Nijmegen",
       telefoon: "(024) 361 63 65",
@@ -254,7 +254,7 @@
     {
       id: "gw1",
       campus: "nijmegen",
-      code: "GW1",
+      code: "GW 1",
       naam: "Groenewoudseweg 1",
       adres: "Groenewoudseweg 1, 6524 TM Nijmegen",
       telefoon: "",
@@ -273,7 +273,7 @@
     {
       letter: "A",
       naam: "A-vleugel",
-      x: 262, y: 333,
+      x: 300, y: 375,
       gebied: "M97 324L257 324L305 295L413 295L470 380L512 494L257 513L97 456Z",
       regels: [
         "De centrale hal, met de receptie en de hoofdingang.",
@@ -285,7 +285,7 @@
     {
       letter: "B",
       naam: "B-vleugel",
-      x: 356, y: 107,
+      x: 400, y: 110,
       gebied: "M257 3L606 3L588 191L413 210L408 305L300 305L290 191Z",
       regels: [
         "ICT heeft hier les, samen met de C-vleugel.",
@@ -297,7 +297,7 @@
     {
       letter: "C",
       naam: "C-vleugel",
-      x: 512, y: 399,
+      x: 580, y: 470,
       gebied: "M451 390L752 371L766 522L517 560Z",
       regels: [
         "ICT heeft hier les, samen met de B-vleugel.",
@@ -308,7 +308,7 @@
     {
       letter: "D",
       naam: "D-vleugel",
-      x: 460, y: 522,
+      x: 540, y: 600,
       gebied: "M456 531L550 512L682 739L512 777Z",
       regels: [
         "1 lift naar alle verdiepingen.",
@@ -318,7 +318,7 @@
     {
       letter: "E",
       naam: "E-vleugel",
-      x: 253, y: 550,
+      x: 250, y: 620,
       gebied: "M97 456L257 513L474 551L493 607L305 739L135 683Z",
       regels: [
         "1 lift naar alle verdiepingen.",
@@ -329,7 +329,7 @@
     {
       letter: "F",
       naam: "F-vleugel",
-      x: 102, y: 125,
+      x: 124, y: 140,
       gebied: "M4 3L248 3L253 333L135 333L4 277Z",
       regels: [
         "1 lift naar alle verdiepingen.",
@@ -341,10 +341,10 @@
   ];
 
   const R26_INGANGEN = [
-    { naam: "Hoofdingang", x: 328, y: 350, uitleg: "Bij de centrale hal in de A-vleugel." },
-    { naam: "Ingang B", x: 457, y: 135, uitleg: "Aan de noordkant, bij de B-vleugel." },
-    { naam: "Ingang F", x: 191, y: 206, uitleg: "Bij de F-vleugel." },
-    { naam: "Ingang Zuid", x: 206, y: 569, uitleg: "Aan de zuidkant, bij de E-vleugel." }
+    { naam: "Hoofdingang", x: 324, y: 330, uitleg: "Bij de centrale hal in de A-vleugel." },
+    { naam: "Ingang B", x: 455, y: 33, uitleg: "Aan de noordkant, bij de B-vleugel." },
+    { naam: "Ingang F", x: 213, y: 202, uitleg: "Bij de F-vleugel." },
+    { naam: "Ingang Zuid", x: 261, y: 666, uitleg: "Aan de zuidkant, bij de E-vleugel." }
   ];
 
   const OVERIG = [
@@ -483,17 +483,17 @@
       vlak.setAttribute("fill-rule", "evenodd");
       groep.appendChild(vlak);
 
-      const breedte = info.code.length * 15 + 22;
+      const breedte = info.code.length * 11 + 18;
       const merk = el("rect", "gebouw__merk");
       merk.setAttribute("x", vorm.x - breedte / 2);
-      merk.setAttribute("y", vorm.y - 17);
+      merk.setAttribute("y", vorm.y - 14);
       merk.setAttribute("width", breedte);
-      merk.setAttribute("height", 34);
+      merk.setAttribute("height", 28);
       groep.appendChild(merk);
 
       const tekst = el("text", "gebouw__tekst");
       tekst.setAttribute("x", vorm.x);
-      tekst.setAttribute("y", vorm.y + 7);
+      tekst.setAttribute("y", vorm.y + 6);
       tekst.textContent = info.code;
       groep.appendChild(tekst);
 

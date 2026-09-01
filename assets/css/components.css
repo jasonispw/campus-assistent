@@ -73,6 +73,7 @@
 .tile--start    { background-image: url("../img/han-studieplek.jpg"); }
 .tile--rekenen  { background-image: url("../img/han-ict-collegezaal.jpg"); }
 .tile--over     { background-image: url("../img/han-ict-programmeerlab.jpg"); }
+.tile--plattegrond { background-image: url("../img/han-campus-nijmegen.jpg"); }
 
 
 .assist,
@@ -490,7 +491,7 @@ th .icon { flex: none; }
 .gebouw__merk { fill: var(--han-black); }
 .gebouw.is-actief .gebouw__merk { fill: var(--han-pink); }
 .gebouw__tekst {
-  fill: #fff; font-family: var(--font-head); font-weight: 700; font-size: 22px;
+  fill: #fff; font-family: var(--font-head); font-weight: 700; font-size: 18px;
   text-anchor: middle; text-transform: uppercase; letter-spacing: .5px;
 }
 .gebouw:focus { outline: none; }
