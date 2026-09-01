@@ -1,0 +1,21 @@
+# HANDIG_ Campus Assistent
+
+> Onafhankelijke studentensite die eerstejaarsstudenten ICT van de HAN wegwijs maakt in systemen, studiepunten, campuslocaties en ondersteuning. Geen officieel product van de HAN; alle informatie verwijst naar de HAN-bron.
+
+De site is statisch, Nederlandstalig en bewaart alleen instellingen in de localStorage van de bezoeker.
+
+## Pagina's
+
+- [Assistent](https://jasonispw.github.io/campus-assistent/): startpagina met zoekvraag en doorverwijzing naar het juiste onderwerp
+- [Systemen](https://jasonispw.github.io/campus-assistent/systemen.html): waar Brightspace, Osiris, MyX, Teams, Outlook, Insite, iSAS en Ans voor dienen
+- [Studiepunten](https://jasonispw.github.io/campus-assistent/studiepunten.html): uitleg over EC, de doorstroomnorm van 40 EC, de propedeuse en een EC-calculator
+- [Campus](https://jasonispw.github.io/campus-assistent/campus.html): adressen van de opleiding ICT in Arnhem en Nijmegen
+- [Lokaalzoeker](https://jasonispw.github.io/campus-assistent/lokaalzoeker.html): een HAN-lokaalcode omzetten naar gebouw, vleugel en verdieping
+- [Plattegrond](https://jasonispw.github.io/campus-assistent/plattegrond.html): interactieve kaart van de campus met gebouwen, liften en toiletten
+- [Hulp](https://jasonispw.github.io/campus-assistent/hulp.html): studiebegeleider, studentendecaan, studentenpsycholoog en het Student Support Centrum
+- [Meedoen](https://jasonispw.github.io/campus-assistent/meedoen.html): studievereniging Xtend, praktijkopdrachten en op kamers gaan
+
+## Overig
+
+- [Over HANDIG_](https://jasonispw.github.io/campus-assistent/over.html): wie de site maakt, waar de informatie vandaan komt en hoe hij gebouwd is
+- [Privacy](https://jasonispw.github.io/campus-assistent/privacy.html): welke gegevens lokaal worden opgeslagen en hoe je die wist

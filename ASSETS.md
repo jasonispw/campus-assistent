@@ -31,8 +31,15 @@ De foto's worden op HANDIG_ uitsluitend gebruikt als ondersteunend beeld. Ze vor
 routes, lokaalnummers of actuele voorzieningen. Voor zulke informatie verwijst de website naar de
 officiële bron.
 
-De oudere bestanden met namen als `hero-*.jpg`, `tile-*.jpg` en `og-image.jpg` worden niet meer door
-de website gebruikt. Ze blijven alleen aanwezig als historisch projectmateriaal.
+## Deelkaarten
+
+De afbeeldingen in `assets/img/og/` zijn de kaarten die verschijnen als iemand een pagina deelt in
+WhatsApp, Teams, Discord of op social media. Ze meten 1200 bij 630 pixels en combineren het HANDIG_-
+wordmark met een van de HAN-foto's hierboven. Voor die foto's gelden dezelfde rechten als hierboven:
+controleer vóór externe publicatie of toestemming en naamsvermelding nodig zijn.
+
+De eerdere bestanden met namen als `hero-*.jpg`, `tile-*.jpg` en `og-image.jpg` zijn verwijderd. Ze
+werden nergens meer gebruikt en zijn terug te halen uit de git-geschiedenis.
 
 ## Iconen
 

@@ -7,24 +7,26 @@ Geen officieel HAN-product.
 
 ## Starten
 
-Geen installatie, geen build-stap. Twee opties:
-
-1. Dubbelklik op `index.html`.
-2. Of via de meegeleverde server voor een volledige lokale controle:
+Geen installatie, geen build-stap, geen scripts. Dubbelklik op `index.html`, of serveer de map als je
+de 404-afhandeling wilt nalopen zoals de hosting die doet:
 
 ```bash
-python server.py 5173
+python -m http.server 5173
 ```
 
 Daarna: <http://localhost:5173>
-
-`server.py` serveert `404.html` bij een onbekend adres, net als de hosting doet.
 
 ## Publiceren
 
 De site is ingericht voor GitHub Pages onder <https://jasonispw.github.io/campus-assistent/>. Alle
 paden in de HTML zijn relatief, dus de site werkt zowel vanaf `file://` als vanuit een submap. Het
 adres wordt pas publiek bereikbaar nadat GitHub Pages voor de repository is gepubliceerd.
+
+`robots.txt` staat in de repository-root en is daardoor bereikbaar op
+`/campus-assistent/robots.txt`. Zoekmachines lezen alleen `robots.txt` op de root van het domein, dus
+op een project-site van GitHub Pages heeft dit bestand geen effect op crawlen. Dat is geen probleem,
+want de site geeft alles vrij; dien de sitemap rechtstreeks in bij Google Search Console. Verhuist de
+site naar een eigen domein, dan werkt `robots.txt` wel zoals bedoeld.
 
 `canonical`, `og:url` en `og:image` staan als volledige GitHub Pages-URL in de `<head>`, omdat
 linkvoorbeelden in bijvoorbeeld WhatsApp en Teams geen relatief pad kunnen gebruiken. Pas deze
@@ -47,11 +49,15 @@ campus.html           locaties en je lokaal vinden
 hulp.html             hulplijnen en de hulpwijzer
 meedoen.html          studievereniging, praktijkopdrachten, wonen
 over.html             verantwoording, bronnen en colofon
+lokaalzoeker.html     lokaalcode omzetten naar gebouw, vleugel en verdieping
+plattegrond.html      interactieve campuskaart
 privacy.html          wat er lokaal wordt opgeslagen en hoe je het wist
 404.html              pagina niet gevonden
 
-server.py             lokale server die 404.html serveert bij een onbekend adres
-sprite.py             zet de icon-sprite in alle pagina's en meldt dode iconen
+sitemap.xml           de tien publieke pagina's, zonder 404 en assets
+robots.txt            geeft alles vrij en wijst naar de sitemap
+llms.txt              korte beschrijving en de belangrijkste links, voor taalmodellen
+.nojekyll             zet Jekyll-verwerking op GitHub Pages uit
 ```
 
 Elke pagina heeft dezelfde opbouw: eerst de skip-link, dan `<header>`, `<main>` met de secties,
@@ -129,10 +135,9 @@ ze voor als naamloze afbeelding.
 1. Zoek het icoon op [icon-sets.iconify.design](https://icon-sets.iconify.design/tabler/).
 2. Download het: `https://api.iconify.design/tabler/NAAM.svg` en zet het in `assets/icons/`.
 3. Voeg een `<symbol id="i-NAAM" viewBox="0 0 24 24">` toe aan `assets/icons/sprite.html`.
-4. Draai `python sprite.py`.
+4. Neem dat symbool op in het sprite-blok onderaan elke pagina die het icoon gebruikt.
 
-Dat script zet de sprite in alle pagina's en meldt welke icons je gebruikt maar niet hebt toegevoegd,
-en welke je hebt toegevoegd maar nergens gebruikt. Kopieer het blok dus niet met de hand.
+Het sprite-blok is in alle pagina's identiek. Werk het overal bij, anders mist één pagina het icoon.
 
 ## Foutafhandeling
 
@@ -257,7 +262,7 @@ staan in `ASSETS.md` en op `over.html`.
 ## Controle voor een nieuwe versie
 
 1. Controleer de actuele studiejaargegevens tegen het OS/OER.
-2. Draai `python sprite.py` en controleer dat alle pagina's dezelfde, geldige iconsprite bevatten.
+2. Controleer dat alle pagina's dezelfde, geldige iconsprite bevatten.
 3. Controleer alle JavaScript-bestanden in PowerShell met
    `Get-ChildItem assets/js/*.js | ForEach-Object { node --check $_.FullName }`.
 4. Loop de assistent, EC-calculator, hulpwijzer, onboarding, privacy-wisknop en een diepe 404-URL in

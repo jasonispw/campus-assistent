@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jasonispw.github.io/campus-assistent/sitemap.xml
