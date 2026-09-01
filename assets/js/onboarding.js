@@ -15,6 +15,13 @@
     infra: "Infra &amp; Cybersecurity"
   };
 
+  const KLASSEN = {
+    "1": ["ICT-1A", "ICT-1B", "ICT-1C", "ICT-1D"],
+    "2": ["ICT-2A", "ICT-2B", "ICT-2C", "ICT-2D"],
+    "3": ["ICT-3A", "ICT-3B", "ICT-3C", "ICT-3D"],
+    "4": ["ICT-4A", "ICT-4B", "ICT-4C", "ICT-4D"]
+  };
+
   const TAKEN = [
     { id: "account", tekst: "HANaccount activeren", uitleg: "Je inloggegevens krijg je per e-mail zodra je inschrijving rond is.", icoon: "i-key" },
     { id: "mfa", tekst: "Microsoft Authenticator installeren", uitleg: "Nodig voor multifactor-authenticatie op alle HAN-systemen.", icoon: "i-key" },
@@ -161,16 +168,24 @@
   }
 
   function stapKlas() {
+    const klassen = KLASSEN[concept.jaar] || [];
+    if (!klassen.includes(concept.klas)) delete concept.klas;
+
+    const opties = klassen.map(function (klas) {
+      const gekozen = concept.klas === klas ? " selected" : "";
+      return '<option value="' + klas + '"' + gekozen + ">" + klas + "</option>";
+    }).join("");
+
     return "<h2>In welke klas zit je?</h2>" +
       "<p>Je klas wordt gebruikt om je profiel herkenbaar te maken. Dit veld is niet verplicht.</p>" +
       '<div class="onboarding__extra">' +
       '<label for="ob-klas">Klas</label>' +
-      '<input id="ob-klas" type="text" maxlength="20" placeholder="bijvoorbeeld ICT-1A"' +
-      ' value="' + veilig(concept.klas || "") + '" data-veld="klas">' +
+      '<select id="ob-klas" data-veld="klas">' +
+      '<option value="">Geen klas / overslaan</option>' + opties +
+      "</select>" +
       "</div>" +
       '<p class="onboarding__privacy">' + icoon("i-info") +
-      " De ingevoerde informatie blijft op dit apparaat en wordt niet verzonden. " +
-      "Vul geen studentnummer of andere persoonsgegevens in.</p>";
+      " Je keuze blijft op dit apparaat staan en wordt niet verzonden.</p>";
   }
 
   function stapChecklist() {
@@ -233,7 +248,10 @@
       knop.addEventListener("click", function () {
         const deel = knop.dataset.waarde.split(":");
         concept[deel[0]] = deel[1];
-        if (deel[0] === "jaar" && deel[1] === "1") delete concept.profiel;
+        if (deel[0] === "jaar") {
+          if (deel[1] === "1") delete concept.profiel;
+          if (!KLASSEN[deel[1]].includes(concept.klas)) delete concept.klas;
+        }
         teken(deel[0] + ":" + deel[1]);
       });
     });
@@ -247,8 +265,9 @@
 
     const klasVeld = paneel.querySelector("[data-veld=klas]");
     if (klasVeld) {
-      klasVeld.addEventListener("input", function () {
-        concept.klas = klasVeld.value.trim();
+      klasVeld.addEventListener("change", function () {
+        if (klasVeld.value) concept.klas = klasVeld.value;
+        else delete concept.klas;
       });
     }
   }
