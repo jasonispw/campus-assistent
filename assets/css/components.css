@@ -225,6 +225,50 @@ th .icon { flex: none; }
 .swatch { width: 14px; height: 14px; display: inline-block; }
 
 
+.roomfinder { border: 2px solid var(--han-black); background: #fff; }
+.roomfinder__head {
+  display: flex; align-items: center; gap: var(--space-sm);
+  background: var(--han-black); color: #fff; padding: 14px var(--space-md);
+}
+.roomfinder__head strong {
+  font-family: var(--font-head); font-size: 1.25rem; text-transform: uppercase; letter-spacing: .5px;
+}
+.roomfinder__body { padding: clamp(18px, 4vw, 32px); }
+.roomfinder__label { display: block; font-weight: 600; margin-bottom: 7px; }
+.roomfinder__hint { color: var(--han-gray); font-size: .875rem; margin-bottom: var(--space-sm); }
+.roomfinder__form { display: flex; gap: 10px; }
+.roomfinder__form input {
+  flex: 1; min-width: 0; padding: 14px 16px; border: 2px solid var(--han-line); border-radius: 0;
+  font-family: var(--font-body); font-size: 1.0625rem; text-transform: uppercase; color: var(--han-black);
+}
+.roomfinder__form input:focus { border-color: var(--han-pink); outline: none; }
+.roomfinder__form input[aria-invalid="true"] { border-color: var(--fout); }
+.roomfinder__examples { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-xs); margin-top: 14px; }
+.roomfinder__examples > span { color: var(--han-gray); font-size: .8125rem; }
+.roomfinder__result { margin-top: var(--space-lg); }
+.roomfinder__error {
+  color: var(--fout); background: var(--fout-soft); border-left: 4px solid var(--fout);
+  padding: 14px 16px; margin: 0;
+}
+.roomfinder__summary {
+  display: flex; flex-wrap: wrap; gap: 1px; padding: 1px; margin: 0 0 var(--space-lg);
+  background: var(--han-line); list-style: none;
+}
+.roomfinder__summary li { flex: 1 1 135px; background: var(--han-bg-soft); padding: 12px 14px; margin: 0; }
+.roomfinder__summary small { display: block; color: var(--han-gray); font-size: .75rem; }
+.roomfinder__summary strong { display: block; margin-top: 2px; }
+.roomfinder__question {
+  background: var(--han-black); color: #fff; padding: var(--space-md); margin-top: var(--space-lg);
+}
+.roomfinder__question p { margin: 0; }
+.roomfinder__question strong { color: #fff; }
+
+@media (max-width: 560px) {
+  .roomfinder__form { display: grid; }
+  .roomfinder__form .btn { justify-content: center; }
+}
+
+
 
 
 .profielchip {

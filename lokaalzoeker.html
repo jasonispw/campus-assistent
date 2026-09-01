@@ -3,21 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>HANDIG_ Campus Assistent</title>
-<meta name="description" content="HANDIG_ helpt eerstejaarsstudenten ICT van de HAN op weg: systemen, studiepunten, campus en hulp op één plek.">
-<meta property="og:title" content="HANDIG_ Campus Assistent">
-<meta property="og:description" content="HANDIG_ helpt eerstejaarsstudenten ICT van de HAN op weg: systemen, studiepunten, campus en hulp op één plek.">
+<title>HANDIG_ Campus Assistent | Lokaalzoeker</title>
+<meta name="description" content="Vul je HAN-lokaalcode in en krijg een eenvoudige uitleg van het gebouw, de vleugel en de verdieping.">
+<meta property="og:title" content="HANDIG_ Campus Assistent | Lokaalzoeker">
+<meta property="og:description" content="Van lokaalcode naar een simpele route in vijf stappen.">
 <meta property="og:image" content="https://jasonispw.github.io/campus-assistent/assets/img/og-image.jpg">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="nl_NL">
-<link rel="canonical" href="https://jasonispw.github.io/campus-assistent/">
-<meta property="og:url" content="https://jasonispw.github.io/campus-assistent/">
+<link rel="canonical" href="https://jasonispw.github.io/campus-assistent/lokaalzoeker.html">
+<meta property="og:url" content="https://jasonispw.github.io/campus-assistent/lokaalzoeker.html">
 <meta name="theme-color" content="#141414">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/favicon.png">
 <link rel="stylesheet" href="assets/css/base.css?v=20260901">
-<link rel="stylesheet" href="assets/css/layout.css?v=20260831">
-<link rel="stylesheet" href="assets/css/components.css?v=20260831">
+<link rel="stylesheet" href="assets/css/layout.css?v=20260901">
+<link rel="stylesheet" href="assets/css/components.css?v=20260901">
 </head>
 <body>
 <a class="skip-link" href="#main">Naar de inhoud</a>
@@ -49,84 +49,41 @@
 </header>
 
 <main id="main">
-
-  <section class="hero hero--index">
+  <section class="hero hero--campus hero--compact">
     <div class="container">
-      <h1>Alles voor<br>je eerste jaar</h1>
-      <p class="hero__lead">
-        Open direct je rooster, cijfers, lesmateriaal en campusinformatie. Of stel je vraag in gewone
-        taal en ga meteen naar de juiste HAN-bron.
-      </p>
-      <div class="hero__actions">
-        <a class="btn btn--primary" href="#assistent">Stel je vraag <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-right"></use></svg></a>
-        <a class="btn btn--ghost" href="systemen.html">Open de systemen</a>
-      </div>
+      <svg class="hero__icon" aria-hidden="true" focusable="false"><use href="#i-route"></use></svg>
+      <h1>Lokaalzoeker</h1>
+      <p class="hero__lead">Vul de code uit je rooster in. HANDIG_ legt daarna in heel simpele stappen uit waar je moet zijn.</p>
     </div>
   </section>
 
-  <section class="section section--soft" id="start" data-checklist data-onboarding-auto>
+  <section class="section">
     <div class="container container--narrow">
-      <div class="section__head">
-        <h2>Jouw start</h2>
-        <p data-checklist-kop></p>
-      </div>
-
-      <div class="start__balk" role="progressbar" aria-valuemin="0" aria-valuemax="8"
-           aria-label="Voortgang startchecklist">
-        <div class="start__vulling" data-checklist-balk></div>
-      </div>
-      <p class="start__stand" data-checklist-stand></p>
-
-      <ul class="taken" data-checklist-lijst></ul>
-
-      <p class="opslagfout" data-checklist-opslagfout hidden>
-        <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-alert"></use></svg>
-        Je browser wil niets opslaan, bijvoorbeeld in een privévenster. Je vinkjes blijven daardoor
-        niet bewaard.
-      </p>
-
-      <p class="u-mt24">
-        <button type="button" class="btn btn--outline" data-onboarding-open>
-          <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-settings"></use></svg>Instellingen aanpassen
-        </button>
-      </p>
-    </div>
-  </section>
-
-  <section class="section" id="assistent">
-    <div class="container">
-      <div class="section__head">
-        <h2>Vraag het de assistent</h2>
-        <p>
-          Typ je vraag zoals je hem aan een ouderejaars zou stellen. Je krijgt een kort antwoord
-          en een link naar de HAN-pagina waar het volledige verhaal staat.
-        </p>
-      </div>
-
-      <div class="assist">
-        <div class="assist__head">
-          <strong>HANDIG_</strong>
-          <span class="u-small u-push-right" data-assist-count>klaar voor je vraag</span>
+      <div class="roomfinder">
+        <div class="roomfinder__head">
+          <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-search"></use></svg>
+          <strong>Waar is mijn lokaal?</strong>
         </div>
-
-        <form class="assist__form" data-assist-form autocomplete="off">
-          <label class="visually-hidden" for="vraag">Jouw vraag</label>
-          <input id="vraag" type="search" placeholder="Bijv. hoeveel punten moet ik halen in jaar 1?">
-          <button class="btn btn--primary" type="submit"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-search"></use></svg>Zoek</button>
-        </form>
-
-        <div class="chips">
-          <button class="chip" data-assist-chip="Hoeveel studiepunten moet ik het eerste jaar halen?">Hoeveel punten moet ik halen?</button>
-          <button class="chip" data-assist-chip="Waar vind ik mijn rooster?">Waar vind ik mijn rooster?</button>
-          <button class="chip" data-assist-chip="Waar staan mijn cijfers?">Waar staan mijn cijfers?</button>
-          <button class="chip" data-assist-chip="Ik loop vast in mijn studie, met wie kan ik praten?">Ik loop vast</button>
-          <button class="chip" data-assist-chip="Wat is het adres van de opleiding?">Waar is de les?</button>
-          <button class="chip" data-assist-chip="Ik kan niet inloggen">Ik kan niet inloggen</button>
-        </div>
-
-        <div class="assist__results" data-assist-results aria-live="polite">
-          <div class="assist__empty">
-            <p>Klik op een voorbeeldvraag hierboven, of typ je eigen vraag.</p>
+        <div class="roomfinder__body">
+          <form data-roomfinder-form novalidate>
+            <label class="roomfinder__label" for="lokaalcode">Lokaalcode</label>
+            <p class="roomfinder__hint" id="lokaal-hint">Neem de volledige code over uit MyX, inclusief het gebouw.</p>
+            <div class="roomfinder__form">
+              <input id="lokaalcode" data-roomfinder-input type="text" inputmode="text" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="Bijvoorbeeld R26/B2.40" aria-describedby="lokaal-hint" required>
+              <button class="btn btn--primary" type="submit">Leg uit <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-right"></use></svg></button>
+            </div>
+          </form>
+          <div class="roomfinder__examples" aria-label="Voorbeelden">
+            <span>Probeer:</span>
+            <button class="chip" type="button" data-room-example="R26/B2.40">R26/B2.40</button>
+            <button class="chip" type="button" data-room-example="R31/C1.01">R31/C1.01</button>
+            <button class="chip" type="button" data-room-example="R29/H3.12">R29/H3.12</button>
+          </div>
+          <div class="roomfinder__result" data-roomfinder-result aria-live="polite">
+            <div class="callout">
+              <svg class="icon icon--pink callout__icon" aria-hidden="true" focusable="false"><use href="#i-info"></use></svg>
+              <p>Je lokaalcode staat bij je les in <a href="https://myx-han.xedule.nl/" target="_blank" rel="noopener">MyX</a>.</p>
+            </div>
           </div>
         </div>
       </div>
@@ -134,133 +91,18 @@
   </section>
 
   <section class="section section--soft">
-    <div class="container">
+    <div class="container container--narrow">
       <div class="section__head">
-        <h2>Direct naar</h2>
-        <p>Open een onderwerp of gebruik de hulpmiddelen voor je start en studievoortgang.</p>
+        <h2>Wat betekent zo’n code?</h2>
       </div>
-
-      <div class="grid grid--3">
-        <a class="tile tile--systemen" href="systemen.html">
-          <svg class="tile__icon" aria-hidden="true" focusable="false"><use href="#i-laptop"></use></svg>
-
-          <h3>Systemen</h3>
-
-          <p>Brightspace, Osiris, MyX, Teams, Outlook en Insite. Welk systeem waarvoor?</p>
-
-          <svg class="tile__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow-right"></use></svg>
-        </a>
-
-        <a class="tile tile--punten" href="studiepunten.html">
-          <svg class="tile__icon" aria-hidden="true" focusable="false"><use href="#i-award"></use></svg>
-
-          <h3>Studiepunten</h3>
-
-          <p>Wat is een EC, hoeveel heb je nodig en wanneer mag je door naar jaar 2?</p>
-
-          <svg class="tile__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow-right"></use></svg>
-        </a>
-
-        <a class="tile tile--campus" href="campus.html">
-          <svg class="tile__icon" aria-hidden="true" focusable="false"><use href="#i-map-pin"></use></svg>
-
-          <h3>Campus</h3>
-
-          <p>Waar zit je opleiding, waar vind je een werkplek en waar eet je?</p>
-
-          <svg class="tile__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow-right"></use></svg>
-        </a>
-
-        <a class="tile tile--hulp" href="hulp.html">
-          <svg class="tile__icon" aria-hidden="true" focusable="false"><use href="#i-lifebuoy"></use></svg>
-
-          <h3>Hulplijnen</h3>
-
-          <p>Studiebegeleider, decaan, psycholoog: wie heb je nodig, en wanneer?</p>
-
-          <svg class="tile__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow-right"></use></svg>
-        </a>
-
-        <a class="tile tile--meedoen" href="meedoen.html">
-          <svg class="tile__icon" aria-hidden="true" focusable="false"><use href="#i-confetti"></use></svg>
-
-          <h3>Meedoen</h3>
-
-          <p>Studievereniging, Buro302 en het leven naast je studie.</p>
-
-          <svg class="tile__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow-right"></use></svg>
-        </a>
-
-        <a class="tile tile--start" href="#start">
-          <svg class="tile__icon" aria-hidden="true" focusable="false"><use href="#i-checklist"></use></svg>
-
-          <h3>Startchecklist</h3>
-
-          <p>Acht dingen die je in je eerste week geregeld wilt hebben.</p>
-
-          <svg class="tile__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow-right"></use></svg>
-        </a>
-
-        <a class="tile tile--rekenen" href="studiepunten.html#calculator">
-          <svg class="tile__icon" aria-hidden="true" focusable="false"><use href="#i-calculator"></use></svg>
-
-          <h3>EC-calculator</h3>
-
-          <p>Reken je punten af tegen de doorstroomnorm en zie hoeveel uur dat is.</p>
-
-          <svg class="tile__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow-right"></use></svg>
-        </a>
-
-        <a class="tile tile--over" href="over.html">
-          <svg class="tile__icon" aria-hidden="true" focusable="false"><use href="#i-info"></use></svg>
-
-          <h3>Verantwoording</h3>
-
-          <p>Waar de informatie vandaan komt, wie het maakt en wat we met je gegevens doen.</p>
-
-          <svg class="tile__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow-right"></use></svg>
-        </a>
-      </div>
+      <dl class="datalijst">
+        <div><dt>R26</dt><dd>Het gebouw: Ruitenberglaan 26.</dd></div>
+        <div><dt>B</dt><dd>De vleugel van het gebouw.</dd></div>
+        <div><dt>2</dt><dd>De verdieping.</dd></div>
+        <div><dt>40</dt><dd>Het nummer van de deur.</dd></div>
+      </dl>
     </div>
   </section>
-
-  <section class="section">
-    <div class="container">
-      <div class="section__head">
-        <h2>Je eerste jaar in cijfers</h2>
-      </div>
-      <div class="factbar">
-        <div class="fact">
-          <svg class="icon icon--lg icon--pink" aria-hidden="true" focusable="false"><use href="#i-school"></use></svg>
-          <span class="fact__num">240</span>
-          <span class="fact__label">EC voor de hele bachelor ICT in 4 jaar</span>
-        </div>
-
-        <div class="fact">
-          <svg class="icon icon--lg icon--pink" aria-hidden="true" focusable="false"><use href="#i-calendar"></use></svg>
-          <span class="fact__num">60</span>
-          <span class="fact__label">EC die je per studiejaar kunt halen</span>
-        </div>
-
-        <div class="fact">
-          <svg class="icon icon--lg icon--pink" aria-hidden="true" focusable="false"><use href="#i-target"></use></svg>
-          <span class="fact__num">40</span>
-          <span class="fact__label">EC voor de doorstroomnorm van ICT in studiejaar 2026-2027</span>
-        </div>
-
-        <div class="fact">
-          <svg class="icon icon--lg icon--pink" aria-hidden="true" focusable="false"><use href="#i-clock"></use></svg>
-          <span class="fact__num">28</span>
-          <span class="fact__label">uur studie per studiepunt, lessen en zelfstudie samen</span>
-        </div>
-      </div>
-      <p class="u-mt24">
-        <a class="btn btn--outline" href="studiepunten.html">Bereken hoe jij ervoor staat <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-right"></use></svg></a>
-      </p>
-    </div>
-  </section>
-
-
 </main>
 
 <footer class="footer">
@@ -268,10 +110,7 @@
     <div class="footer__grid">
       <div>
         <h3>HANDIG_</h3>
-        <p class="u-small">
-          Eén startpunt voor eerstejaarsstudenten ICT van de HAN: systemen, studiepunten,
-          campus en hulp bij elkaar, met de bron erbij.
-        </p>
+        <p class="u-small">Eén startpunt voor eerstejaarsstudenten ICT van de HAN: systemen, studiepunten, campus en hulp bij elkaar.</p>
       </div>
       <div>
         <h3>Op HANDIG_</h3>
@@ -279,6 +118,7 @@
           <li><a href="systemen.html">Systemen</a></li>
           <li><a href="studiepunten.html">Studiepunten</a></li>
           <li><a href="campus.html">Campus</a></li>
+          <li><a href="lokaalzoeker.html">Lokaalzoeker</a></li>
           <li><a href="hulp.html">Hulp</a></li>
           <li><a href="meedoen.html">Meedoen</a></li>
         </ul>
@@ -286,10 +126,7 @@
       <div>
         <h3>Direct naar</h3>
         <ul class="u-small">
-          <li><a href="https://leren.han.nl" target="_blank" rel="noopener">Brightspace</a></li>
-          <li><a href="https://han.osiris-student.nl/#/login" target="_blank" rel="noopener">Osiris</a></li>
           <li><a href="https://myx-han.xedule.nl/" target="_blank" rel="noopener">MyX, je rooster</a></li>
-          <li><a href="https://office365.han.nl" target="_blank" rel="noopener">HAN-mail</a></li>
           <li><a href="https://www1.han.nl/insite/" target="_blank" rel="noopener">HAN Insite</a></li>
         </ul>
       </div>
@@ -298,18 +135,13 @@
         <ul class="u-small">
           <li><a href="over.html">Over HANDIG_</a></li>
           <li><a href="privacy.html">Privacy</a></li>
-          <li><a href="https://www.han.nl/contact/" target="_blank" rel="noopener">Contact met de HAN</a></li>
           <li><button type="button" class="footer__knop" data-onboarding-open>HANDIG_ instellen</button></li>
         </ul>
       </div>
     </div>
     <div class="footer__bottom">
       <small>&copy; 2026 HANDIG_. Alle rechten voorbehouden.</small>
-      <span class="footer__legal">
-        <a href="privacy.html">Privacy</a>
-        <a href="over.html">Verantwoording</a>
-        <span>Geen officieel product van de HAN.</span>
-      </span>
+      <span class="footer__legal"><span>Geen officieel product van de HAN.</span></span>
     </div>
   </div>
 </footer>
@@ -355,8 +187,7 @@
 <symbol id="i-wifi" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M12 18h.01m-2.838-2.828a4 4 0 0 1 5.656 0m-8.485-2.829a8 8 0 0 1 11.314 0"/><path d="M3.515 9.515c4.686-4.687 12.284-4.687 17 0"/></g></symbol>
 </defs></svg>
 
-<script src="assets/js/kb.js?v=20260831"></script>
-<script src="assets/js/assistent.js?v=20260831"></script>
+<script src="assets/js/lokaalzoeker.js?v=20260901"></script>
 <script src="assets/js/app.js?v=20260831"></script>
 <script src="assets/js/onboarding.js?v=20260831"></script>
 </body>
