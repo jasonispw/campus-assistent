@@ -231,7 +231,7 @@ voor iemand die om elf uur 's avonds typt dat het niet meer gaat.
 Het instelvenster bewaart je locatie, opleiding, jaar en klas onder de sleutel `handig-profiel`
 in de localStorage van je browser, en de startchecklist onder `handig-checklist`. Er is geen server
 en geen account: die gegevens blijven op je eigen apparaat en gaan nergens naartoe. Het klasveld
-vraagt daarom ook expliciet om geen studentnummer in te vullen.
+is een vaste keuzelijst, zodat er geen persoonsgegevens kunnen worden ingevuld.
 
 Sluit je het instelvenster zonder het af te maken, dan komt het niet elk bezoek terug: dat wordt
 onthouden als `uitgesteld`.
