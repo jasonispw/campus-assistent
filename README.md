@@ -48,11 +48,11 @@ aan. Alles lokaal in de browser, zonder account.
 
 ## Starten
 
-Geen installatie, geen build-stap, geen scripts. Dubbelklik op `index.html`, of serveer de map als je
-de 404-afhandeling wilt nalopen zoals de hosting die doet:
+Geen installatie of build-stap. Dubbelklik op `index.html`, of gebruik de lokale server als je de
+404-afhandeling wilt nalopen zoals de hosting die doet:
 
 ```bash
-python -m http.server 5173
+python server.py 5173
 ```
 
 Daarna: <http://localhost:5173>

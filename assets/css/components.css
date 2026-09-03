@@ -703,6 +703,7 @@ th .icon { flex: none; }
   font-family: var(--font-body); font-size: 1rem;
 }
 .chat__form input::placeholder { color: var(--han-gray-mid); }
+.chat__form input:focus-visible { outline-offset: -3px; }
 .chat__form input:disabled { background: var(--han-bg-soft); }
 .chat__form button { padding: 14px 18px; }
 .chat__form button[disabled] { opacity: .4; cursor: not-allowed; }
@@ -723,6 +724,7 @@ th .icon { flex: none; }
 
 @media (max-width: 560px) {
   .chat { right: var(--space-sm); bottom: var(--space-sm); }
+  .chat__tip { display: none; }
   .chat__knop { height: 54px; padding: 0; width: 54px; justify-content: center; }
   .chat__knop .chat__knop-tekst { display: none; }
   .chat--open { inset: 0; gap: 0; align-items: stretch; }
