@@ -291,7 +291,7 @@
 
   const OPENING =
     "<p><strong>Hoi! Ik ben de assistent van HANDIG_.</strong></p>" +
-    "<p>Stel je vraag in gewone taal. Ik zoek in de informatie over systemen, studiepunten, de campus " +
+    "<p>Stel je vraag in gewone taal. Ik zoek in de informatie over je leeromgeving, studiepunten, de campus " +
     "en ondersteuning, en zet de bron erbij.</p>" +
     '<p class="bericht__uitleg u-mb0">Waar loop je tegenaan?</p>';
 
@@ -310,7 +310,7 @@
   function storingHtml() {
     return "<p><strong>De assistent is niet beschikbaar.</strong></p>" +
       "<p>De informatie kon niet worden geladen. Ververs de pagina of open een onderwerp via het menu.</p>" +
-      '<p class="u-mb0"><a class="btn btn--outline btn--sm" href="systemen.html">Bekijk alle onderwerpen ' +
+      '<p class="u-mb0"><a class="btn btn--outline btn--sm" href="leeromgeving.html">Bekijk alle onderwerpen ' +
       icoon("i-arrow-right") + "</a></p>";
   }
 

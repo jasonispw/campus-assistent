@@ -1,13 +1,13 @@
 # HANDIG_ Campus Assistent
 
-> Onafhankelijke studentensite die eerstejaarsstudenten ICT van de HAN wegwijs maakt in systemen, studiepunten, campuslocaties en ondersteuning. Geen officieel product van de HAN; alle informatie verwijst naar de HAN-bron.
+> Onafhankelijke studentensite die eerstejaarsstudenten ICT van de HAN wegwijs maakt in hun digitale leeromgeving, studiepunten, campuslocaties en ondersteuning. Geen officieel product van de HAN; alle informatie verwijst naar de HAN-bron.
 
 De site is statisch, Nederlandstalig en bewaart alleen instellingen in de localStorage van de bezoeker.
 
 ## Pagina's
 
 - [Startpagina](https://jasonispw.github.io/campus-assistent/): startchecklist voor de eerste weken en doorverwijzing naar de onderwerpen; de assistent staat als chatvenster op elke pagina
-- [Systemen](https://jasonispw.github.io/campus-assistent/systemen.html): waar Brightspace, Osiris, MyX, Teams, Outlook, Insite, iSAS en Ans voor dienen
+- [Leeromgeving](https://jasonispw.github.io/campus-assistent/leeromgeving.html): waar Brightspace, Osiris, MyX, Teams, Outlook, Insite, iSAS en Ans voor dienen
 - [Studiepunten](https://jasonispw.github.io/campus-assistent/studiepunten.html): uitleg over EC, de doorstroomnorm van 40 EC, de propedeuse en een EC-calculator
 - [Campus](https://jasonispw.github.io/campus-assistent/campus.html): de Lokaalzoeker die een lokaalcode omzet naar gebouw, vleugel en verdieping, plus de werkplekken op de campus
 - [Plattegrond](https://jasonispw.github.io/campus-assistent/plattegrond.html): interactieve kaart van de campus met gebouwen, liften en toiletten

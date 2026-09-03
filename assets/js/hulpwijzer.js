@@ -8,7 +8,7 @@
         { tekst: "Mijn studie: planning, vakken, motivatie", naar: "studie" },
         { tekst: "Hoe ik me voel: stress, somberheid, faalangst", naar: "gevoel" },
         { tekst: "Geld, inschrijving of collegegeld", naar: "decaan" },
-        { tekst: "Een systeem doet het niet (inloggen, rooster, Brightspace)", naar: "ict" }
+        { tekst: "Iets in mijn leeromgeving werkt niet (inloggen, rooster, Brightspace)", naar: "ict" }
       ]
     },
 
@@ -85,7 +85,7 @@
 
     ict: {
       titel: "Controleer eerst je HANaccount",
-      tekst: "Bijna alle systemen (Brightspace, Osiris, MyX, Teams) werken met je HANaccount plus de " +
+      tekst: "Bijna alle onderdelen van je leeromgeving (Brightspace, Osiris, MyX, Teams) werken met je HANaccount plus de " +
         "Microsoft Authenticator-app. Controleer beide wanneer inloggen niet lukt. " +
         "Neem daarna zo nodig contact op met de ICT-helpdesk van de HAN.",
       links: [

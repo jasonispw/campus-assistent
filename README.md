@@ -32,11 +32,11 @@ Geen officieel HAN-product, wel gebouwd in dezelfde huisstijl als [han.nl](https
 
 ## Wat het doet
 
-Een eerstejaars student van de HAN krijgt in de eerste weken tientallen systemen, regels en adressen
+Een eerstejaars student van de HAN krijgt in de eerste weken te maken met een digitale leeromgeving, regels en adressen
 over zich heen. HANDIG_ bundelt dat op zeven pagina's:
 
 - **Assistent**: typ een vraag in gewone taal, krijg een antwoord uit de kennisbank, met bron.
-- **Systemen**: alle HAN-systemen op een rij, van MyX tot eduroam.
+- **Leeromgeving**: alle digitale diensten van de HAN op een rij, van MyX tot eduroam.
 - **Studiepunten**: EC, studieadvies, doorstroomnorm, propedeuse en een EC-calculator.
 - **Campus**: gebouwen, vleugels, liften en aangepaste toiletten in Arnhem en Nijmegen.
 - **Lokaalzoeker**: plak een lokaalcode zoals `R26/B2.40`, krijg een uitleg per onderdeel.
@@ -81,7 +81,7 @@ afhankelijkheden die apart gebouwd of bijgewerkt moeten worden.
 
 ```
 index.html            hero, startchecklist en de tegels naar de onderwerpen
-systemen.html         alle HAN-systemen
+leeromgeving.html     de digitale leeromgeving van de HAN
 studiepunten.html     EC, studieadvies, doorstroomnorm, propedeuse en de EC-calculator
 campus.html           de Lokaalzoeker en de voorzieningen op de campus
 hulp.html             hulplijnen en de hulpwijzer
@@ -262,7 +262,7 @@ het in.
 {
   id: "kort-id",
   titel: "De vraag of het onderwerp",
-  categorie: "Systemen",
+  categorie: "Leeromgeving",
   status: "check",
   trefwoorden: ["woorden", "die een student zou typen", "ook verkeerd gespeld"],
   body: `<p>De uitleg in gewone taal.</p>`,
@@ -270,7 +270,7 @@ het in.
 }
 ```
 
-`categorie` is een van: Systemen, Studiepunten, Campus, Hulp, Meedoen.
+`categorie` is een van: Leeromgeving, Studiepunten, Campus, Hulp, Meedoen.
 
 `bron` wijst naar een sleutel uit de `BRON`-tabel bovenaan het bestand. Staat de bron die je nodig
 hebt er nog niet in, voeg hem daar toe in plaats van de URL ter plekke uit te schrijven: dan hoef je
@@ -290,7 +290,7 @@ ruimte of contactpersoon zonder ook de bron bij te werken.
 
 ## Bronnen
 
-- [Online services op han.nl](https://www.han.nl/studeren/onderwijs/studiefaciliteiten/online-services/): systemen, HANaccount, eduroam
+- [Online services op han.nl](https://www.han.nl/studeren/onderwijs/studiefaciliteiten/online-services/): digitale diensten, HANaccount, eduroam
 - [OS/OER ICT voltijd 2026-2027](https://www.han.nl/opleidingen/hbo/ict/voltijd/praktische-info/bacheloropleiding-ict-voltijd.pdf): persoonlijk studieadvies, doorstroomnorm, EC en propedeuse
 - [Praktische info ICT op han.nl](https://www.han.nl/opleidingen/hbo/ict/voltijd/praktische-info/): adressen, iSAS, ziekmelden, Xtend en wonen
 - [Jaarrooster 2026-2027](https://www.han.nl/studeren/jaarrooster/): periodes, vakanties en lesvrije weken
@@ -334,7 +334,7 @@ Dit staat ook voor bezoekers uitgeschreven op `privacy.html`.
 
 ## Herkomst van de inhoud
 
-Bij het maken hiervan zijn geen inloggegevens gebruikt of gedeeld, is er geen data uit HAN-systemen
+Bij het maken hiervan zijn geen inloggegevens gebruikt of gedeeld, is er geen data uit digitale HAN-diensten
 gehaald en staan er geen echte persoonsgegevens in. Opleidingsinformatie is gecontroleerd via
 officiële HAN-bronnen. Voor onderwerpen buiten de HAN gebruiken we de verantwoordelijke officiële
 bron.

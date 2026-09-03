@@ -28,7 +28,7 @@ const KB = [
   {
     id: "brightspace",
     titel: "Brightspace: leermateriaal en berichten van docenten",
-    categorie: "Systemen",
+    categorie: "Leeromgeving",
     status: "check",
     trefwoorden: ["brightspace", "leeromgeving", "leren", "lesmateriaal", "leermateriaal",
       "opdrachten", "opdracht", "inleveren", "inlever", "verslag", "huiswerk", "deadline",
@@ -43,7 +43,7 @@ const KB = [
   {
     id: "osiris",
     titel: "Osiris: studieresultaten en inschrijvingen",
-    categorie: "Systemen",
+    categorie: "Leeromgeving",
     status: "check",
     trefwoorden: ["osiris", "cijfers", "resultaten", "studieresultaten", "inschrijven", "intekenen",
       "tentamen", "toets", "studievoortgang", "punten bekijken", "afspraak studieloopbaan"],
@@ -58,7 +58,7 @@ const KB = [
   {
     id: "myx",
     titel: "MyX (My Xedule): je rooster",
-    categorie: "Systemen",
+    categorie: "Leeromgeving",
     status: "check",
     trefwoorden: ["myx", "xedule", "rooster", "lesrooster", "wanneer les", "uitval", "roosterwijziging",
       "welk lokaal", "hoe laat begint"],
@@ -70,7 +70,7 @@ const KB = [
   {
     id: "office365",
     titel: "Teams en Outlook: communicatie en HAN-mail",
-    categorie: "Systemen",
+    categorie: "Leeromgeving",
     status: "check",
     trefwoorden: ["teams", "outlook", "mail", "e-mail", "email", "han-mail", "office", "office365",
       "microsoft", "microsoft word", "excel", "vergaderen", "chat docent"],
@@ -84,7 +84,7 @@ const KB = [
   {
     id: "hanaccount",
     titel: "HANaccount en Microsoft Authenticator",
-    categorie: "Systemen",
+    categorie: "Leeromgeving",
     status: "check",
     trefwoorden: ["hanaccount", "account", "inloggen", "wachtwoord", "mfa", "authenticator",
       "tweestapsverificatie", "kan niet inloggen", "login", "inloggegevens", "wachtwoord kwijt",
@@ -93,13 +93,13 @@ const KB = [
       <p>Je HANaccount is de sleutel tot alle digitale voorzieningen van de HAN. Het wordt automatisch
       aangemaakt zodra je inschrijving rond is; je inloggegevens krijg je per e-mail.</p>
       <p>Je hebt de <strong>Microsoft Authenticator-app</strong> nodig voor multifactor-authenticatie (MFA).
-      Installeer de app voordat je de HAN-systemen gebruikt.</p>`,
+      Installeer de app voordat je de digitale diensten van de HAN gebruikt.</p>`,
     bron: BRON.services
   },
   {
     id: "wifi",
     titel: "Wifi op de campus: eduroam",
-    categorie: "Systemen",
+    categorie: "Leeromgeving",
     status: "check",
     trefwoorden: ["wifi", "eduroam", "internet", "netwerk", "draadloos", "verbinding"],
     body: `
@@ -110,7 +110,7 @@ const KB = [
   {
     id: "insite",
     titel: "HAN Insite: het studentenportaal",
-    categorie: "Systemen",
+    categorie: "Leeromgeving",
     status: "check",
     trefwoorden: ["insite", "portaal", "regelingen", "oer", "opleidingsstatuut", "rechten en plichten",
       "waar vind ik informatie", "studentenportaal"],
@@ -124,7 +124,7 @@ const KB = [
   {
     id: "rechten-plichten",
     titel: "Je rechten en plichten als HAN-student",
-    categorie: "Systemen",
+    categorie: "Leeromgeving",
     status: "check",
     trefwoorden: ["rechten", "plichten", "studentenstatuut", "studentenrechten", "recht op onderwijs",
       "klacht", "bezwaar", "beroep", "rechtsbescherming", "medezeggenschap", "privacy"],
@@ -140,7 +140,7 @@ const KB = [
   {
     id: "hancard-printen",
     titel: "HANcard, studentenpas en printen",
-    categorie: "Systemen",
+    categorie: "Leeromgeving",
     status: "check",
     trefwoorden: ["hancard", "han-card", "studentenpas", "studentenkaart", "collegekaart", "pasfoto",
       "pas kwijt", "print", "printen", "printer", "scannen", "kopiëren", "kopieren", "copycorner",
@@ -157,7 +157,7 @@ const KB = [
   {
     id: "startchecklist",
     titel: "Wat regel je voordat je begint?",
-    categorie: "Systemen",
+    categorie: "Leeromgeving",
     status: "check",
     trefwoorden: ["startchecklist", "checklist", "eerste week", "eerste lesdag", "eerste dag",
       "wat moet ik regelen", "wat moet ik doen", "voorbereiden", "net begonnen", "waar begin ik",
@@ -178,7 +178,7 @@ const KB = [
   {
     id: "laptop-software",
     titel: "Je eigen laptop en gratis software",
-    categorie: "Systemen",
+    categorie: "Leeromgeving",
     status: "check",
     trefwoorden: ["laptop", "eigen laptop", "welke laptop", "computer", "macbook", "windows",
       "software", "gratis software", "office downloaden", "office installeren", "programma installeren",
@@ -194,7 +194,7 @@ const KB = [
   {
     id: "isas",
     titel: "iSAS: toetsrooster, deadlines en stage-info",
-    categorie: "Systemen",
+    categorie: "Leeromgeving",
     status: "check",
     trefwoorden: ["isas", "toetsrooster", "inleverdeadlines", "inleverdeadline", "stage-info",
       "afstudeerinfo", "academie", "wanneer zijn de tentamens", "tentamendata", "toetsdata",
@@ -209,7 +209,7 @@ const KB = [
   {
     id: "ans",
     titel: "Ans: digitale kennis- en oefentoetsen",
-    categorie: "Systemen",
+    categorie: "Leeromgeving",
     status: "check",
     trefwoorden: ["ans", "digitaal toetsen", "toetsprogramma", "kennistoets", "oefentoets"],
     body: `

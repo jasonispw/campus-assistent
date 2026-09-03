@@ -24,7 +24,7 @@
 
   const TAKEN = [
     { id: "account", tekst: "HANaccount activeren", uitleg: "Je inloggegevens krijg je per e-mail zodra je inschrijving rond is.", icoon: "i-key" },
-    { id: "mfa", tekst: "Microsoft Authenticator installeren", uitleg: "Nodig voor multifactor-authenticatie op alle HAN-systemen.", icoon: "i-key" },
+    { id: "mfa", tekst: "Microsoft Authenticator installeren", uitleg: "Nodig voor multifactor-authenticatie bij de digitale diensten van de HAN.", icoon: "i-key" },
     { id: "wifi", tekst: "Eduroam-wifi instellen", uitleg: "Via de geteduroam-app, met je HANaccount.", icoon: "i-wifi" },
     { id: "brightspace", tekst: "Brightspace openen", uitleg: "leren.han.nl: leermateriaal en berichten van docenten.", icoon: "i-book", link: "https://leren.han.nl" },
     { id: "osiris", tekst: "Osiris openen of de app installeren", uitleg: "Je cijfers en het intekenen voor toetsen.", icoon: "i-certificate", link: "https://han.osiris-student.nl/#/login" },
@@ -143,7 +143,7 @@
 
   function stapOpleiding() {
     return "<h2>Welke opleiding volg je?</h2>" +
-      "<p>De assistent is gericht op ICT. Sommige systemen en regelingen gelden ook voor andere opleidingen.</p>" +
+      "<p>De assistent is gericht op ICT. Sommige digitale diensten en regelingen gelden ook voor andere opleidingen.</p>" +
       keuzeknoppen("opleiding", [
         { waarde: "ict-voltijd", titel: "ICT voltijd", sub: "4 jaar, 240 EC", icoon: "i-laptop" },
         { waarde: "ict-deeltijd", titel: "ICT deeltijd", sub: "naast je werk", icoon: "i-briefcase" },
