@@ -171,7 +171,7 @@ const KB = [
         <li>je HAN-mail in Outlook controleren;</li>
         <li>uitzoeken wie je studiebegeleider is.</li>
       </ul>
-      <p>Op de <a href="index.html#start">startpagina</a> staat deze checklist met vinkjes, zodat je bijhoudt
+      <p>Op de <a href="index.html?v=20260903b#start">startpagina</a> staat deze checklist met vinkjes, zodat je bijhoudt
       wat je al hebt gedaan.</p>`,
     bron: BRON.services
   },
@@ -250,7 +250,7 @@ const KB = [
       <strong>doorstroomnorm: minimaal 40 EC uit jaar 1 én aangetoond taalniveau 3F</strong>. Haal je de
       norm nog niet, dan blijf je ingeschreven, maar kun je nog niet aan al het tweedejaarsonderwijs
       beginnen. De examencommissie kan op gemotiveerd verzoek een uitzondering beoordelen.</p>
-      <p>Gebruik de <a href="studiepunten.html#calculator">EC-calculator</a> om je behaalde EC met de norm te vergelijken.</p>
+      <p>Gebruik de <a href="studiepunten.html?v=20260903b#calculator">EC-calculator</a> om je behaalde EC met de norm te vergelijken.</p>
       <p class="u-muted u-small">Dit geldt voor ICT voltijd in 2026-2027. Het OS/OER van jouw opleiding
       en studiejaar is altijd leidend.</p>`,
     bron: BRON.oer2026
@@ -351,7 +351,7 @@ const KB = [
       <p>Je rooster geeft een code als <strong>R26/B2.40</strong>. Die bestaat uit het gebouw
       (R26 = Ruitenberglaan 26), de vleugel (B), de verdieping (2) en het deurnummer (40).</p>
       <p>Vul de code uit <a href="https://myx-han.xedule.nl/" target="_blank" rel="noopener">MyX</a> in bij de
-      <a href="campus.html#lokaalzoeker">Lokaalzoeker</a>, dan zie je stap voor stap waar je moet zijn.
+      <a href="campus.html?v=20260903b#lokaalzoeker">Lokaalzoeker</a>, dan zie je stap voor stap waar je moet zijn.
       Kom je er niet uit, dan heeft de servicebalie in de centrale hal de officiële plattegronden.</p>`,
     bron: BRON.services
   },
@@ -364,10 +364,10 @@ const KB = [
       "lift", "liften", "toilet", "aangepast toilet", "rolstoel", "parkeren", "parkeerplaats",
       "laadpunt", "route over de campus"],
     body: `
-      <p>Op de <a href="plattegrond.html">plattegrond</a> zie je de gebouwen van de campus en de zes vleugels
+      <p>Op de <a href="plattegrond.html?v=20260903b">plattegrond</a> zie je de gebouwen van de campus en de zes vleugels
       van Ruitenberglaan 26. Klik een gebouw of vleugel aan voor het adres, de ingang, de liften, de aangepaste
       toiletten en de parkeerplaatsen voor personen met een beperking.</p>
-      <p>Zoek je het lokaal bij een les? Gebruik dan de <a href="campus.html#lokaalzoeker">Lokaalzoeker</a>.</p>`,
+      <p>Zoek je het lokaal bij een les? Gebruik dan de <a href="campus.html?v=20260903b#lokaalzoeker">Lokaalzoeker</a>.</p>`,
     bron: BRON.bag
   },
   {

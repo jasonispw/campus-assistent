@@ -37,7 +37,8 @@
       const href = link.getAttribute("href");
       if (!href) return;
 
-      if (href.split("/").pop() === pagina) link.setAttribute("aria-current", "page");
+      const linkPagina = href.split("/").pop().split(/[?#]/)[0];
+      if (linkPagina === pagina) link.setAttribute("aria-current", "page");
     });
   }
 

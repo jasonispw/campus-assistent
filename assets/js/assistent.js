@@ -310,7 +310,7 @@
   function storingHtml() {
     return "<p><strong>De assistent is niet beschikbaar.</strong></p>" +
       "<p>De informatie kon niet worden geladen. Ververs de pagina of open een onderwerp via het menu.</p>" +
-      '<p class="u-mb0"><a class="btn btn--outline btn--sm" href="leeromgeving.html">Bekijk alle onderwerpen ' +
+      '<p class="u-mb0"><a class="btn btn--outline btn--sm" href="leeromgeving.html?v=20260903b">Bekijk alle onderwerpen ' +
       icoon("i-arrow-right") + "</a></p>";
   }
 
@@ -374,7 +374,7 @@
             '<span class="visually-hidden">Vraag versturen</span></button>' +
         "</form>" +
         '<p class="chat__voet">Antwoorden komen uit de informatie op deze site. Je vraag blijft in je ' +
-          'browser. <a href="privacy.html">Privacy</a></p>' +
+          'browser. <a href="privacy.html?v=20260903b">Privacy</a></p>' +
       "</div>" +
       '<button type="button" class="chat__knop" data-assist-knop aria-expanded="false" ' +
         'aria-controls="assistent-paneel" aria-label="Stel een vraag aan de assistent">' +

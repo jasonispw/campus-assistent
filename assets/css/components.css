@@ -65,7 +65,8 @@
 .tile__arrow { position: absolute; right: 22px; bottom: 22px; width: 1.75rem; height: 1.75rem; color: #fff; }
 .tile:hover .tile__arrow { color: var(--han-pink); }
 
-.tile--leeromgeving { background-image: url("../img/han-ict-les-laptops.jpg?v=20260901ai4k"); }
+.tile--systemen,
+.tile--leeromgeving { background-image: url("../img/han-ict-les-laptops.jpg?v=20260903b"); }
 .tile--punten   { background-image: url("../img/han-ict-collegezaal.jpg?v=20260901ai4k"); }
 .tile--campus   { background-image: url("../img/han-ruitenberglaan-26.jpg?v=20260901ai4k"); }
 .tile--hulp     { background-image: url("../img/han-student-support.jpg?v=20260901ai4k"); }

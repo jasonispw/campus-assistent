@@ -120,7 +120,8 @@
 }
 
 .hero--index    { background-image: url("../img/han-ict-groepswerk.jpg?v=20260901group4k"); }
-.hero--leeromgeving { background-image: url("../img/han-ict-les-laptops.jpg?v=20260901ai4k"); }
+.hero--systemen,
+.hero--leeromgeving { background-image: url("../img/han-ict-les-laptops.jpg?v=20260903b"); }
 .hero--punten   { background-image: url("../img/han-ict-collegezaal.jpg?v=20260901ai4k"); }
 .hero--campus   { background-image: url("../img/han-ruitenberglaan-26.jpg?v=20260901ai4k"), url("../img/han-ruitenberglaan-26.jpg?v=20260901ai4k"); background-position: calc(50% + 220px) 32%, 50% 32%; background-repeat: no-repeat; }
 .hero--hulp     { background-image: url("../img/han-studiebegeleiding.jpg?v=20260901ai4k"); background-position: 62% 12%; }
